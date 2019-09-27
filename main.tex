@@ -1,0 +1,59 @@
+\documentclass[USenglish]{uit-thesis}
+
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\bibliography{main}
+
+\graphicspath{{images/}}
+
+\begin{document}
+
+%:-------------------------- Frontpage ------------------------
+
+\title{Visualizing high-dimensional relationships in bioinformatics}
+\subtitle{Subtitle}% Note: this is optional, and may be commented out
+\author{\'Alvaro Mart\'inez Fern\'andez}
+\thesisfaculty{Faculty of Science and Technology \\ Department of Computer Science}
+\thesisprogramme{INF-3990 Master's thesis in Computer Science November 2020}
+
+\maketitle
+
+%:-------------------------- Frontmatter -----------------------
+\frontmatter
+
+%: Commented out
+\iffalse
+\begin{dedication}
+To...
+
+Thanks for...
+\end{dedication}
+
+
+\begin{epigraph}
+\epigraphitem{Simplicity is prerequisite for reliability.}{Edsger Dijkstra}
+\epigraphitem{Beware of bugs in the above code;\\I have only proved it correct, not tried it.}{Donald Knuth}
+\end{epigraph}
+
+\begin{abstract}
+This is the abstract, blah blah blah.
+\end{abstract}
+
+\begin{acknowledgement}
+Thank you for blah blah blah
+\end{acknowledgement}
+\fi
+%: End comments
+
+\tableofcontents
+
+%:-------------------------- Mainmatter -----------------------
+\mainmatter
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\printbibliography
+
+\backmatter
+
+\end{document}
