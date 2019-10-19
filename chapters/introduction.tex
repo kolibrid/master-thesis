@@ -3,7 +3,7 @@ With the increase of biological data, new ways of analysing the produced data ha
 
 Humans have a great ability to discover patterns, however we are biologically optimized to see the world and the patterns in 3 dimensions. Virtual Reality (VR) is one of the best ways for better discovery in spatial dimensions. It has been demonstrated that VR help scientists work more effectively in fields like medicine \cite{Laver11}\cite{xia_ip_samman_wong_gateno_wang_yeung_kot_tideman_2001} and biology\cite{10.1093/bioinformatics/bti581}, to mention some examples.
 
-\subsection{Context}
+\section{Context}
 When the amount of data is considerably big, sometimes it can be difficult to explore it, especially when we are using a 2-dimensional space like a computer screen. One example is the MIxT web application (Matched Interaction Across Tissues)\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood}. MIxT provides a tool to identify genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells\cite{dumeaux_fjukstad_interactions_tumor_blood}. One of the its features is a network view where genes are represented with nodes and the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information.
 
 \begin{figure}[h!]
@@ -30,6 +30,23 @@ When the amount of data is considerably big, sometimes it can be difficult to ex
 Figure \ref{fig:mixt_network} shows an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes too difficult to understandt he data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
 
 \subsection{Software and frameworks for VR development}
-Unity3D\footnote{https://unity.com} and Unreal Engine\footnote{https://www.unrealengine.com} are 2 of the most used tools for development of virtual reality applications. They offer integrations for Oculus Quest and other VR devices in the market.In addition Oculus quest offers a devlopment mode which can be activated once the glasses are connected to the PC. In this way the VR application can be tested directly on the VR device.
+Unity3D\footnote{https://unity.com} and Unreal Engine\footnote{https://www.unrealengine.com} are two popular programs for development of videogames and also virtual reality games and applications. They offer integrations for Oculus Quest and other VR devices in the market. In addition, Oculus quest offers a devlopment mode that can be activated once the glasses are connected to the PC. In this way the VR application can be tested directly on the VR device.
 
-We can also find some web frameworks to build VR applications for the web. One of the most popular are A-frame\footnote{https://aframe.io/} and React360\footnote{https://facebook.github.io/react-360/}.
+Virtual Reality development can also be done for the browser. WebVR\footnote{https://webvr.info} is an open specification that makes it possible to experience VR in the browser, no matter what VR device is used. We can find many web frameworks to build VR applications for the web that are based on WebVR. Some of these frameworks are A-frame\footnote{https://aframe.io/}, React360\footnote{https://facebook.github.io/react-360/} and three.js\footnote{https://threejs.org}.
+
+\subsection{Clustering analysis}
+Cluster analysis is used to classify objects or cases into relative groups called clusters. Unlike supervised machine learning techniques, in cluster analysis, there is no prior information about the group or cluster membership for any of the objects. We can find many clustering approaches, two of the most comonly used ones are k-means and DBSCAN.
+
+The k-means algorithm starts by choosing k random centers which can be manually set. Then the data points are assigned to the closest center based on their Euclidean distance.
+
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is another algorithm that is based on the density of the data points. THe algorithm identifies clusters and expands them by scanning neighborhoods. If it cannot find any points to add, it simply moves on to a new point hoping it will find a new cluster.
+
+\section{Scope and Research Problem}
+This project focus mainly on solving the problem of visualization of high dimenasional data from the MIxT project by using virtual reality. Furthermore the application allows the user to interact with the network created from the data in the virtual environment. It also allows the user compare the blood and biopsy networks at the same time in order to finde relationship, which wasn't possible in the MIxT web application as this only allows the user to visualize one network at a time.
+
+\section{Method}
+
+\section{Assumptions and Limitations}
+
+\section{Significance and Contribution}
+This project contributes in the exploration of the possibilities that Virtual Reality offers for visualization of big data in bioinformatics.
