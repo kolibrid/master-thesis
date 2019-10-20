@@ -10,6 +10,8 @@ all:  ## Compile paper
 clean:  ## Clean output files
 	rm -f ${FILENAME}.{ps,log,aux,out,dvi,bbl,blg,toc,def}
 	rm ${FILENAME}-blx.bib
+	rm ${FILENAME}.lof
+	rm ${FILENAME}.run.xml
 
 bib:
 	bibtex ${FILNAME}
