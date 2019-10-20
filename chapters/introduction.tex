@@ -1,14 +1,28 @@
 \section{Background}
-With the increase of biological data, new ways of analysing the produced data have been necessary in order to discover interesting patterns  and make the most out of it. No matter how content-rich or expensively obtained the data is if we don’t obtain anything valuable.
+Technological advancement has revolutionized the field of genomics, which has led to a cost-effective generation of big amounts of sequence data. The sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Nowadays we can resequence a human genome for \$1000 and can generate more than 320 genomes per week\cite{big_biological_impacts_bd}. This technological innovation leads to the accumulation of vast quantities of genomic data,posing a tremendous challenge to scientists for effective mining of data to explain a phenomenon of interest\cite{zhang_paciorkowski_craig_cui_2019}. New ways of analysing the produced data have been therefore necessary in order to discover interesting patterns  and make the most out of it. No matter how much resources we use into extracting the data if we don't get anything interesting out of it.
 
-Humans have a great ability to discover patterns, however we are biologically optimized to see the world and the patterns in 3 dimensions. Virtual Reality (VR) is one of the best ways for better discovery in spatial dimensions. It has been demonstrated that VR help scientists work more effectively in fields like medicine \cite{Laver11}\cite{xia_ip_samman_wong_gateno_wang_yeung_kot_tideman_2001} and biology\cite{10.1093/bioinformatics/bti581}, to mention some examples.
+Some of the main problems that researchers face when analysing genomic data are information overload, data interconnectivity and hight dimensionality. Visualization is one way of facing this problems. For this reason it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data.
 
-\section{Context}
-When the amount of data is considerably big, sometimes it can be difficult to explore it, especially when we are using a 2-dimensional space like a computer screen. One example is the MIxT web application (Matched Interaction Across Tissues)\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood}. MIxT provides a tool to identify genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells\cite{dumeaux_fjukstad_interactions_tumor_blood}. One of the its features is a network view where genes are represented with nodes and the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information.
+In the field of system biology there are usually network representations where the nodes or bioentities are connected to each other, where these edges represent associations. Because of the improvements in technology, these networks can increase dramatically in size and complexity. We need therefore better visualization systems and more efficient alogirithms for the analysis of the data.
+
+In \ref{fig:network_biology_evolution} we can see a representation of the evolution for visualization of networks in system biology. From simple graphs in 2 dimensions, to 3D representations and nowadays also visualizations in virtual reality where we can interact directly with the data itself.
 
 \begin{figure}[h!]
     \newlength{\tempheight}
     \setlength{\tempheight}{15ex}
+    \centering%
+    \includegraphics[width=\textwidth]{evolution_visualization}
+    \caption{Visualization for network biology. a A simple drawing of an undirected unweighted graph. b A 2D representation of a yeast protein-protein interaction network visualized in Cytoscape (left) and potential protein complexes 3D identified by the MCL algorithm from that network (right). c A 3D view of a protein-protein interaction network visualized by BiolayoutExpress. d A multilayered network integrating different types of data visualized by Arena3D. e A hive plot view of a network in which nodes are mapped to and positioned on radially distributed linear axes. f Visualization of network changes over time. g Part of lung cancer pathway visualized by iPath. i Remote navigation and control of networks by hand gestures. h Integration and control of 3D networks using VR devices. Figure adapted\cite{pavlopoulos_malliarakis_papanikolaou_theodosiou_enright_iliopoulos_2015}.}
+    \label{fig:network_biology_evolution}
+\end{figure}%
+
+Virtual reality (VR) is still a field under exploration and that can be of great help in network analysis. VR can be very powerful because it takes advantage of the way the human being perceives and analysis things. We as human beings have a great ability to discover patterns, however we are biologically optimized to see the world and the patterns in 3 dimensions. VR is one of the best ways then for better discovery in spatial dimensions. It has been demonstrated that VR help scientists work more effectively in fields like medicine \cite{Laver11}\cite{xia_ip_samman_wong_gateno_wang_yeung_kot_tideman_2001}\cite{brain_damage_rehab}, biology\cite{10.1093/bioinformatics/bti581}\cite{thorley_lawson_duca_shapiro_2008} and neuroscience\cite{bohil_alicea_biocca_2011}\cite{minderer_harvey_donato_moser_2016}, to cite some examples.
+
+\section{Context}
+
+When the amount of data is considerably big, it can be difficult to explore it, especially when we are using a 2-dimensional space like a computer screen. In the MIxT web application (Matched Interaction Across Tissues)\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} we present this problem. MIxT provides a tool to identify genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells\cite{dumeaux_fjukstad_interactions_tumor_blood}. One of the its features is a network view where genes are represented with nodes and the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information.
+
+\begin{figure}[h!]
     \centering%
     \begin{subfigure}[t]{0.5\textwidth}
         \centering%
@@ -29,10 +43,12 @@ When the amount of data is considerably big, sometimes it can be difficult to ex
 
 Figure \ref{fig:mixt_network} shows an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes too difficult to understandt he data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
 
+Todo: write about VR technologies (Oculus htc vive).
+
 \subsection{Software and frameworks for VR development}
 Unity3D\footnote{https://unity.com} and Unreal Engine\footnote{https://www.unrealengine.com} are two popular programs for development of videogames and also virtual reality games and applications. They offer integrations for Oculus Quest and other VR devices in the market. In addition, Oculus quest offers a devlopment mode that can be activated once the glasses are connected to the PC. In this way the VR application can be tested directly on the VR device.
 
-Virtual Reality development can also be done for the browser. WebVR\footnote{https://webvr.info} is an open specification that makes it possible to experience VR in the browser, no matter what VR device is used. We can find many web frameworks to build VR applications for the web that are based on WebVR. Some of these frameworks are A-frame\footnote{https://aframe.io/}, React360\footnote{https://facebook.github.io/react-360/} and three.js\footnote{https://threejs.org}.
+Virtual Reality development can also be done for the browser. WebVR\footnote{https://webvr.info} is an open specification that makes it possible to experience VR in the browser, no matter what VR device is used. We can find many web frameworks to build VR applications for the web that are based on WebVR. Some of these frameworks are A-frame\footnote{https://aframe.io}, React360\footnote{https://facebook.github.io/react-360} and three.js\footnote{https://threejs.org}.
 
 \subsection{Clustering analysis}
 Cluster analysis is used to classify objects or cases into relative groups called clusters. Unlike supervised machine learning techniques, in cluster analysis, there is no prior information about the group or cluster membership for any of the objects. We can find many clustering approaches, two of the most comonly used ones are k-means and DBSCAN.
