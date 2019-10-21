@@ -1,5 +1,5 @@
 \section{Background}
-Technological advancement has revolutionized the field of genomics, which has led to a cost-effective generation of big amounts of sequence data. The sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Nowadays we can resequence a human genome for \$1000 and can generate more than 320 genomes per week\cite{big_biological_impacts_bd}. This technological innovation leads to the accumulation of vast quantities of genomic data,posing a tremendous challenge to scientists for effective mining of data to explain a phenomenon of interest\cite{zhang_paciorkowski_craig_cui_2019}. New ways of analysing the produced data have been therefore necessary in order to discover interesting patterns  and make the most out of it. No matter how much resources we use into extracting the data if we don't get anything interesting out of it.
+Technological advancement has revolutionized the field of genomics, which has led to a cost-effective generation of big amounts of sequence data. The sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Nowadays we can resequence a human genome for \$1000 and can generate more than 320 genomes per week\cite{big_biological_impacts_bd}. This technological innovation leads to the accumulation of vast quantities of genomic data, posing a tremendous challenge to scientists for effective mining of data to explain a phenomenon of interest\cite{zhang_paciorkowski_craig_cui_2019}. New ways of analysing the produced data have been therefore necessary in order to discover interesting patterns  and make the most out of it. No matter how much resources we use into extracting the data if we don't get anything interesting out of it.
 
 Some of the main problems that researchers face when analysing genomic data are information overload, data interconnectivity and hight dimensionality. Visualization is one way of facing this problems. For this reason it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data.
 
@@ -20,7 +20,9 @@ Virtual reality (VR) is still a field under exploration and that can be of great
 
 \section{Context}
 
-When the amount of data is considerably big, it can be difficult to explore it, especially when we are using a 2-dimensional space like a computer screen. In the MIxT web application (Matched Interaction Across Tissues)\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} we present this problem. MIxT provides a tool to identify genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells\cite{dumeaux_fjukstad_interactions_tumor_blood}. One of the its features is a network view where genes are represented with nodes and the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information.
+MIxT\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} is a web application for the identification of genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells. One of its features is a network view where genes are represented with nodes and where the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information. This problem is easy to occur when there are too many node and edges. The network is also in 2-dimensions and what we propose in this project is to use a virtual reality 3d visualization in order to cope better with this problem.
+
+Figure \ref{fig:mixt_network} shows an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes very difficult to understand the data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
 
 \begin{figure}[h!]
     \centering%
@@ -40,8 +42,6 @@ When the amount of data is considerably big, it can be difficult to explore it, 
     \caption{Network view of the MIxT application where nodes repsent genes and the modules are repsented by colors. Relationships are represented by grey lines that connect a gene with another one.}
     \label{fig:mixt_network}
 \end{figure}
-
-Figure \ref{fig:mixt_network} shows an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes too difficult to understandt he data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
 
 Todo: write about VR technologies (Oculus htc vive).
 
