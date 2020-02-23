@@ -1,7 +1,7 @@
 \section{Background}
 Technological advancement has revolutionized the field of genomics, which has led to a cost-effective generation of big amounts of sequence data. The sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Nowadays we can resequence a human genome for \$1000 and can generate more than 320 genomes per week\cite{big_biological_impacts_bd}. This technological innovation leads to the accumulation of vast quantities of genomic data, posing a tremendous challenge to scientists for effective mining of data to explain a phenomenon of interest\cite{zhang_paciorkowski_craig_cui_2019}. New ways of analysing the produced data have been therefore necessary in order to discover interesting patterns  and make the most out of it. No matter how much resources we use into extracting the data if we don't get anything interesting out of it.
 
-Some of the main problems that researchers face when analysing genomic data are information overload, data interconnectivity and hight dimensionality. Visualization is one way of facing this problems. For this reason it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data.
+Some of the main problems that researchers face when analysing genomic data are information overload, data interconnectivity and high dimensionality. Visualization is one way of facing this problems. For this reason it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data.
 
 In the field of system biology there are usually network representations where the nodes or bioentities are connected to each other, where these edges represent associations. Because of the improvements in technology, these networks can increase dramatically in size and complexity. We need therefore better visualization systems and more efficient alogirithms for the analysis of the data.
 
@@ -20,9 +20,10 @@ Virtual reality (VR) is still a field under exploration and that can be of great
 
 \section{Context}
 
-MIxT\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} is a web application for the identification of genes and pathways in the primary breast tumor that are tightly linked to genes and pathways in the patient blood cells. One of its features is a network view where genes are represented with nodes and where the edges represent statistically significant correlation in expression between the two end-points. However exploring this network and understanding the data and its relationships is hard because there is too much information. This problem is easy to occur when there are too many node and edges. The network is also in 2-dimensions and what we propose in this project is to use a virtual reality 3d visualization in order to cope better with this problem.
+MIxT\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017} is a web application for bioinformaticians. Among other tools, it offers a network visualization of genes which are represented as nodes in the network and where the edges represent statistically significant correlation in expression between two nodes. This tool was used in a study\cite{dumeaux_fjukstad_interactions_tumor_blood} that identifies genes and pathways in the primary tumor that are tightly linked to genes and pathways in the systemic response of a patient with breast cancer.
+When exploring a network in MIxT, it can be hard to understand the data and its relationships because there is too much data. This problem is easy to occur when there are too many node and edges. In figure \ref{fig:mixt_network} we can see an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes very difficult to understand the data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
 
-Figure \ref{fig:mixt_network} shows an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes very difficult to understand the data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
+ The network is also in 2-dimensions and what we propose in this project is to use a virtual reality 3d visualization in order to cope better with this problem.
 
 \begin{figure}[h!]
     \centering%
@@ -46,7 +47,7 @@ Figure \ref{fig:mixt_network} shows an example of the network visualization from
 Todo: write about VR technologies (Oculus htc vive).
 
 \subsection{Software and frameworks for VR development}
-Unity3D\footnote{https://unity.com} and Unreal Engine\footnote{https://www.unrealengine.com} are two popular programs for development of videogames and also virtual reality games and applications. They offer integrations for Oculus Quest and other VR devices in the market. In addition, Oculus quest offers a devlopment mode that can be activated once the glasses are connected to the PC. In this way the VR application can be tested directly on the VR device.
+Unity3D\footnote{https://unity.com} and Unreal Engine\footnote{https://www.unrealengine.com} are two popular programs for development of videogames and also virtual reality games and applications. They offer integrations for Oculus Quest and other VR devices in the market. In addition, Oculus Quest offers a devlopment mode that can be activated once the glasses are connected to the PC. In this way the VR application can be tested directly on the VR device.
 
 Virtual Reality development can also be done for the browser. WebVR\footnote{https://webvr.info} is an open specification that makes it possible to experience VR in the browser, no matter what VR device is used. We can find many web frameworks to build VR applications for the web that are based on WebVR. Some of these frameworks are A-frame\footnote{https://aframe.io}, React360\footnote{https://facebook.github.io/react-360} and three.js\footnote{https://threejs.org}.
 
@@ -55,7 +56,7 @@ Cluster analysis is used to classify objects or cases into relative groups calle
 
 The k-means algorithm starts by choosing k random centers which can be manually set. Then the data points are assigned to the closest center based on their Euclidean distance.
 
-DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is another algorithm that is based on the density of the data points. THe algorithm identifies clusters and expands them by scanning neighborhoods. If it cannot find any points to add, it simply moves on to a new point hoping it will find a new cluster.
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is another algorithm that is based on the density of the data points. The algorithm identifies clusters and expands them by scanning neighborhoods. If it cannot find any points to add, it simply moves on to a new point hoping it will find a new cluster.
 
 \section{Scope and Research Problem}
 This project focus mainly on solving the problem of visualization of high dimenasional data from the MIxT project by using virtual reality. Furthermore the application allows the user to interact with the network created from the data in the virtual environment. It also allows the user compare the blood and biopsy networks at the same time in order to finde relationship, which wasn't possible in the MIxT web application as this only allows the user to visualize one network at a time.
