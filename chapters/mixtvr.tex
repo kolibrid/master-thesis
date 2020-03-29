@@ -1,9 +1,66 @@
-In this chapter I will write about the implementation of the VR application using Unity3d.\\
-The points that I want to cover are the following:
-\begin{itemize}
-  \item Building the network from the bioinformatics data and clustering.
-  \item Manipulation of the network: translation and scaling.
-  \item Locomotion and ergonomics used in the VR environment.
-  \item Changing from the blood network to the biopsy network and viceversa.
-  \item Filtering genes in the network using gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer.
-\end{itemize}
+%
+% The points that I want to cover are the following:
+%
+% \begin{itemize}
+%   \item Building the network from the bioinformatics data and clustering.
+%   \item Manipulation of the network: translation and scaling.
+%   \item Locomotion and ergonomics used in the VR environment.
+%   \item Changing from the blood network to the biopsy network and viceversa.
+%   \item Filtering genes in the network using gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer.
+% \end{itemize}
+
+MIxT VR is a virtual reality application developed in Unity for the interactive visualization of a network of genes and their significant co-expression relationships between them. The genes or nodes in the network are represented as squares and the relationships are represented with lines between them. In Figure \ref{fig:mixt_vr} we can see an example of the application running.
+
+\begin{figure}[h!]
+    \setlength{\tempheight}{15ex}
+    \centering
+    \includegraphics[width=\textwidth]{mixt_vr}
+    \caption{MIxT VR. Example of the application running on a Oculus Quest.}
+    \label{fig:mixt_vr}
+\end{figure}
+
+In order to explore the network, several features have been implemented in order to enrich and enhance the experience of the visualization process. The user can move around the network by teleporting to a different place and also move the network and scale it, allowing the user have a better view of the network or a part of it. The user can also point at a node using the controller to reveal the gene name corresponding to that node. Another feature is about entering into a menu where the user can filter the network according to gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer. And finally it is possible also to switch the network from a blood dataset to a biopsy dataset and viceversa.
+
+\section{Creation of the network in a 3D space}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\hline
+category & genes          \\
+brown   & ARHGAP30 FERMT3 ARHGAP25 CD53 PLEK IRF8 DOCK2\\
+cyan  & SAFB MOB3A RAB35 ABR ASCC2 CDC37 ANKFY1 GLTSCR1\\
+darkgrey  & RAB40C ZNF213 ZNF263 PIGQ RHBDF1 RAB11FIP3\\
+darkorange  & TCEB1 MRPL13 ENY2 MTERF3 UBE2W WDYHV1\\
+\hline
+\end{tabular}
+\caption{Fragment of the dataset with the categories and the genes belonging to each category from the biopsy sample.}
+\label{tab:categories-data}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\hline
+source & target & weight            & id          \\
+AAMP   & ARGLU1 & 0.102486209330144 & AAMP-ARGLU1 \\
+ACADM  & FOXN2  & 0.107506881676173 & ACADM-FOXN2 \\
+ACADM  & MBNL1  & 0.12269622045714  & ACADM-MBNL1 \\
+ACADM  & PPM1B  & 0.103496640767895 & ACADM-PPM1B \\
+\hline
+\end{tabular}
+\caption{Fragment of the dataset used to build the network relationships of the blood sample.}
+\label{tab:network-data}
+\end{table}
+
+\section{Visualization of the network}
+In this section I will write about the VR techniques used to visualize the network in a good way.
+
+\subsection{Locomotion}
+How the player can move around the environment.
+
+\subsection{Network manipulation}
+Translation and scaling of the network for better visualization.
+
+\section{Filtering information in the network}
+How the network is filtered.
