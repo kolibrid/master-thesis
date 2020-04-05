@@ -9,7 +9,17 @@
 %   \item Filtering genes in the network using gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer.
 % \end{itemize}
 
-MIxT VR is a virtual reality application developed in Unity for the interactive visualization of a network of genes and their significant co-expression relationships between them. The genes nodes in the network and are represented as squared dots and the relationships are represented with lines between them. In Figure \ref{fig:mixt_vr} we can see an example of the application running.
+%In order to explore the network, several features have been implemented with the purpose of enhance the experience of the visualization process. For example the user has the possibility to move around the network by teleporting to a different place. It is also possible to translate the network and scale it, allowing the user have a better view of the data. The user can also point at a node using the controller to show the name corresponding to that gene or node. Another feature is about entering into a menu where the user can filter the network according to gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer. And finally it is possible also to switch the network from a blood dataset to a biopsy dataset and viceversa.
+
+%The genes nodes in the network and are represented as squared dots and the relationships are represented with lines between them. In Figure \ref{fig:mixt_vr} we can see an example of the application running.
+
+MIxT VR is a virtual reality application for the interactive visualization of large-scale networks in a 3D space. The networks are represented using nodes and connections between them. In order to explore the data, the user can walk around, scale the network, move it around, filter the nodes using a 2D interface and also interact with the nodes to get more information about them. In Figure \ref{fig:mixt_vr} we can see an example of the application running.
+
+MIxT VR works with a dataset that contains the information of the nodes and relationships of the network. This dataset needs to be obtained from an external source or application. Once we have our dataset we can load it to the application and then run MIxT VR using a Head Mounted Display or HMD for VR. Finally we can explore the network and interact with it to visualize the dataset in a VR experience.
+
+The implementation of MIxT VR is done in Unity, a cross-platform game engine. This engine is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. The programming language used to develop the application inside Unity is C\#. As for the VR hardware used in the development, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process, the headset needs to be connected to the PC and the application can be run directly from Unity.
+
+For this chapter we will use dataset examples from MIxT to illustrate the concepts in this chapter. MIxT is a web application that is used for the visualization of bioinformatic data\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} and the datasets used here contain genetic information about a woman with breast cancer. There are in total 2 datasets, the first one is from a blood sample and the second one is from the tumor sample. In Figure \ref{fig:mixt_vr} we can see an example of the application running using the blood dataset from MIxT.
 
 \begin{figure}[h!]
     \setlength{\tempheight}{15ex}
@@ -19,11 +29,14 @@ MIxT VR is a virtual reality application developed in Unity for the interactive 
     \label{fig:mixt_vr}
 \end{figure}
 
-In order to explore the network, several features have been implemented with the purpose of enhance the experience of the visualization process. For example the user has the possibility to move around the network by teleporting to a different place. It is also possible to translate the network and scale it, allowing the user have a better view of the data. The user can also point at a node using the controller to show the name corresponding to that gene or node. Another feature is about entering into a menu where the user can filter the network according to gene sets that represent signatures of cellular pathways which are often dis-regulated in cancer. And finally it is possible also to switch the network from a blood dataset to a biopsy dataset and viceversa.
+\section{Visualization and interaction of the network}
+In this section I will write about the VR techniques used to visualize the network in a good way.
 
-The datasets that are used for data visualization are the same ones that are used in the MIxT web application\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}. These datasets contain genetic information about a woman with breast cancer. The first one is a dataset from a blood sample and the second one is from the tumor.
+\subsection{Locomotion}
+How the player can move around the environment.
 
-
+\subsection{Network manipulation}
+Translation and scaling of the network for better visualization.
 
 \section{Creation of the network in a 3D space}
 
@@ -56,15 +69,6 @@ ACADM  & PPM1B  & 0.103496640767895 & ACADM-PPM1B \\
 \caption{Fragment of the dataset used to build the network relationships of the blood sample.}
 \label{tab:network-data}
 \end{table}
-
-\section{Visualization of the network}
-In this section I will write about the VR techniques used to visualize the network in a good way.
-
-\subsection{Locomotion}
-How the player can move around the environment.
-
-\subsection{Network manipulation}
-Translation and scaling of the network for better visualization.
 
 \section{Filtering information in the network}
 How the network is filtered.
