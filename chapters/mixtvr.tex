@@ -17,7 +17,7 @@ MIxT VR is a virtual reality application for the interactive visualization of la
 
 MIxT VR works with a dataset that contains the information of the nodes and relationships of the network. This dataset needs to be obtained from an external source or application. Once we have our dataset we can load it to the application and then run MIxT VR using a Head Mounted Display or HMD for VR. Finally we can explore the network and interact with it to visualize the dataset in a VR experience.
 
-The implementation of MIxT VR is done in Unity, a cross-platform game engine. This engine is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. The programming language used to develop the application inside Unity is C\#. As for the VR hardware used in the development, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process, the headset needs to be connected to the PC and the application can be run directly from Unity.
+The implementation of MIxT VR is done in Unity, a cross-platform game engine. This engine is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. The programming language used to develop the application inside Unity is C\#. We also used VRTK, a VR toolkit to build VR solutions in Unity. As for the VR hardware, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process, the headset needs to be connected to the PC and the application can be run directly from Unity.
 
 For this chapter we will use dataset examples from MIxT to illustrate the concepts in this chapter. MIxT is a web application that is used for the visualization of bioinformatic data\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} and the datasets used here contain genetic information about a woman with breast cancer. There are in total 2 datasets, the first one is from a blood sample and the second one is from the tumor sample. In Figure \ref{fig:mixt_vr} we can see an example of the application running using the blood dataset from MIxT.
 
@@ -29,8 +29,17 @@ For this chapter we will use dataset examples from MIxT to illustrate the concep
     \label{fig:mixt_vr}
 \end{figure}
 
-\section{Visualization and interaction of the network}
-In this section I will write about the VR techniques used to visualize the network in a good way.
+\section{Visualization and interaction with the network}
+Virtual reality headsets offer a rich inmmersive experience. It's not only about inmersing the user into a 3D environment, but also giving the user the possibility to interact with the environment itself. This makes it possible to build complex VR applications where the user can do almost anything in a virtual world. Some exmaples of what it is possible to do in a VR application is for example moving around by teleporting to a different spot, grabbing objects, showing 2D menus and interact with it, etc. In this section we will explain the techniques that we have implemented to visualize and interact with the network. These techniques correspond to how the user can move around in the network and how the user can manipulate it.
+
+Oculus Quest is an all-in-one VR hardware and so it doesn't need a PC nor wires to run the applications. Apart from the headset it comes with 2 controllers, one for each hand. These controlers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. Some of the inputs have been mapped to trigger different actions to interact with the network and the environment in MIxT VR. In Figure \ref{fig:oculus_quest_inputs} we can see which action correspond each input from the controllers.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{oculus_quest_inputs}
+    \caption{Mapping of the Oculus Quest controllers for the different actions implemented in MIxT VR. 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Select item in menu. 6. Oculus menu. 7. Teleport.}
+    \label{fig:oculus_quest_inputs}
+\end{figure}%
 
 \subsection{Locomotion}
 How the player can move around the environment.
