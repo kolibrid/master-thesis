@@ -37,7 +37,7 @@ Oculus Quest is an all-in-one VR headset and so it doesn't need a PC nor wires t
 \begin{figure}[h!]
     \centering%
     \includegraphics[width=\textwidth]{oculus_quest_inputs}
-    \caption{Mapping of the Oculus Quest controllers for the different actions implemented in BigNet VR. 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Select item in menu. 6. Oculus menu. 7. Teleport. Adapted figure.\cite{oculus_inputs}}
+    \caption{Mapping of the Oculus Quest controllers for the different actions implemented in BigNet VR. 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Select item in menu. 6. Oculus menu. 7. Teleport. Adapted figure from Oculus developer's page\cite{oculus_inputs}.}
     \label{fig:oculus_quest_inputs}
 \end{figure}%
 
@@ -57,8 +57,35 @@ In Figure \ref{fig:teleportation} we can see an example of how the teleportation
     \label{fig:teleportation}
 \end{figure}%
 
-\subsection{Network manipulation}
-Translation and scaling of the network for better visualization.
+\subsection{Translation of the network}
+By teleporting to different places in the environment we allow the user see the network from different perspectives. However it is also interesting being able to move the network and specially move in a precise way so that the user has more control over it. The user might for instance be able to see the network or a specific node or cluster from above or also from below. To do this we have implemented a functionality to translate the network to wherever we want.
+
+In order to translate the network in BigNet VR, the user just needs to press on the 4. Translate environment button from the right controller as shown in \ref{fig:oculus_quest_inputs}. Then the user needs to keep holding this button down and move the hand to the direction to which the user wants the network to move to. This is a very intuitive approach because it feels like we are just pulling from a rope that is connected to the network so we just need to move it to the direction we want without involving a lot of learning for this process.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{translation}
+    \caption{Translation of the network functionality. The user holds the translation button on the Oculus controller and moves the hand to the direction where he or she wants the network to translate.}
+    \label{fig:translation}
+\end{figure}%
+
+\subsection{Zooming in the network}
+When exploring a big network with hundreds of nodes, sometimes the information can be too crowded. In our example dataset that we use in BigNet VR, there are some clusters of nodes that have too many nodes close to each other and it gets very hard to visualize them properly. A way to cope with this problem is for instance by "zooming" in the part of the network that we want to explore better. We implement then a scaling functionality that makes the network bigger or smaller and so simulating a zooming action.
+
+The way we implemented the zooming functionality in BigNet VR is by using the side buttons with the name "3. Scale environment" shown in Figure \ref{fig:oculus_quest_inputs}. In the first place the user needs to press and hold this button from both right and left controllers and in the second place the user needs to expand or contract the arms, as if we were streching out or contracting the network itself. This is also an intuitive acction to do since the user might think that he or she is actually stretching the network with the hands.
+
+In Figure \ref{fig:scaling} we an see a visual example of how the zooming works using the Oculus controllers. In this example the user is stretching the hands out in order to make the network bigger. The user starts in a intial position, then holds the zooming buttons from both controllers and then moves the hands out. If we wanted to make the network smaller we would have to do the opposite action, by contracting the hands to the inside.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{scaling}
+    \caption{Zooming in the network functionality. The user can hold the scaling buttons on the Oculus controller to make the network bigger or smaller. In this example if we strech our hands outside, the network will expand.}
+    \label{fig:scaling}
+\end{figure}%
+
+\subsection{Interaction with the nodes}
+
+\subsection{Showing node relationships}
 
 \section{Creation of the network in a 3D space}
 
