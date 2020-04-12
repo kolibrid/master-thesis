@@ -90,15 +90,27 @@ In Figure \ref{fig:scaling} we an see a visual example of how the zooming works 
 \subsection{Interaction with the nodes}
 BigNet VR provides also detailed information about the data that is being displayed. The user can interact with the nodes of the network to obtain information about ecah of them. In our example, the nodes represent genes and the user might be interested in knowing which gene name corresponds to a specific node. The action that we need to do to obtain the name of the gene is to point at the node that we are interested in and press the "5. pointer" index trigger on the right controller (see \ref{fig:oculus_quest_inputs}). When we press this trigger, a laser pointer will appear from the virtual controller in BigNet VR. When we point to a specific node with the pointer, we will get the name of that gene node that will be displayed in a rendered text.
 
-[User figure showing how the pointer works and explain it]
+[User figure showing how the pointer works and explain it. This part of the implementation needs to be improved.]
 
 \subsection{Node relationships}
 Finally, our dataset has information about the relationships between the nodes. BigNet VR is implemented to show also this information. There can be many relationships in the dataset so that's why we don't show them all of them at the same time, but only those of the nodes who are closed to the user. The way that these relationships are represented is with lines between one to another node. These lines disappear once the user moves away from the nodes.
 
-[User figure showing how the relationships are shown in the application and explain the example]
+[User figure showing how the relationships are shown in the application and explain the example. This part of the implementation needs to be improved.]
 
 
-\section{Creation of the network in a 3D space}
+\section{Building the network}
+To build the network, BigNet VR uses a datasets that has been created from a external source. The datasets has to be in CSV format and we beed 2 datasets in total in order to build the network. The first one contains the information about the categories and the nodes that belong to each category. The second dataset has information about the relationships between each of the nodes.
+
+The following diagram in Figure \ref{fig:create_network} explains in a general way, what steps we follow to build the network in Unity. We start with the 2 datasets described before, containing the data for the network. We start processing the dataset with the categories and use this data to build a particle system object in unity. Each particle from the particle system corresponds to a node. We also add each particle a color, and this color is related to the category belongs to. Finally we apply a cluster algorithm and we make use of the dataset with the relationships to clusterize the nodes of the network.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{create_network}
+    \caption{Diagram explaining how the network is built in Unity.}
+    \label{fig:create_network}
+\end{figure}%
+
+Following our bioinformatic network example, in Table \ref{tab:categories-data} and Table \ref{tab:network-data} we show an extract of how the datasets look like. Table \ref{tab:categories-data} has the data about the nodes or genes in this case and the category to which each node belongs to. This categories are named by colors and these color names will used by BigNet VR to color each particle of the particle system. Then in Table \ref{tab:network-data} we have the information about the relationships. This dataset can be very extend because row of the CSV file corresponds to a relationship between 2 nodes or genes in this case and one gene can be connected to many other nodes.
 
 \begin{table}[h!]
 \centering
