@@ -101,7 +101,7 @@ Finally, our dataset has information about the relationships between the nodes. 
 \section{Building the network}
 To build the network, BigNet VR uses a datasets that has been created from a external source. The datasets has to be in CSV format and we beed 2 datasets in total in order to build the network. The first one contains the information about the categories and the nodes that belong to each category. The second dataset has information about the relationships between each of the nodes.
 
-The following diagram in Figure \ref{fig:create_network} explains in a general way, what steps we follow to build the network in Unity. We start with the 2 datasets described before, containing the data for the network. We start processing the dataset with the categories and use this data to build a particle system object in unity. Each particle from the particle system corresponds to a node. We also add each particle a color, and this color is related to the category belongs to. Finally we apply a cluster algorithm and we make use of the dataset with the relationships to clusterize the nodes of the network.
+The following diagram in Figure \ref{fig:create_network} explains in a general way, what steps we follow to build the network in Unity. We start with the 2 datasets described before, containing the data for the network. We start processing the dataset with the categories and use this data to build a particle system object in unity. Each particle from the particle system corresponds to a node. We also add to each particle a color, which is related to the category that the particle belongs to. Finally we apply a cluster algorithm using the data from the dataset with information about the relationships.
 
 \begin{figure}[h!]
     \centering%
@@ -143,4 +143,16 @@ ACADM  & PPM1B  & 0.103496640767895 & ACADM-PPM1B \\
 \end{table}
 
 \section{Filtering information in the network}
-How the network is filtered.
+Another feature that BigNet VR uses to handle improve the visualization of networks is a filtering menu. When we have huge amounts of data in large networks, it is sometimes necessary to show less or more data. By filtering the nodes we can visualize only the part that we are interesting in.
+
+We have built a 2 dimensional menu in Unity, see Figure \ref{fig:filtering}, to filter the data in our example network. We use checkboxes for the filtering. From a starting point, all the boxes are checked, and if the user wants to hide a part from the visualization it is done by unchecking the box. To show the filtering menu we need to press on the menu botton from the left controller, see the "2. Filter menu" in Figure \ref{fig:oculus_quest_inputs}. The to check or uncheck the boxes we need to use the A botton from the right controller, also named after "6. Select item" in \ref{fig:oculus_quest_inputs}.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{filtering}
+    \caption{Filtering menu in BigNet VR.}
+    \label{fig:filtering}
+\end{figure}%
+
+\section{Switching dataset}
+Finally BigNet VR has also the possibility to switch from one dataset to a different one. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider UI element as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to change the dataset that is being visualized. When we switch the dataset, the filters are also reset to their default state, so all of them will be checked. In our bioinformatic example we can switch from the blood dataset to the biopsy one.
