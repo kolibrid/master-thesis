@@ -1,27 +1,54 @@
-Questions to answer in the evaluation chapter:
-
 % Benchmarking in Unity
 % https://blogs.unity3d.com/2018/09/25/performance-benchmarking-in-unity-how-to-get-started/
 % Maybe try VRWorks https://developer.nvidia.com/vrworks
 
+% Questions to answer in the evaluation chapter:
+% \begin{enumerate}
+%   \item{How big can the graph be so that it is comfortable visualizing the network?}\\
+%   What is comfortable? Number of FPS?
+%   How can we scale the graph? By adding nodes and spread them around, by adding more interconnexions?
+%   Should the experiment split in several parts? Scaling, filtering, moving around, etc.
+%   What is the performance by using Oculus Link and the performance using just the Quest hardware?
+%   -We can use the Unity GPU Profiler for Oculus Quest and Go in order to see the performance.\\
+%   \href{https://developer.oculus.com/blog/getting-started-w-the-unity-gpu-profiler-for-oculus-quest-and-go/}{See: Getting Started w/ The Unity GPU Profiler for Oculus Quest and Go}
+%   \item{How is this way of visualizing the graph better by using VR?}\\
+%   We are researchging the technology and the test with actual users is for future work.
+%   \item{In what way can the application and the visualization of the graph be improved?}\\
+%   Argue in the discussion part.
+% \end{enumerate}
+
+BigNet VR has been implemented to explore biological networks like the one from MIxT. In this chapter we will evaluate the scalability of the application for this type of networks. The following list shows the questions that were asked as part of the evaluation and that we will try to answer along this chapter:
 \begin{enumerate}
-  \item{How big can the graph be so that it is comfortable visualizing the network?}\\
-  What is comfortable? Number of FPS?
-  How can we scale the graph? By adding nodes and spread them around, by adding more interconnexions?
-  Should the experiment split in several parts? Scaling, filtering, moving around, etc.
-  What is the performance by using Oculus Link and the performance using just the Quest hardware?
-  -We can use the Unity GPU Profiler for Oculus Quest and Go in order to see the performance.\\
-  \href{https://developer.oculus.com/blog/getting-started-w-the-unity-gpu-profiler-for-oculus-quest-and-go/}{See: Getting Started w/ The Unity GPU Profiler for Oculus Quest and Go}
-  \item{How is this way of visualizing the graph better by using VR?}\\
-  We are researchging the technology and the test with actual users is for future work.
-  \item{In what way can the application and the visualization of the graph be improved?}\\
-  Argue in the discussion part.
+  \item How big can the biological network be so that it is comfortable to explore and visualize it?
+  \item How can we scale the network?
+  \item What is the performance by using Oculus Link and the performance using just the Quest hardware?
+  \item How comfortable is it to explore a network?
 \end{enumerate}
 
-
 \section{Experimental setup}
-@TODO Write about the specs of the system being used for the evaluation: the machine, software, etc.
+% @TODO Write about the specs of the system being used for the evaluation: the machine, software, etc.
+We ran the experiments in a machine with Windows 10 and the following hardware specification:
+\begin{itemize}
+  \item Processor: Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz.
+  \item RAM memory: 64.0 GB.
+  \item System type: 64-bit Operating System.
+\end{itemize}
 
-\section{Testing scalability of the system}
-@TODO Write about how scalability was tested.
+% @TODO Write about Oculus quest hardware
+Oculus Quest specifications
+\begin{itemize}
+  \item Panel Type: Dual OLED 1600x1440.
+  \item Supported Refresh Rate: 72Hz.
+  \item Tracking: Inside out, 6DOF.
+  \item CPU: Qualcomm® Snapdragon 835.
+  \item GPU: Qualcomm® Adreno™ 540 GPU.
+  \item Memory: 4GB total.
+\end{itemize}
+
+\section{Experiments}
+% @TODO Write about how scalability was tested.
 A test scene was built in order to test de network and the scalability of it. A random network is built and we test how comfortable it is to navigate through it. This is measured by the FPS rate.
+
+\section{Discussion}
+
+\section{Conclusion}
