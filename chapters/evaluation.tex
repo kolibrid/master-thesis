@@ -30,31 +30,52 @@ BigNet VR has been implemented to explore biological networks like the one from 
 
 \section{Experimental setup}
 % @TODO Write about the specs of the system being used for the evaluation: the machine, software, etc.
-We ran the experiments in a machine with Windows 10 and the following hardware specification:
-\begin{itemize}
-  \item Processor: Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz.
-  \item RAM memory: 64.0 GB.
-  \item System type: 64-bit Operating System.
-\end{itemize}
+We ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see some of the hardware specification from the machine used:
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Machine specification}                        \\
+Processor   & Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz \\
+RAM memory  & 64.0 GB                                            \\
+System type & 64-bit Operating System
+\end{tabular}
+\caption{Machine specification.}
+\label{tab:machine-specs}
+\end{table}
 
-GPU specifications:
-\begin{itemize}
-  \item Adapter type: NVIDIA GeForce GTX 1080 Ti.
-  \item Chip Type: GeForce GTX 1080 Ti.
-  \item DAC Type: Integrated RAMDAC.
-  \item Total Available Graphics Memory: 45025 MB.
-\end{itemize}
+Since the GPU is important in this type of applications, we show the specs of the GPU used in Table \ref{tab:gpu-specs}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{GPU specification} \\
+Adapter type   & NVIDIA GeForce GTX 1080 Ti \\
+Chip Type  &  GeForce GTX 1080 Ti \\
+DAC Type & Integrated RAMDAC \\
+Available memory & 45025 MB
+\end{tabular}
+\caption{GPU specification.}
+\label{tab:gpu-specs}
+\end{table}
 
 % @TODO Write about Oculus quest hardware
-Oculus Quest specifications
-\begin{itemize}
-  \item Panel Type: Dual OLED 1600x1440.
-  \item Supported Refresh Rate: 72Hz.
-  \item Tracking: Inside out, 6DOF.
-  \item CPU: Qualcomm® Snapdragon 835.
-  \item GPU: Qualcomm® Adreno™ 540 GPU.
-  \item Memory: 4GB total.
-\end{itemize}
+
+As for the VR headset hardware, we used a Oculus Quest. In Table \ref{tab:oculus-specs} we can see the hardware specifications for this type of headset.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Oculus Quest specifications} \\
+Panel Type   & Dual OLED 1600x1440 \\
+Supported Refresh Rate  &  72Hz \\
+Tracking & Inside out, 6DOF \\
+CPU & Qualcomm® Snapdragon 835 \\
+GPU & Qualcomm® Adreno™ 540 GPU \\
+Memory & 4GB total
+\end{tabular}
+\caption{Oculus Quest specifications.}
+\label{tab:oculus-specs}
+\end{table}
 
 \section{Performance of the system}
 % @TODO Write about how scalability was tested.
@@ -74,17 +95,30 @@ To profile the application we used the built-in profiler in Unity, the software 
 \section{Scalability of the system}
 
 \section{Questionnaire to evaluate the system}
-One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to run this testing process because it was not possible to have people testing the application on a single Oculus Quest device without avoiding the social distancing rules.
-We estimated to have tested the project with at least 10 participants with knowdledge in bioinformatics. With this number of participants we can make some statistics. The questions that we prepared for the questionnaire were the following:\\
+One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
+We estimated to have around 10 participants with knowdledge in bioinformatics to test the application. With this number of participants we could have made some statistics and obtained feedback for future improvement.
 
-Indicate the level of agreement or disagreement with each of the following statements or just mark yes or no:
+The following questionnaire is divided in four sections; a general section about VR headsets, a section about comfortability exploring the network using BigNet VR, a section about the different actions in BigNet VR and finally a section about feedback.
+
+To complete the questionnaire, the teste has to indicate the level of agreement or disagreement with each of the  statements, mark yes or no when it is asked and in the feedback section reply the questions with constructive feedback if possible.\\
+
+Questionnaire section 1: VR headsets.
 \begin{enumerate}
   \item Have you ever used a VR headset before?\\
   Yes / No
 
-  \item I feel comfortable using the Oculus Quest headset.\\
+  \item Have you ever used a Oculus Quest headset before?\\
+  Yes / No
+
+  \item I feel comfortable using a VR headset.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
+  \item I feel comfortable using the Oculus Quest headset.\\
+  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+\end{enumerate}
+
+Questionnaire section 2: Comfortability exploring a biological network with BigNet VR.
+\begin{enumerate}
   \item I feel comfortable moving around the virtual environment using the teleport functionality.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
@@ -103,9 +137,12 @@ Indicate the level of agreement or disagreement with each of the following state
   \item I feel comfortable scaling the network.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
-  \item I feel comfortable opening the UI menu to filter the data from the network.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+  \item I feel comfortable using the UI menu to filter the data from the network.\\
+  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+\end{enumerate}
 
+Questionnaire section 3: Performing different actions in BigNet VR to explore the biological network.
+\begin{enumerate}
   \item It is intuitive to manipulate the network using the controllers.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
@@ -125,5 +162,16 @@ Indicate the level of agreement or disagreement with each of the following state
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
   \item I can easily filter the data in the network that I want to visualize.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+\end{enumerate}
+
+Questionnaire section 4: Feedback.
+\begin{enumerate}
+  \item Did you experience any difficulties exploring the biological network? If so, indicate which ones.\\
+  Yes / No
+
+  \item Is there anything that could be improved for the visualization of biological data in BigNet VR? If so, write your suggestions.\\
+  Yes / No
+
+  \item Write any feedback and comments that you have about the exploration of biological networks with BigNet VR.
 \end{enumerate}
