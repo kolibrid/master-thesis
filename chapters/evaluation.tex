@@ -20,16 +20,41 @@
 % Links
 % Profiler panel
 
-BigNet VR has been implemented to explore biological networks like the one from MIxT. In this chapter we will evaluate the scalability of the application for this type of networks. The following list shows the questions that were asked as part of the evaluation and that we will try to answer along this chapter:
+BigNet VR has been built to explore biological networks that contain genetic information from human beings. We have used two  networks from MIxT where we applied several VR techniques to build a visualization system. In this chapter we want to evaluate this system focusing on scalability and performance problems. Since we are visualizing networks with genetic information using VR, we want to know if the system that we built can be used for any size of this type of networks. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. These questions are:
 \begin{enumerate}
-  \item How big can the biological network be so that it is comfortable to explore and visualize it?
-  \item How can we scale the network?
+  \item For which interactions do we achieve the recommended FPS (72) when scaling the network?
+  \item What characteristics of the network influence the scalability?
   \item What is the performance by using Oculus Link and the performance using just the Quest hardware?
-  \item How comfortable is it to explore a network?
+  % \item Bonus: how will “beautifications” influence scalability?
+  \item How do users perceive the interaction of the network?
 \end{enumerate}
 
-\section{Experimental setup}
+Question one is based on the Oculus' performance guidelines\cite{oculus_performance_baselines}, that say that an application should meet the following.
+\begin{itemize}
+  \item 72 FPS for Oculus Quest (required by Oculus).
+  \item 50-100 draw calls per frame.
+  \item 50,000-100,000 triangles or vertices per frame.
+\end{itemize}
+
+As for the second question, we want to know what characteristics influence the scalability of the network and the visualization system. Some elements of the network have more impact in the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes, number of lines and number of clusters.
+
+We will also evaluate the performance of the application being run in the Oculus Quest hardware and also in a PC, using the Oculus Link cable that connects the headset to the machine. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance is good in both the machine and the headset.
+
+Finally, as the last question says, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT network and also an interview.
+
+\section{Experimentation plan}
 % @TODO Write about the specs of the system being used for the evaluation: the machine, software, etc.
+An experimentation plan was designed to ensure that the experiments are consistent and that they can be repeated several times getting realistic measurements. We take into consideration the following aspects for our experiments:
+\begin{enumerate}
+  \item Scalability for different interactions.
+  \item Network characteristics.
+  \item Bottlenecks.
+  \item User study.
+  \item Hardware and software specification.
+\end{enumerate}
+
+There are some elements of the network that influence the scalability of it, like the number of nodes,
+
 We ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see some of the hardware specification from the machine used:
 \begin{table}[h!]
 \centering
@@ -58,8 +83,6 @@ Available memory & 45025 MB
 \label{tab:gpu-specs}
 \end{table}
 
-% @TODO Write about Oculus quest hardware
-
 As for the VR headset hardware, we used a Oculus Quest. In Table \ref{tab:oculus-specs} we can see the hardware specifications for this type of headset.
 
 \begin{table}[h!]
@@ -77,22 +100,17 @@ Memory & 4GB total
 \label{tab:oculus-specs}
 \end{table}
 
-\section{Performance of the system}
+The experiments were run in Unity, the same software that was used for the development. The version of Unity used for the expriments is 2018.4.10f1. Also Vulkan is used as the graphic API.
+
 % @TODO Write about how scalability was tested.
 A test scene was built in order to test the network and the scalability of it. A random network is built and we test how comfortable it is to navigate through it. This is measured by the FPS rate.
 
 VR profiling is a technique used to get an overview of the performance of our application. This is usually done in order to find bottlenecks so that we can eliminate them and improve the application's performance.
 
-According to Oculus' performance baselines\cite{oculus_performance_baselines}, an application should meet the following requirements:
-\begin{itemize}
-  \item 72 FPS for Oculus Quest (required by Oculus).
-  \item 50-100 draw calls per frame.
-  \item 50,000-100,000 triangles or vertices per frame.
-\end{itemize}
-
 To profile the application we used the built-in profiler in Unity, the software used for the development. The Unity Profiler gives information about per-fram CPU and GPU performance metrics.
 
-\section{Scalability of the system}
+\section{Scalability of the network}
+Creating the lines for relationships.
 
 \section{Questionnaire to evaluate the system}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
@@ -161,7 +179,7 @@ Questionnaire section 3: Performing different actions in BigNet VR to explore th
   \item I can easily visualize the relationships of any node.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
 
-  \item I can easily filter the data in the network that I want to visualize.\\
+  \item I can easily filter the data by using the UI menu.\\
   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
 \end{enumerate}
 
