@@ -53,7 +53,21 @@ An experimentation plan was designed to ensure that the experiments are consiste
   \item Hardware and software specification.
 \end{enumerate}
 
-There are some elements of the network that influence the scalability of it, like the number of nodes,
+There are some elements of the network that influence more in the scalability and performance of the system. In Table /ref{tab:network-elements} we describe these elements.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{4cm}|p{6cm}|}
+\hline
+\textbf{Element} & \textbf{Description} \\
+Clusters & description for clusters \\
+Nodes   & Represented as 2D squares in the space. The position is calculated when creating the clusters.  \\
+Lines & They represent relationships between the nodes. Everytime a node is selected, line objects are added to the scene. \\
+\hline
+\end{tabular}
+\caption{Elements of the network that have influence in the scalability.}
+\label{tab:network-elements}
+\end{table}
 
 We ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see some of the hardware specification from the machine used:
 \begin{table}[h!]
@@ -109,10 +123,12 @@ VR profiling is a technique used to get an overview of the performance of our ap
 
 To profile the application we used the built-in profiler in Unity, the software used for the development. The Unity Profiler gives information about per-fram CPU and GPU performance metrics.
 
+\section{Performance of the system}
+
 \section{Scalability of the network}
 Creating the lines for relationships.
 
-\section{Questionnaire to evaluate the system}
+\section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
 We estimated to have around 10 participants with knowdledge in bioinformatics to test the application. With this number of participants we could have made some statistics and obtained feedback for future improvement.
 
