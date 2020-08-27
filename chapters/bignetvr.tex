@@ -15,7 +15,7 @@
 
 BigNet VR is a virtual reality application for the interactive visualization of large-scale networks in a 3D space. The network is represented using nodes and connections between them. In order to explore and visualize the data in BigNet VR, the user can walk around the 3D environment, scale the network, translate it to other places, filter the nodes using a user interface and also obtain detail information about the data.
 
-BigNet VR works with a dataset that contains the information of the nodes and relationships that make up the network. This dataset needs to be obtained from an external source. Once we have our dataset we can load it to the application and then run it using a HMD (Head Mounted Display) for VR. Finally we can explore the network and interact with it to visualize the dataset in a VR experience.
+BigNet VR works with a dataset that contains the information of the nodes and relationships that make up the network. We can load the dataset into the application and then run it using a HMD (Head Mounted Display) for VR. Finally we can explore the network and interact with it to visualize the data.
 
 The implementation of BigNet VR is carried out in Unity, a cross-platform game engine. This software is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. The programming language used to develop the application inside Unity is C\#. We also used VRTK, a VR toolkit to build VR solutions in Unity. As for the VR hardware, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process, the headset needs to be connected to the PC and the application can be run and tested directly from Unity.
 
@@ -29,10 +29,10 @@ For this chapter we will use dataset examples from MIxT to illustrate the concep
     \label{fig:bignet_vr}
 \end{figure}
 
-\section{Visualization and interaction with the network}
+\section{Interaction with the network}
 Virtual reality headsets offer a rich inmmersive experience. It's not only about inmersing the user into a 3D environment, but also giving the user the possibility to interact with the environment itself. This makes it possible to build complex VR applications where the user can do almost anything in a virtual world. Some examples of what is possible to do in virtual reality is for example moving around, grabbing objects, interact with the environment using your hands or virtual tools, 2D interfaces and menus, etc. In this section we will explain the techniques that we have implemented to visualize and interact with the network and make the most of VR. These techniques correspond to how the user can move around in the network and how the user can visualize the data.
 
-Oculus Quest is an all-in-one VR headset and so it doesn't need a PC nor wires to run the applications. Apart from the headset, it comes with 2 controllers; one for each hand. These controllers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. We have used some of these inputs available in the controllers in BigNet VR and mapped them to different actions that allow the user interact with the network and the environment. In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. We will explain now the different methods that we use in BigNet VR to visualize the data and how we can enable them using the controllers.
+Oculus Quest is an all-in-one VR headset and so it doesn't need a PC nor wires to run the applications. Apart from the headset, it comes with 2 controllers; one for each hand. These controllers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. We have used some of these inputs available in the controllers in BigNet VR and mapped them to different actions that allow the user interact with the network and the environment. In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. We will explain now how we implemented the system and the different methods that we have used for the data visualization.
 
 \begin{figure}[h!]
     \centering%
@@ -40,6 +40,9 @@ Oculus Quest is an all-in-one VR headset and so it doesn't need a PC nor wires t
     \caption{Mapping of the Oculus Quest controllers for the different actions implemented in BigNet VR: 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Select item in menu. 6. Oculus menu. 7. Teleport. Adapted figure from Oculus developer's page\cite{oculus_inputs}.}
     \label{fig:oculus_quest_inputs}
 \end{figure}%
+
+\subsection{Implementation details}
+Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. Unity is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk-what}. Finally, the programming language used in Unity to implement the system is C\#.
 
 \subsection{Locomotion}
 Locomotion is one of the most important ways of interaction in virtual reality experiences. It can be defined as a self-proppelled movement in the virtual world. Even though moving around is not the main goal in most of VR applications, it is an important aspect for the user's perspective in order to move the user's viewpoint in the virtual world and navigate around it.
@@ -98,7 +101,7 @@ Finally, our dataset has information about the relationships between the nodes. 
 [User figure showing how the relationships are shown in the application and explain the example. This part of the implementation needs to be improved.]
 
 
-\section{Building the network}
+\section{Building and displaying the network}
 BigNet VR uses a datasets that has been created from a external source to build the network. The datasets have to be in CSV format and we need 2 datasets in total to build the network. The first one contains the information about the categories and the nodes that belong to each category and the second dataset has information about the relationships between each of the nodes.
 
 The following diagram in Figure \ref{fig:create_network} explains in a broad way what steps we follow to build the network in Unity. We start with the 2 datasets described before, containing the data for the network. We process the dataset with information about the categories and build a particle system object in Unity, where each particle corresponds to a node. We also add to each particle a color, which is related to the category that the particle belongs to. Finally we apply a cluster algorithm using the data from the dataset with information about the relationships.
