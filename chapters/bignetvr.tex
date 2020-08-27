@@ -13,13 +13,13 @@
 
 %The genes nodes in the network and are represented as squared dots and the relationships are represented with lines between them. In Figure \ref{fig:bignet_vr} we can see an example of the application running.
 
-BigNet VR is a virtual reality application for the interactive visualization of large-scale networks in a 3D space. The network is represented using nodes and connections between them. In order to explore and visualize the data in BigNet VR, the user can walk around the 3D environment, scale the network, translate it to other places, filter the nodes using a user interface and also obtain detail information about the data.
+BigNet VR is a virtual reality application for the interactive visualization of big networks in a 3D space. The network is represented using nodes and edges between them. In order to explore and visualize the data in BigNet VR, the user can for example walk around the 3D environment, zoom in the network, translate it to other places, filter the visible nodes using a user interface and also obtain detail information about the nodes in the network.
 
-BigNet VR works with a dataset that contains the information of the nodes and relationships that make up the network. We can load the dataset into the application and then run it using a HMD (Head Mounted Display) for VR. Finally we can explore the network and interact with it to visualize the data.
+BigNet VR loads a dataset that contains the information of the nodes and relationships that make up the network. We can load the dataset into the application and then run the application in out VR headset. Finally we can explore the network and interact with it to visualize the data.
 
-The implementation of BigNet VR is carried out in Unity, a cross-platform game engine. This software is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. The programming language used to develop the application inside Unity is C\#. We also used VRTK, a VR toolkit to build VR solutions in Unity. As for the VR hardware, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process, the headset needs to be connected to the PC and the application can be run and tested directly from Unity.
+We implemented BigNet VR in Unity, a cross-platform game engine. This software is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. We used C\# as the main programming language to develop the application in Unity. We also used VRTK, a VR toolkit to build VR solutions in Unity. As for the VR hardware, we used an Oculus Quest headset. This type of headset is an oll-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it can be run inside the hardware of the headset itself. However during the development process I had to connect the headset to the PC and then the application can be run and tested directly from Unity.
 
-For this chapter we will use dataset examples from MIxT to illustrate the concepts that we will talk about. MIxT is a web application that is used for the visualization of bioinformatic data\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood} and the datasets used here contain genetic information about a woman with breast cancer. There are in total 2 datasets; the first one is from a blood sample and the second one is from the tumor sample. In Figure \ref{fig:bignet_vr} we can see an example of the application running using the blood dataset from MIxT.
+For this chapter we will use dataset examples from MIxT to illustrate the concepts that we will talk about. MIxT is a web application that is used for exploring and comparing bioinformatic data\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}\cite{dumeaux_fjukstad_interactions_tumor_blood}; and the data visualization is an important part of the process. The datasets used here contain genetic information about a woman with breast cancer. There are in total 2 tissues; the first one is from a blood sample and the second one is from the tumor sample. In Figure \ref{fig:bignet_vr} we can see an example of BigNet VR running using the blood dataset from MIxT.
 
 \begin{figure}[h!]
     \setlength{\tempheight}{15ex}
@@ -30,14 +30,28 @@ For this chapter we will use dataset examples from MIxT to illustrate the concep
 \end{figure}
 
 \section{Interaction with the network}
-Virtual reality headsets offer a rich inmmersive experience. It's not only about inmersing the user into a 3D environment, but also giving the user the possibility to interact with the environment itself. This makes it possible to build complex VR applications where the user can do almost anything in a virtual world. Some examples of what is possible to do in virtual reality is for example moving around, grabbing objects, interact with the environment using your hands or virtual tools, 2D interfaces and menus, etc. In this section we will explain the techniques that we have implemented to visualize and interact with the network and make the most of VR. These techniques correspond to how the user can move around in the network and how the user can visualize the data.
+Virtual reality headsets offer a rich inmmersive experience. It's not only about inmersing the user into a 3D environment, but also giving the user the possibility to interact with the environment itself. This makes it possible to build complex VR applications where the user can do almost anything in a virtual world. Some examples of what is possible to do in virtual reality is for example moving around, grabbing objects, interact with the environment using your hands or virtual tools, 2D interfaces and menus, etc. In this section we will explain the techniques that we have implemented to visualize and interact with the network and make the most of VR.
 
-Oculus Quest is an all-in-one VR headset and so it doesn't need a PC nor wires to run the applications. Apart from the headset, it comes with 2 controllers; one for each hand. These controllers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. We have used some of these inputs available in the controllers in BigNet VR and mapped them to different actions that allow the user interact with the network and the environment. In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. We will explain now how we implemented the system and the different methods that we have used for the data visualization.
+The interation and the visualization depends on the VR technoly used. We use Oculus Quest in this project, an all-in-one VR headset that doesn't need a PC nor wires to run the applications. Apart from the headset, it comes with 2 controllers; one for each hand. These controllers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. We have used some of these inputs available in the controllers in BigNet VR and mapped them to different actions that allow the user interact with the network and the environment.
+
+In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. The actions are the following:
+\begin{enumerate}
+  \item Snap rotation. It allows the user to instantly rotate to the right or to the left 45$^{\circ}$.
+  \item Filter menu.
+  \item Scale environment.
+  \item Translate environment.
+  \item Pointer.
+  \item Select item in menu.
+  \item Oculus menu.
+  \item Teleport.
+\end{enumerate}
+
+We will explain now in the following subsections, how we implemented the system and the different methods in more detail that we have used for the data visualization.
 
 \begin{figure}[h!]
     \centering%
     \includegraphics[width=\textwidth]{oculus_quest_inputs}
-    \caption{Mapping of the Oculus Quest controllers for the different actions implemented in BigNet VR: 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Select item in menu. 6. Oculus menu. 7. Teleport. Adapted figure from Oculus developer's page\cite{oculus_inputs}.}
+    \caption{Mapping of the Oculus Quest controllers for the different actions implemented in BigNet VR: 1. Snap rotation. 2. Filter menu. 3. Scale environment. 4. Translate environment. 5. Pointer. 6. Select item in menu. 7. Oculus menu. 8. Teleport. Adapted figure from Oculus developer's page\cite{oculus_inputs}.}
     \label{fig:oculus_quest_inputs}
 \end{figure}%
 
@@ -49,7 +63,7 @@ Locomotion is one of the most important ways of interaction in virtual reality e
 
 Locomotion can have an strong influence in the user's experience. A poorly designed locomotion technique can reduce the user's immersion and even introduce motion sickness, which is related to the movement that the technique produces. HMDs like Oculus Quest allow the users to control the position and the orientation of the viewpoint by moving their heads and walking. However large virtual environments such as BigNet VR need a big physical tracked area which cannot be covered by just walking around. It is for this reason that we need to use a locomotion technique that makes it possible to move around without the having to walk\cite{locomotion_technique}.
 
-The locomotion technique that we use in BigNet VR is called teleportation. It consists in choosing a spot on the floor were we want to teleport to. To do this the user has to move forward the thumbstick from the right controller (see "7. Teleport" from Figure \ref{fig:oculus_quest_inputs}). In addition it is possible to choose which direction the user will face once the teleportation is completed. To do this we just need to rotate the same thumbstick to the desired direction. Once the user releases the thumbstick, a black flash will be followed by the new position in the space. This black flash is very important when implementing some techniques because it prevents from producing motion sickness and disorientation.
+The locomotion technique that we use in BigNet VR is called teleportation. It consists in choosing a spot on the floor were we want to teleport to. To do this the user has to move forward the thumbstick from the right controller (see "8. Teleport" from Figure \ref{fig:oculus_quest_inputs}). In addition it is possible to choose which direction the user will face once the teleportation is completed. To do this we just need to rotate the same thumbstick to the desired direction. Once the user releases the thumbstick, a black flash will be followed by the new position in the space. This black flash is very important when implementing some techniques because it prevents from producing motion sickness and disorientation.
 
 \begin{figure}[h!]
     \centering%
