@@ -34,19 +34,11 @@ Virtual reality headsets offer a rich inmmersive experience. It's not only about
 
 The interation and the visualization depends on the VR technoly used. We use Oculus Quest in this project, an all-in-one VR headset that doesn't need a PC nor wires to run the applications. Apart from the headset, it comes with 2 controllers; one for each hand. These controllers have inputs as buttons, thumbsticks and triggers that can be used to activate actions in the VR application. We have used some of these inputs available in the controllers in BigNet VR and mapped them to different actions that allow the user interact with the network and the environment.
 
-In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. The actions are the following:
-\begin{enumerate}
-  \item Snap rotation: It allows the user to instantly rotate to the right or to the left 45$^{\circ}$.
-  \item Filter menu: The user can filter the nodes of the network according to the filtering algorithm used in BigNet VR.
-  \item Scale environment: The network can be scaled or "zoomed".
-  \item Translate environment: The network can be translated or moved to other positions in the VR environment.
-  \item Pointer: TODO This needs to be removed since we are not using it in BigNet VR.
-  \item Select item in menu: It allows us interact with the menu, for instance enable or disable the checkboxes or drag the slider.
-  \item Oculus menu: It opens the menu from oculus and pauses BigNet VR.
-  \item Teleport: It teleports the user to another position on the floor of the VR envirnoment.
-\end{enumerate}
+In Figure \ref{fig:oculus_quest_inputs} we can see which actions correspond to each input from the controllers. We will briefly explain now what these actions consist of: 1. Snap rotation: It allows the user to instantly rotate to the right or to the left 45$^{\circ}$; 2. Filter menu: The user can filter the nodes of the network according to a filtering algorithm used in BigNet VR; 3. Translate network: The network can be translated or moved to other positions in the scene; 4. Scale network: The network can be scaled or "zoomed"; 5. Select node: The user can select a node in order to get more information about it; 6. Select item in menu: It allows the user interact with the menu, for instance to filter the nodes by enabling or disabling the checkboxes from the filtering menu; 7. Oculus menu: It opens the menu from oculus and pauses BigNet VR; 8. Teleport: It teleports the user to another position on the floor of the VR scene.
 
-We will explain now in the following subsections, how we implemented the system and the different methods in more detail that we have used for the data visualization.
+As for the use of the Oculus Quest HMD (Head Mounted Display), this is placed in the head and it has a belt that is used to adjust the headset to the head. This will help the user feel more comfortable while wearing the HMD. Another important aspect that we have taken into account in BigNet VR is that the user can use the application and explore the network by sitting on a chair. This is possible thanks to the locomotion techniques implemented, that we will explain later in this chapter.
+
+We will explain now in the following subsections the implementation details of the system and also how we implemented the different actions in more detail and what benefits they bring for the visualization and interaction of the network.
 
 \begin{figure}[h!]
     \centering%
@@ -86,13 +78,13 @@ By teleporting to different places in the environment we allow the user see the 
     \label{fig:translation}
 \end{figure}%
 
-To translate the network in BigNet VR, the user needs to press on the hand trigger from the right controller (see "4. Translate environment" in Figure \ref{fig:oculus_quest_inputs}). Then the user needs to keep holding this trigger down and move the hand to the direction to which we want the network to move to. This intuitive approach feels like we are just pulling from a rope tied to the network and we just move it to the direction we want.
+To translate the network in BigNet VR, the user needs to press on the hand trigger from the right controller (see "3. Translate network" in Figure \ref{fig:oculus_quest_inputs}). Then the user needs to keep holding this trigger down and move the hand to the direction to which we want the network to move to. This intuitive approach feels like we are just pulling from a rope tied to the network and we just move it to the direction we want.
 
 
 \subsection{Zooming in the network}
 When exploring a big network with hundreds of nodes and several clusters, sometimes the information can be too crowded. In our example dataset that we use in BigNet VR, there are some clusters of nodes that have too many nodes close to each other and it gets very hard to visualize them properly. A way to cope with this problem is for instance by "zooming" in the part of the network that we want to explore better. We implement then a scaling functionality that makes the network bigger or smaller.
 
-The way we implemented the zooming functionality in BigNet VR is by using the hand triggers with the name "3. Scale environment" (see the reference in Figure \ref{fig:oculus_quest_inputs}). In the first place the user needs to press and hold these triggers from both controllers and then we need to expand or contract the arms, as if we were streching out or contracting the network itself. This is also an intuitive acction to do since the user might think that we are actually stretching the network with the hands.
+The way we implemented the zooming functionality in BigNet VR is by using the hand triggers with the name "4. Scale network" (see the reference in Figure \ref{fig:oculus_quest_inputs}). In the first place the user needs to press and hold these triggers from both controllers and then we need to expand or contract the arms, as if we were streching out or contracting the network itself. This is also an intuitive acction to do since the user might think that we are actually stretching the network with the hands.
 
 \begin{figure}[h!]
     \centering%
@@ -105,12 +97,12 @@ The way we implemented the zooming functionality in BigNet VR is by using the ha
 In Figure \ref{fig:scaling} there is a visual example of how the zooming works using the Oculus controllers. In this example the user is stretching the hands out in order to make the network bigger. The user starts in a intial position, then holds the zooming triggers from both controllers and then moves the hands out. If we wanted to make the network smaller we would do the opposite action, by contracting the hands to the inside.
 
 \subsection{Interaction with the nodes}
-BigNet VR provides also detailed information about the data that is being displayed. The user can interact with the nodes of the network to obtain information about ecah of them. In our example, the nodes represent genes and the user might be interested in knowing which gene name corresponds to a specific node. The action that we need to do to obtain the name of the gene is to point at the node that we are interested in and press the "5. pointer" index trigger on the right controller (see Figure \ref{fig:oculus_quest_inputs}). When we press this trigger, a laser pointer will appear from the virtual controller inside of the application. By pointing to a specific node with the pointer, we will get the name of that gene node that will be displayed in a rendered text.
+BigNet VR provides also detailed information about the data that is being displayed. The user can interact with the nodes of the network to obtain information about ecah of them. In our example, the nodes represent genes and the user might be interested in knowing which gene name corresponds to a specific node. The action that we need to do to obtain the name of the gene is to point at the node that we are interested in and press the "5. Select node" index trigger on the right controller (see Figure \ref{fig:oculus_quest_inputs}). When we press this trigger, we can select a node from the network. By selecting a node, we will get the name of that gene node that will be displayed in a rendered text and we will also visualize the edges from this node to other nodes.
 
 [User figure showing how the pointer works and explain it. This part of the implementation needs to be improved.]
 
 \subsection{Node relationships}
-Finally, our dataset has information about the relationships between the nodes. BigNet VR is implemented to show also this information. Because there can be many relationships in the dataset we don't show them all at the same time. We can only see those of the nodes that are close to the user. The way that these relationships are represented is with lines between the nodes. These lines disappear once the user moves away from the nodes.
+Finally, our dataset has information about the relationships between the nodes. BigNet VR is implemented to show also this information. Because there can be many relationships in the dataset we don't show them all at the same time. We can only see those of the nodes that the user select. The way that these relationships are represented is with lines between the nodes.
 
 [User figure showing how the relationships are shown in the application and explain the example. This part of the implementation needs to be improved.]
 
