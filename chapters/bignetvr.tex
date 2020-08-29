@@ -47,9 +47,6 @@ We will explain now in the following subsections the implementation details of t
     \label{fig:oculus_quest_inputs}
 \end{figure}%
 
-\subsection{Implementation details}
-Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. Unity is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk-what}. Finally, the programming language used in Unity to implement the system is C\#.
-
 \subsection{Locomotion}
 Locomotion is one of the most important ways of interaction in virtual reality experiences. It can be defined as a self-proppelled movement in the virtual world. Even though moving around is not the main goal in most of VR applications, it is an important aspect for the user's perspective in order to move the user's viewpoint in the virtual world and navigate around it.
 
@@ -105,10 +102,10 @@ Finally, our dataset has information about the relationships between the nodes. 
 [User figure showing how the relationships are shown in the application and explain the example. This part of the implementation needs to be improved.]
 
 
-\section{Building and displaying the network}
-BigNet VR uses a datasets that has been created from a external source to build the network. The datasets have to be in CSV format and we need 2 datasets in total to build the network. The first one contains the information about the categories and the nodes that belong to each category and the second dataset has information about the relationships between each of the nodes.
+\section{Scalability of the network}
+In order to build the network, BigNet VR uses datasets that have been created from an external source. These datasets are in CSV format and BigNet VR uses 2 files with the dataset information to build the network. The first file contains the information about the nodes and what category the node belongs to; The second one has information about the relationships between each of the nodes.
 
-The following diagram in Figure \ref{fig:create_network} explains in a broad way what steps we follow to build the network in Unity. We start with the 2 datasets described before, containing the data for the network. We process the dataset with information about the categories and build a particle system object in Unity, where each particle corresponds to a node. We also add to each particle a color, which is related to the category that the particle belongs to. Finally we apply a cluster algorithm using the data from the dataset with information about the relationships.
+The following diagram in Figure \ref{fig:create_network} explains in a broad way what steps we follow to build the network in Unity from the two source files. We start with the 2 files described before, containing the data for the network. We process the file with information about the categories and build a particle system object in Unity, where each particle corresponds to a node. We also add a color to each particle, which is related to the category that the particle belongs to. Finally we apply a cluster algorithm using the data from the other file with information about the relationships.
 
 \begin{figure}[h!]
     \centering%
@@ -117,7 +114,7 @@ The following diagram in Figure \ref{fig:create_network} explains in a broad way
     \label{fig:create_network}
 \end{figure}%
 
-Following our bioinformatic network example, in Table \ref{tab:categories-data} and Table \ref{tab:network-data} we show an extract of how the datasets look like. Table \ref{tab:categories-data} has the data about the nodes or genes in this case and the categories to which each node belongs to. These categories are named by colors and these color names will be used by BigNet VR to color each particle of the particle system. Then in Table \ref{tab:network-data} we have the information about the relationships. This dataset can be very extend because each row of the CSV file corresponds to a relationship between 2 nodes or genes in this case and one gene can be connected to many other nodes.
+As for how the content of the CSV files look like, in Table \ref{tab:categories-data} and Table \ref{tab:network-data} we show an extract from these files. CSV\cite{csv} is a common format for Comma-Separated Values files where each record is located on a separate line, delimited by a line break. In addition, each record can contain one or more fields, separated by commas. For this example we will represen the extract using tables, which are more illustrative. Table \ref{tab:categories-data} has an extract with the data from the file with information about the genes and the categories to which each gene belongs to. Here each row is a categorie and it contains all the genes names for that specific caregory. These categories are named by colors and these color names will be used by BigNet VR to color each particle of the particle system. As for the second table, Table \ref{tab:network-data}, it shows an extract with the information about the relationships between the genes. This file can be very extend since each row in the CSV file corresponds to a relationship between two genes and one gene can be related with multiple genes.
 
 \begin{table}[h!]
 \centering
@@ -149,7 +146,9 @@ ACADM  & PPM1B  & 0.103496640767895 & ACADM-PPM1B \\
 \label{tab:network-data}
 \end{table}
 
-\section{Filtering information in the network}
+\section{Other features of the network}
+
+\subsection{Filtering information in the network}
 Another feature that BigNet VR uses to improve the visualization of networks is a filtering menu. When we have huge amounts of data in large networks, it is sometimes necessary to show less or more data. By filtering the nodes we can visualize only the part that we are interesting in.
 
 
@@ -163,5 +162,10 @@ Another feature that BigNet VR uses to improve the visualization of networks is 
 
 We have built a 2 dimensional menu in Unity, see Figure \ref{fig:filtering}, to filter the data in our example network. We use checkboxes for the filtering. From a starting point, all the boxes are checked, and if the user wants to hide a part from the visualization it is done by unchecking the box. To show the filtering menu we need to press on the menu botton from the left controller, see the "2. Filter menu" in Figure \ref{fig:oculus_quest_inputs}. The to check or uncheck the boxes we need to use the A botton from the right controller, named "6. Select item", see Figure \ref{fig:oculus_quest_inputs}.
 
-\section{Switching dataset}
+\subsection{Switching dataset}
 Finally BigNet VR has also the possibility to switch between datasets. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider UI element as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to change the dataset that is being visualized. When we switch the dataset, the filters are also reset to their default state, so all of them will be checked in our example. In our bioinformatic usecase we can switch from the blood dataset to the biopsy one.
+
+\section{Implementation details}
+Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. Unity is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk-what}. Finally, the programming language used in Unity to implement the system is C\#.
+
+\section{Architecture and design}
