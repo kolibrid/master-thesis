@@ -172,14 +172,12 @@ BigNet VR provides some features that help in the process of visualization and i
 \subsection{Filtering information in the network}
 Another feature that BigNet VR uses to improve the visualization of networks is a filtering menu. When we have huge amounts of data in large networks, it is sometimes necessary to show less or more data. By filtering the nodes we can visualize only the part that we are interesting in.
 
-
 \begin{figure}[h!]
     \centering%
     \includegraphics[width=\textwidth]{filtering}
     \caption{Filtering menu in BigNet VR.}
     \label{fig:filtering}
 \end{figure}%
-
 
 We have built a 2 dimensional menu in Unity, see Figure \ref{fig:filtering}, to filter the data in our example network. We use checkboxes for the filtering. From a starting point, all the boxes are checked, and if the user wants to hide a part from the visualization it is done by unchecking the box. To show the filtering menu we need to press on the menu botton from the left controller, see the "2. Filter menu" in Figure \ref{fig:oculus_quest_inputs}. The to check or uncheck the boxes we need to use the A botton from the right controller, named "6. Select item", see Figure \ref{fig:oculus_quest_inputs}.
 
@@ -190,3 +188,10 @@ Finally BigNet VR has also the possibility to switch between datasets. This can 
 Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. It is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk_what}. Finally, the programming language used in Unity to implement the system is C\#.
 
 \section{Architecture and design}
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{architecture_design}
+    \caption{Architecture and design of BigNet VR.}
+    \label{fig:architecture_design}
+\end{figure}%
