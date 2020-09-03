@@ -167,7 +167,7 @@ Showing all the edges at the same time in BigNet VR would make it very hard to v
 The algorithm used to cluster the nodes in the network is another important aspect that can influence in the scalability. In BigNet VR we use a linear algorithm that clusters the nodes in the 3d space depending on the module where they belong too. In this way the user can visualize each module as single clusters with a distinct colour per cluster.
 
 \section{Other features of BigNet VR}
-BigNet VR provides some features that help in the process of visualization and interaction with the network.
+BigNet VR provides some features that help in the process of visualization and interaction with the network. They have a complementary purpose and they don't influence much in the scalability of the system.
 
 \subsection{Filtering information in the network}
 Another feature that BigNet VR uses to improve the visualization of networks is a filtering menu. When we have huge amounts of data in large networks, it is sometimes necessary to show less or more data. By filtering the nodes we can visualize only the part that we are interesting in.
@@ -182,12 +182,14 @@ Another feature that BigNet VR uses to improve the visualization of networks is 
 We have built a 2 dimensional menu in Unity, see Figure \ref{fig:filtering}, to filter the data in our example network. We use checkboxes for the filtering. From a starting point, all the boxes are checked, and if the user wants to hide a part from the visualization it is done by unchecking the box. To show the filtering menu we need to press on the menu botton from the left controller, see the "2. Filter menu" in Figure \ref{fig:oculus_quest_inputs}. The to check or uncheck the boxes we need to use the A botton from the right controller, named "6. Select item", see Figure \ref{fig:oculus_quest_inputs}.
 
 \subsection{Switching dataset}
-Finally BigNet VR has also the possibility to switch between datasets. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider UI element as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to change the dataset that is being visualized. When we switch the dataset, the filters are also reset to their default state, so all of them will be checked in our example. In our bioinformatic usecase we can switch from the blood dataset to the biopsy one.
+Finally BigNet VR has also the possibility to switch between networks. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider UI element as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to switch the dataset that is being visualized. When we switch the dataset, the filters are also reset to their default state, so all of them will be checked. In our example we can switch from the blood network to the biopsy one.
 
 \section{Implementation details}
 Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. It is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk_what}. Finally, the programming language used in Unity to implement the system is C\#.
 
 \section{Architecture and design}
+
+The architecture for BigNet VR is very simple since it is an offline application that runs on an Oculus Quest or on a machine with Unity. As we can see in Figure \ref{fig:architecture_design}, the system is divided in three parts. The main part is the Unity application, or BigNet VR where we process everything like loading the CSV files, creating the network, applying the cluster algorithm to the nodes, interactions using the VR hardware, etc. As for the data, they come from external files and they have to be manually imported into the Unity application, where they will be processed when running BigNet VR. Finally there is the client, which is the Oculus Quest headset where we run the application. Here the user can visualize the network and use the controllers to interact with it. As the figure shows the Oculus Quest can be connected to the PC itself using an Oculus Link which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance\cite{oculus_link}. This allows the user run BigNet VR on the PC. Another possiblity is also load BigNet VR into the Oculus Quest and run it there without any cable or PC.
 
 \begin{figure}[h!]
     \centering%
@@ -195,3 +197,5 @@ Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to bui
     \caption{Architecture and design of BigNet VR.}
     \label{fig:architecture_design}
 \end{figure}%
+
+Todo: Write about the design and technologies used in BigNet VR like Unity, VRTK, etc and discuss why they were used instead of others.
