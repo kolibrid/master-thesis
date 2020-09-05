@@ -194,9 +194,7 @@ Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to bui
     \label{fig:architecture_design}
 \end{figure}%
 
-The architecture for BigNet VR, as we can see in Figure \ref{fig:architecture_design}, is divided in three parts. The main part is the application built in Unity with VRTK and Oculus libraries. Here is where we have all the logic like the network creator and the interaction features such as zooming, node selector, etc. As for the data used in the application, they come from external files and they have to be manually imported; Then they are processed when starting BigNet VR, during the network creation. Finally there is the client, which is the Oculus Quest headset where we run BigNet VR. Here the user can visualize the network and use the controllers to interact with it, using the interaction features that we have created. As the figure shows, the Oculus Quest can be connected to the PC itself using an Oculus Link which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance\cite{oculus_link}. This allows the user run BigNet VR on the PC. Another possiblity is also load BigNet VR into the Oculus Quest and run it in the headset hardware without any cable or PC. We are going to explain now in more detail how each of the elements of BigNet VR were implemented.
-
-The network creator (see Figure \ref{fig:network_creator}) is the component of the application that builds the network from the external data. It processes the data from the CSV files and stores the information in hash maps that can be later be used by the interaction components. During this process of building the network we apply the clustering algorithm.
+The architecture for BigNet VR, as we can see in Figure \ref{fig:architecture_design}, is divided in three parts. The main part is the application built in Unity with VRTK and Oculus libraries. Here is where we have all the logic like the network creator and the interaction features such as zooming, node selector, etc. As for the data used in the application, they come from external files and they have to be manually imported; Then they are processed when starting BigNet VR, during the network creation. Finally there is the client, which is the Oculus Quest headset where we run BigNet VR. Here the user can visualize the network and use the controllers to interact with it, using the interaction features that we have created. As the figure shows, the Oculus Quest can be connected to the PC itself using an Oculus Link which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance\cite{oculus_link}. This allows the user run BigNet VR on the PC. Another possiblity is also load BigNet VR into the Oculus Quest and run it in the headset hardware without any cable or PC. We are going to explain now in more detail how each of the elements of BigNet VR were implemented. In this subsection, the actions that are triggered using the Oculus controllers are specified in Figure \ref{fig:oculus_quest_inputs}.
 
 \begin{figure}[h!]
     \centering%
@@ -205,12 +203,18 @@ The network creator (see Figure \ref{fig:network_creator}) is the component of t
     \label{fig:network_creator}
 \end{figure}%
 
+The network creator (see Figure \ref{fig:network_creator}) is the component of the application that builds the network from the external data. It processes the data from the CSV files and stores the information in hash maps that can be later be used by the interaction components. During this process of building the network we apply the clustering algorithm as well.
+
+For the \textit{zoom in the network} component I wrote a C\# script where I use the Oculus integration in order to communicate with the controllers of the Oculus Quest. The algorithm is run everytime the user enables the action for zooming (see Figure \ref{fig:network_zoom}). What the script does is to find out if the user is stretching or contracting the arms. For this, when the user triggers the action, the system stores the current position of the left and right controllers in the 3D space and calculates the distance between these 2 points. This position is called initial position. Until the user releases the triggers, the system calculates for every frame the current distance between the two controllers and compares it with the initial distance that was stored right before the user triggered the action. If the new distance one is smaller than the initial one, the network will srink; if it is bigger the network will grow up.
+
 \begin{figure}[h!]
     \centering%
     \includegraphics[width=\textwidth]{network_zoom}
     \caption{Algorithm for zooming in the network.}
     \label{fig:network_zoom}
 \end{figure}%
+
+For the \textit{translate the network} component I also wrote a script in C\# and using the Oculus integration. Here we do something similar to the \textit{zoom in the network} component. Right before the action is triggered, the position of the right controller is stored as the initial position. Then while the user is holding the trigger of the right controller, the current position for the controller is calculated at every frame. Then a vector is calculated like (current\_position - initial\_position) and normilized. With this we obtained the direction of the vector where the user is trying to move the network to. Then we just add up that vector with a constant to update the position of the network in the 3D space.
 
 \begin{figure}[h!]
     \centering%
