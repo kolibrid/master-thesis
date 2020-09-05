@@ -187,8 +187,6 @@ Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to bui
 
 \section{Architecture and design}
 
-The architecture for BigNet VR is very simple since it is an offline application that runs on an Oculus Quest or on a machine with Unity. As we can see in Figure \ref{fig:architecture_design}, the system is divided in three parts. The main part is the Unity application, or BigNet VR where we process everything like loading the CSV files, creating the network, applying the cluster algorithm to the nodes, interactions using the VR hardware, etc. As for the data, they come from external files and they have to be manually imported into the Unity application, where they will be processed when running BigNet VR. Finally there is the client, which is the Oculus Quest headset where we run the application. Here the user can visualize the network and use the controllers to interact with it. As the figure shows the Oculus Quest can be connected to the PC itself using an Oculus Link which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance\cite{oculus_link}. This allows the user run BigNet VR on the PC. Another possiblity is also load BigNet VR into the Oculus Quest and run it there without any cable or PC.
-
 \begin{figure}[h!]
     \centering%
     \includegraphics[width=\textwidth]{architecture_design}
@@ -196,4 +194,29 @@ The architecture for BigNet VR is very simple since it is an offline application
     \label{fig:architecture_design}
 \end{figure}%
 
-Todo: Write about the design and technologies used in BigNet VR like Unity, VRTK, etc and discuss why they were used instead of others.
+The architecture for BigNet VR, as we can see in Figure \ref{fig:architecture_design}, is divided in three parts. The main part is the application built in Unity with VRTK and Oculus libraries. Here is where we have all the logic like the network creator and the interaction features such as zooming, node selector, etc. As for the data used in the application, they come from external files and they have to be manually imported; Then they are processed when starting BigNet VR, during the network creation. Finally there is the client, which is the Oculus Quest headset where we run BigNet VR. Here the user can visualize the network and use the controllers to interact with it, using the interaction features that we have created. As the figure shows, the Oculus Quest can be connected to the PC itself using an Oculus Link which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance\cite{oculus_link}. This allows the user run BigNet VR on the PC. Another possiblity is also load BigNet VR into the Oculus Quest and run it in the headset hardware without any cable or PC. We are going to explain now in more detail how each of the elements of BigNet VR were implemented.
+
+The network creator (see Figure \ref{fig:network_creator}) is the component of the application that builds the network from the external data. It processes the data from the CSV files and stores the information in hash maps that can be later be used by the interaction components. During this process of building the network we apply the clustering algorithm.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_creator}
+    \caption{Network creator algorithm.}
+    \label{fig:network_creator}
+\end{figure}%
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_zoom}
+    \caption{Algorithm for zooming in the network.}
+    \label{fig:network_zoom}
+\end{figure}%
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_translator}
+    \caption{Algorithm for translating the network.}
+    \label{fig:network_translator}
+\end{figure}%
+
+\section{Discussion}
