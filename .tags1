@@ -4,4 +4,6 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Virtual Reality Chemical Space	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/related-work.tex	/^I will focuse in this chapter on VR applications found in the literature for the visualization of bioinformatic data.$/;"	section	line:1
+Locomotion	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/bignetvr.tex	/^\\end{figure}%$/;"	subsubsection	line:48
+Scalable network in Unity and data structures	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/bignetvr.tex	/^Finally, our dataset has information about the relationships between the nodes. BigNet VR is implemented to show also this information. Because there can be too many relationships in the dataset, we don't show them all at the same time. Therefore we can only see those of the node that the user has selected. The way that these relationships are represented is with lines between the nodes.$/;"	section	line:100
+Other features of BigNet VR	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/bignetvr.tex	/^The algorithm used to cluster the nodes in the network is another important aspect that can influence in the scalability. In BigNet VR we use a linear algorithm that clusters the nodes in the 3d space depending on the module where they belong too. In this way the user can visualize each module as single clusters with a distinct colour per cluster.$/;"	section	line:165
