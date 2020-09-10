@@ -223,6 +223,22 @@ For the \textit{translate the network} component I also wrote a script in C\# an
     \label{fig:network_translator}
 \end{figure}%
 
+Select node algorithm:
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{select_node}
+    \caption{Algorithm for the selecton of the nodes in the scene.}
+    \label{fig:select_node}
+\end{figure}%
+
+For the node filter component, a UI interface is used in Unity. This interface contains several checboxes that are switched on by default. In addition, each checkbox has attached a function that is run everytime the user switches it off or on. This function receives a a text variable as a parameter that is used for the filtering. When the user switches off the checkbox, the algorithm looks into a hash map that looks like this:
+
+\begin{verbatim}
+private Dictionary<string, string[]> oncoGroups;
+\end{verbatim}
+
+We use the string variable that is passed to the function and that is used to look up the oncoGroups hash map 
+
 \section{Discussion}
 
 \subsection{Unity vs Unreal Engine}

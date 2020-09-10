@@ -128,6 +128,41 @@ To profile the application we used the built-in profiler in Unity, the software 
 \section{Scalability of the network}
 Creating the lines for relationships.
 
+\begin{tikzpicture}
+\begin{axis}[
+    title={Average FPS for node selection},
+    xlabel={Nodes},
+    ylabel={Avg. FPS},
+    xmin=0, xmax=20,
+    ymin=0, ymax=180,
+    xtick={1, 3, 5, 7, 9, 11, 13, 15, 17, 19},
+    ytick={0, 50, 100, 150, 200},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+
+\addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (1, 95.67) (2, 117.8) (3, 132.9) (4, 124.94) (5, 10) (6, 10) (7, 150) (8, 142.47) (9, 157.5) (10, 158.82) (11, 150.63) (12, 143.88) (13, 146.28) (14, 143.68) (15, 131.15) (16, 141.08) (17, 136.04) (18, 140.85)
+    };
+    \legend{Normal size}
+
+\addplot[
+    color=red,
+    mark=square,
+    ]
+    coordinates {
+    (1, 91.88474) (2, 132.5979) (3, 135.9527) (4, 115.7434) (5, 138.0472) (6, 114.8317) (7, 172.1052) (8, 147.2884) (9, 156.4284) (10, 13.20074) (11, 147.9268) (12, 145.9364) (13, 144.896) (14, 131.394) (15, 131.8948) (16, 139.0144) (17, 144.0279) (18, 152.7067)
+    };
+    \legend{Half size}
+
+\end{axis}
+\end{tikzpicture}
+
 \section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
 We estimated to have around 10 participants with knowdledge in bioinformatics to test the application. With this number of participants we could have made some statistics and obtained feedback for future improvement.
