@@ -4,6 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Performance of the system	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/evaluation.tex	/^To profile the application we used the built-in profiler in Unity, the software used for the development. The Unity Profiler gives information about per-fram CPU and GPU performance metrics.$/;"	section	line:124
-Scalability of the network	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/evaluation.tex	/^\\section{Performance of the system}$/;"	section	line:126
-Demo and interview	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/evaluation.tex	/^\\end{tikzpicture}$/;"	section	line:164
+Introduction	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\mainmatter$/;"	chapter	line:54
+BigNet VR	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/introduction}$/;"	chapter	line:57
+Visualizing MIxT in VR	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/bignetvr}$/;"	chapter	line:60
+Related work	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/visualizing-mixt}$/;"	chapter	line:63
+Evaluation and discussion	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/related-work}$/;"	chapter	line:66
+Conclusion and future work	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/evaluation}$/;"	chapter	line:69
