@@ -20,7 +20,7 @@
 % Links
 % Profiler panel
 
-BigNet VR has been built to explore biological networks that contain genetic information from human beings. We have used two  networks from MIxT where we applied several VR techniques to build a visualization system. In this chapter we want to evaluate this system focusing on scalability and performance problems. Since we are visualizing networks with genetic information using VR, we want to know if the system that we built can be used for any size of this type of networks. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. These questions are:
+BigNet VR has been built to explore biological networks that contain genetic information from human beings. We have used two datasets from MIxT where we applied several VR techniques to build a visualization system. In this chapter we want to evaluate this system focusing on scalability and performance problems. Since we are visualizing networks with genetic information using VR, we want to know if the system that we built can be used for any size of this type of network. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. The questions are:
 \begin{enumerate}
   \item For which interactions do we achieve the recommended FPS (72) when scaling the network?
   \item What characteristics of the network influence the scalability?
@@ -36,11 +36,11 @@ Question one is based on the Oculus' performance guidelines\cite{oculus_performa
   \item 50,000-100,000 triangles or vertices per frame.
 \end{itemize}
 
-As for the second question, we want to know what characteristics influence the scalability of the network and the visualization system. Some elements of the network have more impact in the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes, number of lines and number of clusters.
+As for the second question, we want to know what characteristics influence the scalability of the system. Some parts will have more impact in the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes, number of lines and number of clusters.
 
 We will also evaluate the performance of the application being run in the Oculus Quest hardware and also in a PC, using the Oculus Link cable that connects the headset to the machine. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance is good in both the machine and the headset.
 
-Finally, as the last question says, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT network and also an interview.
+Finally, as the last question says, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
 
 \section{Experimentation plan}
 % @TODO Write about the specs of the system being used for the evaluation: the machine, software, etc.
@@ -125,48 +125,98 @@ To profile the application we used the built-in profiler in Unity, the software 
 
 \section{Performance of the system}
 
+
 \section{Scalability of the network}
-Creating the lines for relationships.
+We have run some experiments where we analyse the performance of the system. We decided to analyse the parts of the system that can have more impact in the performance and that are most used by the user when exploring the networks. These are: moving the network, scaling the network and selecting nodes (which includes also the cration of relationships in the scene).
 
-\begin{figure}[h]
-\begin{tikzpicture}
-\begin{axis}[
-    title={Average FPS per node selection},
-    xlabel={Node ID},
-    ylabel={Avg. FPS},
-    xmin=0, xmax=20,
-    ymin=0, ymax=180,
-    xtick={1, 3, 5, 7, 9, 11, 13, 15, 17, 19},
-    ytick={0, 50, 100, 150, 200},
-    legend pos=south east,
-    ymajorgrids=true,
-    grid style=dashed,
-]
+In the experiments we will use the profiler from Unity, where we can see a frame chart that contains information about performance data over time on a frame-by-frame basis\footnote{https://docs.unity3d.com/Manual/ProfilerWindow.html}. We will create three tables, one for each experiment. We will run each experiment for three variations of the blood dataset from MIxT. One with a third of the nodes, one with half of the nodes and the final one with all the nodes from the original dataset. We will also remove the relationships for the nodes that doesn't exist anymore from the reduced datasets. It is hard to create a dataset with more nodes because then we would have to add them randomnly.
 
-\addplot[
-    color=blue,
-    mark=square,
-    ]
-    coordinates {
-    (1, 95.67) (2, 117.8) (3, 132.9) (4, 124.94) (5, 10) (6, 10) (7, 150) (8, 142.47) (9, 157.5) (10, 158.82) (11, 150.63) (12, 143.88) (13, 146.28) (14, 143.68) (15, 131.15) (16, 141.08) (17, 136.04) (18, 140.85)
-    };
-    \addlegendentry{Original size}
+For this experiments we can show 3 screenshots from the Unity profiler, one for each network size. We can also show 3 tables (or maybe a graph bar?) and show the
 
-\addplot[
-    color=red,
-    mark=square,
-    ]
-    coordinates {
-    (1, 91.88474) (2, 132.5979) (3, 135.9527) (4, 115.7434) (5, 138.0472) (6, 114.8317) (7, 172.1052) (8, 147.2884) (9, 156.4284) (10, 13.20074) (11, 147.9268) (12, 145.9364) (13, 144.896) (14, 131.394) (15, 131.8948) (16, 139.0144) (17, 144.0279) (18, 152.7067)
-    };
-    \addlegendentry{Half size}
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Experiment: moving the network} \\
+Number of nodes   & 0.25\% average low \\
+size\/3 \& sth
+size\/2 \& sth
+size & sth
+\end{tabular}
+\caption{Experiment: moving the network.}
+\label{tab:experiment_moving}
+\end{table}
 
-\end{axis}
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Experiment: scale the network} \\
+Number of nodes   & 0.25\% average low \\
+size\/3 \& sth
+size\/2 \& sth
+size & sth
+\end{tabular}
+\caption{Experiment: scale the network.}
+\label{tab:experiment_scale}
+\end{table}
 
-\end{tikzpicture}
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Experiment: select node} \\
+Number of nodes   & 0.25\% average low \\
+size\/3 \& sth
+size\/2 \& sth
+size & sth
+\end{tabular}
+\caption{Experiment: select node and draw lines.}
+\label{tab:experiment_select}
+\end{table}
 
-\caption{Data showing the scalability.}
-\end{figure}
+Once we see that the selecion of the nodes (including drawing the lines) has more impact in the performance and that it can create bottlenecks, we can evaluate the scalability of the line drawing. For this I can create an experiment where I measure the time that it takes to draw the lines for 20 nodes. I can do three versions of this experiment where I scale the number of relationships by 2 and 3 times. I can also show the number of lines that are drawn for each node.
+
+I can create a linear graph for this, like the one I showed.
+
+% Old graph
+%
+% \begin{figure}[h]
+% \begin{tikzpicture}
+% \begin{axis}[
+%     title={Average FPS per node selection},
+%     xlabel={Node ID},
+%     ylabel={Avg. FPS},
+%     xmin=0, xmax=20,
+%     ymin=0, ymax=180,
+%     xtick={2, 4, 6, 8, 10, 12, 14, 16, 18, 20},
+%     ytick={0, 50, 100, 150, 200},
+%     legend pos=south east,
+%     ymajorgrids=true,
+%     grid style=dashed,
+% ]
+%
+% \addplot[
+%     color=blue,
+%     mark=square,
+%     ]
+%     coordinates {
+%      (1, 86.98678) (2, 127.9083) (3, 118.3348) (4, 114.2518) (5, 129.0339) (6, 110.1637) (7, 136.7278) (8, 148.6127) (9, 131.5426) (10, 136.0563) (11, 157.1314) (12, 160.0461) (13, 137.9729) (14, 128.7614) (15, 139.3922) (16, 138.1177) (17, 132.5768) (18, 157.25) (19, 109.0917) (20, 146.761)
+%     };
+%     \addlegendentry{Original size}
+%
+% \addplot[
+%     color=red,
+%     mark=square,
+%     ]
+%     coordinates {
+%      (1, 87.14521) (2, 103.5218) (3, 119.0831) (4, 127.0019) (5, 121.6989) (6, 10) (7, 150.0758) (8, 118.0902) (9, 147.074) (10, 140.6292) (11, 133.9567) (12, 144.7911) (13, 133.8688) (14, 143.0063) (15, 162.0063) (16, 137.2307) (17, 133.7041) (18, 141.3927) (19, 139.1343) (20, 128.9624)
+%     };
+%     \addlegendentry{Half size}
+%
+% \end{axis}
+%
+% \end{tikzpicture}
+%
+% \caption{Data showing the scalability.}
+% \end{figure}
 
 \section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
@@ -176,76 +226,78 @@ The following questionnaire is divided in four sections; a general section about
 
 To complete the questionnaire, the teste has to indicate the level of agreement or disagreement with each of the  statements, mark yes or no when it is asked and in the feedback section reply the questions with constructive feedback if possible.\\
 
-Questionnaire section 1: VR headsets.
-\begin{enumerate}
-  \item Have you ever used a VR headset before?\\
-  Yes / No
+% TODO Interview questions
 
-  \item Have you ever used a Oculus Quest headset before?\\
-  Yes / No
-
-  \item I feel comfortable using a VR headset.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable using the Oculus Quest headset.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
-\end{enumerate}
-
-Questionnaire section 2: Comfortability exploring a biological network with BigNet VR.
-\begin{enumerate}
-  \item I feel comfortable moving around the virtual environment using the teleport functionality.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable rotating to any direction.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable visualizing the network by moving my head.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable selecting the nodes to visualize the relationships.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable moving the network to the position that I want.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable scaling the network.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I feel comfortable using the UI menu to filter the data from the network.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
-\end{enumerate}
-
-Questionnaire section 3: Performing different actions in BigNet VR to explore the biological network.
-\begin{enumerate}
-  \item It is intuitive to manipulate the network using the controllers.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item The different actions in the controllers are easy to learn and remember.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I can move the network to any position that I want.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I can scale the network to any size that I want.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I can select any node that I want.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I can easily visualize the relationships of any node.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
-
-  \item I can easily filter the data by using the UI menu.\\
-  Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
-\end{enumerate}
-
-Questionnaire section 4: Feedback.
-\begin{enumerate}
-  \item Did you experience any difficulties exploring the biological network? If so, indicate which ones.\\
-  Yes / No
-
-  \item Is there anything that could be improved for the visualization of biological data in BigNet VR? If so, write your suggestions.\\
-  Yes / No
-
-  \item Write any feedback and comments that you have about the exploration of biological networks with BigNet VR.
-\end{enumerate}
+% Questionnaire section 1: VR headsets.
+% \begin{enumerate}
+%   \item Have you ever used a VR headset before?\\
+%   Yes / No
+%
+%   \item Have you ever used a Oculus Quest headset before?\\
+%   Yes / No
+%
+%   \item I feel comfortable using a VR headset.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable using the Oculus Quest headset.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+% \end{enumerate}
+%
+% Questionnaire section 2: Comfortability exploring a biological network with BigNet VR.
+% \begin{enumerate}
+%   \item I feel comfortable moving around the virtual environment using the teleport functionality.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable rotating to any direction.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable visualizing the network by moving my head.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable selecting the nodes to visualize the relationships.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable moving the network to the position that I want.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable scaling the network.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I feel comfortable using the UI menu to filter the data from the network.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+% \end{enumerate}
+%
+% Questionnaire section 3: Performing different actions in BigNet VR to explore the biological network.
+% \begin{enumerate}
+%   \item It is intuitive to manipulate the network using the controllers.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item The different actions in the controllers are easy to learn and remember.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I can move the network to any position that I want.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I can scale the network to any size that I want.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I can select any node that I want.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I can easily visualize the relationships of any node.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree
+%
+%   \item I can easily filter the data by using the UI menu.\\
+%   Strongly agree / Agree / Neutral / Disagree / Strongly Disagree\\
+% \end{enumerate}
+%
+% Questionnaire section 4: Feedback.
+% \begin{enumerate}
+%   \item Did you experience any difficulties exploring the biological network? If so, indicate which ones.\\
+%   Yes / No
+%
+%   \item Is there anything that could be improved for the visualization of biological data in BigNet VR? If so, write your suggestions.\\
+%   Yes / No
+%
+%   \item Write any feedback and comments that you have about the exploration of biological networks with BigNet VR.
+% \end{enumerate}
