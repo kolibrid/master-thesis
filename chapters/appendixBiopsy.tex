@@ -1,0 +1,16 @@
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}
+    [ xlabel=Number of edges,
+    ylabel=Number of nodes,
+    xmin=0,xmax=4300,
+    ymin=0,ymax=70,
+    ]
+    \addplot[scatter, only marks] file{data/biopsyScatter.dat};
+    \end{axis}
+
+    \end{tikzpicture}
+\caption{Scatter plot showing a distribution of the number of edges in the biopsy dataset.}
+\label{fig:edges_nodes_biopsy}
+\end{figure}
