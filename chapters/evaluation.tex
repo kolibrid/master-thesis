@@ -135,11 +135,16 @@ In the first set of experiments, we are going to use the profiler from Unity, wh
 
 As for how I will run the experiments, I want to create a script for each action. I want to create a script that moves the network, another script that scales up and down the network and a third one that selects a few nodes. We can select the 100 first frames an run the calculations for the percentages. This can be a tedious task if I have to do it manually, it would be better if I can do it programmatically (which I haven't seen a solution for so far).
 
+I run the experiments three times and calculate the average. For translate and scale experiments I calculate the time frame for a range of 1000 frames, from frame 501 to frame 1500 inclusive.
+
+% Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
+% Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{lll}
 \multicolumn{2}{c}{Experiment: moving the network} \\
-Number of nodes & 0.25\% average low (ms) & 0.1\% average low (ms) \\
+Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
 size/3 & 11.59 & sth \\
 size/2 & sth & sth \\
 size & sth & sth \\
@@ -152,7 +157,7 @@ size & sth & sth \\
 \centering
 \begin{tabular}{lll}
 \multicolumn{2}{c}{Experiment: scale the network} \\
-Number of nodes & 0.25\% average low (ms) & 0.25\% average low (ms)  \\
+Number of nodes & 1\% average low (ms) & 0.25\% average low (ms)  \\
 size/3 & 11.76 & sth \\
 size/2 & sth & sth \\
 size & sth & sth \\
@@ -189,7 +194,7 @@ The nodes are: TGFBR3 (10), EPSTI1(110), SMNDC1(900), HNRNPH3(2900), ANGEL2(5860
 \centering
 \begin{tabular}{lll}
 \multicolumn{2}{c}{Experiment: select node} \\
-Number of nodes & 0.25\% average low (ms) & 0.25\% average low (ms) \\
+Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
 size/3 & 17.64 & sth \\
 size/2 & sth & sth \\
 size & sth & sth \\
@@ -204,48 +209,89 @@ Once we see that the selecion of the nodes (including drawing the lines) has mor
 
 I can create a linear graph for this, like the one I showed (See Figure \ref{fig:graph_scalability}). I would also like to show the number of lines that each node renders. Maybe I can show this in the x axis. Any suggestion?
 
-Example graph:
-\begin{figure}[h]
-\begin{tikzpicture}
-\begin{axis}[
-    title={Time frame per node},
-    ylabel={Time frame in milliseconds},
-    xmin=1, xmax=15,
-    ymin=0, ymax=180,
-    xticklabel style={rotate=45},
-    xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
-    xticklabels={CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20)},
-    ytick={0, 50, 100, 150, 200},
-    legend pos=south east,
-    ymajorgrids=true,
-    grid style=dashed,
-]
-
-\addplot[
-    color=blue,
-    mark=square,
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.7\textwidth}
+  \begin{tikzpicture}
+    \begin{axis}
+    [ xlabel=Number of edges,
+    ylabel=Time (ms),
+    xmin=0,xmax=16100,
+    ymin=0,ymax=100,
     ]
-    coordinates {
-     (1, 86.98678) (2, 127.9083) (3, 118.3348) (4, 114.2518) (5, 129.0339) (6, 110.1637) (7, 136.7278) (8, 148.6127) (9, 131.5426) (10, 136.0563) (11, 157.1314) (12, 160.0461) (13, 137.9729) (14, 128.7614) (15, 139.3922)
-    };
-    \addlegendentry{Original size}
+    \addplot[scatter,only marks] file{data/scalabilityBlood.dat};
+    \end{axis}
 
-\addplot[
-    color=red,
-    mark=square,
-    ]
-    coordinates {
-     (1, 87.14521) (2, 103.5218) (3, 119.0831) (4, 127.0019) (5, 121.6989) (6, 10) (7, 150.0758) (8, 118.0902) (9, 147.074) (10, 140.6292) (11, 133.9567) (12, 144.7911) (13, 133.8688) (14, 143.0063) (15, 162.0063)
-    };
-    \addlegendentry{Size x2}
-
-\end{axis}
-
-\end{tikzpicture}
-
-\caption{Data showing the scalability.}
-\label{fig:graph_scalability}
+    \end{tikzpicture}
+  \end{minipage}
+\caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the blood dataset.}
+\label{fig:scalability_edges_blood}
 \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.7\textwidth}
+  \begin{tikzpicture}
+    \begin{axis}
+    [ xlabel=Number of edges,
+    ylabel=Time (ms),
+    xmin=0,xmax=4300,
+    ymin=0,ymax=100,
+    ]
+    \addplot[scatter,only marks] file{data/scalabilityBiopsy.dat};
+    \end{axis}
+
+    \end{tikzpicture}
+  \end{minipage}
+\caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the biopsy dataset.}
+\label{fig:scalability_edges_biopsy}
+\end{figure}
+
+% Example graph:
+% \begin{figure}[h]
+% \begin{tikzpicture}
+% \begin{axis}[
+%     title={Time frame per node},
+%     ylabel={Time frame in milliseconds},
+%     xmin=1, xmax=15,
+%     ymin=0, ymax=180,
+%     xticklabel style={rotate=45},
+%     xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
+%     xticklabels={CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20),PRDX6(80),CAPZB(20)},
+%     ytick={0, 50, 100, 150, 200},
+%     legend pos=south east,
+%     ymajorgrids=true,
+%     grid style=dashed,
+% ]
+%
+% \addplot[
+%     color=blue,
+%     mark=square,
+%     ]
+%     coordinates {
+%      (1, 86.98678) (2, 127.9083) (3, 118.3348) (4, 114.2518) (5, 129.0339) (6, 110.1637) (7, 136.7278) (8, 148.6127) (9, 131.5426) (10, 136.0563) (11, 157.1314) (12, 160.0461) (13, 137.9729) (14, 128.7614) (15, 139.3922)
+%     };
+%     \addlegendentry{Original size}
+%
+% \addplot[
+%     color=red,
+%     mark=square,
+%     ]
+%     coordinates {
+%      (1, 87.14521) (2, 103.5218) (3, 119.0831) (4, 127.0019) (5, 121.6989) (6, 10) (7, 150.0758) (8, 118.0902) (9, 147.074) (10, 140.6292) (11, 133.9567) (12, 144.7911) (13, 133.8688) (14, 143.0063) (15, 162.0063)
+%     };
+%     \addlegendentry{Size x2}
+%
+% \end{axis}
+%
+% \end{tikzpicture}
+%
+% \caption{Data showing the scalability.}
+% \label{fig:graph_scalability}
+% \end{figure}
+
+\section{Oculus Quest vs Computer}
+Create an experiment where serveral actions are run at the same time: translate, scale and select nodes. Capture the average low for several nodes.
 
 \section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
