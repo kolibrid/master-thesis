@@ -145,9 +145,9 @@ I run the experiments three times and calculate the average. For translate and s
 \begin{tabular}{lll}
 \multicolumn{2}{c}{Experiment: moving the network} \\
 Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
-size/3 & 11.59 & sth \\
+size/3 & sth & sth \\
 size/2 & sth & sth \\
-size & sth & sth \\
+size & 8.442 & 14.774 \\
 \end{tabular}
 \caption{Experiment: moving the network.}
 \label{tab:experiment_moving}
@@ -160,7 +160,7 @@ size & sth & sth \\
 Number of nodes & 1\% average low (ms) & 0.25\% average low (ms)  \\
 size/3 & 11.76 & sth \\
 size/2 & sth & sth \\
-size & sth & sth \\
+size & 8.721 & 15.122 \\
 \end{tabular}
 \caption{Experiment: scale the network.}
 \label{tab:experiment_scale}
@@ -195,9 +195,9 @@ The nodes are: TGFBR3 (10), EPSTI1(110), SMNDC1(900), HNRNPH3(2900), ANGEL2(5860
 \begin{tabular}{lll}
 \multicolumn{2}{c}{Experiment: select node} \\
 Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
-size/3 & 17.64 & sth \\
+size/3 & sth & sth \\
 size/2 & sth & sth \\
-size & sth & sth \\
+size & 19.235 & 34.924 \\
 \end{tabular}
 \caption{Experiment: select node and draw lines.}
 \label{tab:experiment_select}
@@ -245,6 +245,14 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
   \end{minipage}
 \caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the biopsy dataset.}
 \label{fig:scalability_edges_biopsy}
+\end{figure}
+
+\begin{figure}[h!]
+    \setlength{\tempheight}{15ex}
+    \centering
+    \includegraphics[width=\textwidth]{setParent}
+    \caption{Bottleneck when setting the LineRender object as a child of the network.}
+    \label{fig:bignet_vr}
 \end{figure}
 
 % Example graph:
