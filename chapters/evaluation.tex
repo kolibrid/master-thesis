@@ -301,6 +301,25 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
 \section{Oculus Quest vs Computer}
 Create an experiment where serveral actions are run at the same time: translate, scale and select nodes. Capture the average low for several nodes.
 
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.7\textwidth}
+  \begin{tikzpicture}
+    \begin{axis}
+    [ xlabel=Frame number,
+    ylabel=Time (ms),
+    xmin=301,xmax=360,
+    ymin=0,ymax=100,
+    ]
+    \addplot[color=blue] file{data/pc.dat};
+    \end{axis}
+
+    \end{tikzpicture}
+  \end{minipage}
+\caption{Performance running the application in a machine vs on Oculus Quest.}
+\label{fig:pc_vs_oculus}
+\end{figure}
+
 \section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test BigNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
 We estimated to have around 10 participants with knowdledge in bioinformatics to test the application. With this number of participants we could have made some statistics and obtained feedback for future improvement.
