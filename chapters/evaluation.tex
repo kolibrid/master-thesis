@@ -140,29 +140,29 @@ I run the experiments three times and calculate the average. For translate and s
 % Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
 
+700 frames in total for all the experiments.
+
 \begin{table}[h!]
 \centering
-\begin{tabular}{lll}
-\multicolumn{2}{c}{Experiment: moving the network} \\
-Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
-size/3 & sth & sth \\
-size/2 & sth & sth \\
-size & 8.442 & 14.774 \\
+\begin{tabular}{llll}
+Dataset size & 1\% average low & 0.25\% average low & Average \\
+size & 9.16 & 12.531 & 7.205 \\
+size/2 & 8.625 & 11.094 & 7.215 \\
+size/3 & 8.767 & 11.619 & 7.068 \\
 \end{tabular}
-\caption{Experiment: moving the network.}
+\caption{Performance of translate the network.}
 \label{tab:experiment_moving}
 \end{table}
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{lll}
-\multicolumn{2}{c}{Experiment: scale the network} \\
-Number of nodes & 1\% average low (ms) & 0.25\% average low (ms)  \\
-size/3 & 11.76 & sth \\
-size/2 & sth & sth \\
-size & 8.721 & 15.122 \\
+\begin{tabular}{llll}
+Dataset size & 1\% average low & 0.25\% average low & Average \\
+size & 9.195 & 11.955 & 7.263 \\
+size/2 & 8.856 & 11.608 & 7.125 \\
+size/3 & 8.933 & 11.8 & 7.112 \\
 \end{tabular}
-\caption{Experiment: scale the network.}
+\caption{Performance of scale the network.}
 \label{tab:experiment_scale}
 \end{table}
 
@@ -181,7 +181,7 @@ The nodes are: TGFBR3 (10), EPSTI1(110), SMNDC1(900), HNRNPH3(2900), ANGEL2(5860
     xmin=0,xmax=16100,
     ymin=0,ymax=240,
     ]
-    \addplot[scatter, only marks] file{data/bloodScatter.dat};
+    \addplot[color=blue, only marks] file{data/bloodEdges.dat};
     \end{axis}
 
     \end{tikzpicture}
@@ -192,14 +192,13 @@ The nodes are: TGFBR3 (10), EPSTI1(110), SMNDC1(900), HNRNPH3(2900), ANGEL2(5860
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{lll}
-\multicolumn{2}{c}{Experiment: select node} \\
-Number of nodes & 1\% average low (ms) & 0.25\% average low (ms) \\
-size/3 & sth & sth \\
-size/2 & sth & sth \\
-size & 19.235 & 34.924 \\
+\begin{tabular}{llll}
+Dataset size & 1\% average low & 0.25\% average low & Average \\
+size & 16.911 & 35.822 & 9.113 \\
+size/2 & 15.594 & 33.333 & 8.647 \\
+size/3 & 14.266 & 29.82 & 8.388 \\
 \end{tabular}
-\caption{Experiment: select node and draw lines.}
+\caption{Performance of select node.}
 \label{tab:experiment_select}
 \end{table}
 
@@ -211,15 +210,15 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
 
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{.7\textwidth}
+  \begin{minipage}{.8\textwidth}
   \begin{tikzpicture}
     \begin{axis}
     [ xlabel=Number of edges,
     ylabel=Time (ms),
-    xmin=0,xmax=16100,
+    xmin=0,xmax=1610,
     ymin=0,ymax=100,
     ]
-    \addplot[scatter,only marks] file{data/scalabilityBlood.dat};
+    \addplot[only marks,color=blue] file{data/scalabilityBlood.dat};
     \end{axis}
 
     \end{tikzpicture}
@@ -230,29 +229,21 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
 
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{.7\textwidth}
+  \begin{minipage}{.8\textwidth}
   \begin{tikzpicture}
     \begin{axis}
     [ xlabel=Number of edges,
     ylabel=Time (ms),
-    xmin=0,xmax=4300,
+    xmin=0,xmax=430,
     ymin=0,ymax=100,
     ]
-    \addplot[scatter,only marks] file{data/scalabilityBiopsy.dat};
+    \addplot[only marks,color=blue] file{data/scalabilityBiopsy.dat};
     \end{axis}
 
     \end{tikzpicture}
   \end{minipage}
 \caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the biopsy dataset.}
 \label{fig:scalability_edges_biopsy}
-\end{figure}
-
-\begin{figure}[h!]
-    \setlength{\tempheight}{15ex}
-    \centering
-    \includegraphics[width=\textwidth]{setParent}
-    \caption{Bottleneck when setting the LineRender object as a child of the network.}
-    \label{fig:bignet_vr}
 \end{figure}
 
 % Example graph:
