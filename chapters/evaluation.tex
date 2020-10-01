@@ -294,15 +294,19 @@ Create an experiment where serveral actions are run at the same time: translate,
 
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{.7\textwidth}
+  \begin{minipage}{.8\textwidth}
   \begin{tikzpicture}
     \begin{axis}
     [ xlabel=Frame number,
     ylabel=Time (ms),
     xmin=301,xmax=360,
     ymin=0,ymax=100,
+    legend pos=north west,
     ]
     \addplot[color=blue] file{data/pc.dat};
+    \addlegendentry{PC}
+    \addplot[color=red] file{data/headset.dat};
+    \addlegendentry{Oculus Quest}
     \end{axis}
 
     \end{tikzpicture}
