@@ -166,19 +166,19 @@ size/3 & 8.933 & 11.8 & 7.112 \\
 \label{tab:experiment_scale}
 \end{table}
 
-The blood dataset has a total of 2693 nodes. Each node can have between 10 and thousands of edges with other nodes. The node with the name ARGLU1 has the highest number of edges, a total of 16070. In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 200 edges. But a few ones have several thousands. We have selected a few nodes for the experiments that cover nodes with lower number of edges to higher number of edges.
-The nodes are: TGFBR3 (10), EPSTI1(110), SMNDC1(900), HNRNPH3(2900), ANGEL2(5860), FOPNL(11450), ACTR6(7560), ARGLU1(16070).
+The blood dataset has a total of 2693 nodes. Each node can have between 10 and thousands of edges with other nodes. The node with the name ARGLU1 has the highest number of edges, a total of 1607. In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 200 edges. But a few ones have several thousands. We have selected a few nodes for the experiments that cover nodes with lower number of edges to higher number of edges.
+The nodes are: TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), FOPNL(1145), ARGLU1(1607).
 
 % Example scatter plot https://timodenk.com/blog/latex-plot-snippets/screen-shot-2017-02-18-at-15-10-07/
 % https://tex.stackexchange.com/questions/390161/drawing-3d-points-from-external-file
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{.7\textwidth}
+  \begin{minipage}{.8\textwidth}
   \begin{tikzpicture}
     \begin{axis}
     [ xlabel=Number of edges,
     ylabel=Number of nodes,
-    xmin=0,xmax=16100,
+    xmin=0,xmax=1610,
     ymin=0,ymax=240,
     ]
     \addplot[color=blue, only marks] file{data/bloodEdges.dat};
