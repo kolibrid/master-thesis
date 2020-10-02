@@ -180,7 +180,43 @@ Another feature that GeneNet VR uses to improve the visualization of networks is
 We have built a 2 dimensional menu in Unity, see Figure \ref{fig:filtering}, to filter the data in our example network. We use checkboxes for the filtering. From a starting point, all the boxes are checked, and if the user wants to hide a part from the visualization it is done by unchecking the box. To show the filtering menu we need to press on the menu botton from the left controller, see the "2. Filter menu" in Figure \ref{fig:oculus_quest_inputs}. The to check or uncheck the boxes we need to use the A botton from the right controller, named "6. Select item", see Figure \ref{fig:oculus_quest_inputs}.
 
 \subsection{Network morphing}
-Finally GeneNet VR has also the possibility to switch between networks. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider UI element as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to switch the dataset that is being visualized. When we switch the dataset, the filters are also reset to their default state, so all of them will be checked. In our example we can switch from the blood network to the biopsy one.
+GeneNet VR has also the possibility to morph from one network to another. This can be done in the filtering menu by pressing the menu button from the left controller and there we can see a slider as in Figure \ref{fig:filtering} which we can move to the right or to the left in order to morph the network. In Figure \ref{fig:morphing} we can see an example of how the network morphes.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{\textwidth}
+      \begin{subfigure}[t]{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{morphBlood}
+          \caption{Slider set on the left extreme. It shows only the blood dataset.}
+          \label{fig:morphBlood}
+      \end{subfigure}
+      \begin{subfigure}[t]{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{morph1}
+          \caption{Slider set closer to the blood dataset. The biopsy dataset is more faded.}
+          \label{fig:morph1}
+      \end{subfigure}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+      \begin{subfigure}[t]{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{morph2}
+          \caption{Slider set closer to the biopsy dataset. The blood dataset is more faded.}
+          \label{fig:morph2}
+      \end{subfigure}
+      \begin{subfigure}[t]{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{morphBiopsy}
+          \caption{Slider set on the right extreme. It shows only the biopsy dataset.}
+          \label{fig:morphbiopsy}
+      \end{subfigure}
+    \end{subfigure}
+
+    \caption{Network morphing from the blood dataset to the biopsy dataset.}
+    \label{fig:morphing}
+\end{figure}
 
 \section{Implementation details}
 Unity (version 2018.4.10f1\cite{unity2018}) is the software that was used to build the system. It is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers\cite{developing_vr_unity}. Even though it is intuitive to use, it also has a low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built integrations for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity\cite{oculus_unity_integration}. In addition we have used VRTK, a collection of ascripts and assets that help build VR solutions\cite{vrtk_what}. Finally, the programming language used in Unity to implement the system is C\#.
@@ -229,6 +265,14 @@ Select node algorithm:
     \includegraphics[width=\textwidth]{select_node}
     \caption{Algorithm for the selecton of the nodes in the scene.}
     \label{fig:select_node}
+\end{figure}%
+
+Network morph algorithm:
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_morph}
+    \caption{Algorithm for the network morph.}
+    \label{fig:network_morph}
 \end{figure}%
 
 For the node filter component, a UI interface is used in Unity. This interface contains several checboxes that are switched on by default. In addition, each checkbox has attached a function that is run everytime the user switches it off or on. This function receives a a text variable as a parameter that is used for the filtering. When the user switches off the checkbox, the algorithm looks into a hash map that looks like this:
