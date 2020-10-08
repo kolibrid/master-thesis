@@ -16,6 +16,13 @@ clean:  ## Clean output files
 bib:
 	bibtex ${FILNAME}
 
+textidote:   
+	## textidote report
+	java -jar textidote.jar --output html main.tex > report.html
+spell:
+	## textidote spell checking
+	java -jar textidote.jar --check en --dict dico.txt main.tex
+
 watch:  ## Recompile on updates to the source file
 	@while [ 1 ]; do; inotifywait $(PAPER); sleep 0.01; make all; done
 	# for Bash users, replace the while loop with the following

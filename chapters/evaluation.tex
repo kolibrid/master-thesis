@@ -20,11 +20,11 @@
 % Links
 % Profiler panel
 
-GeneNet VR has been built to explore biological networks that contain genetic information from human beings. We have used two datasets from MIxT where we applied several VR techniques to build a visualization system. In this chapter we want to evaluate this system focusing on scalability and performance problems. Since we are visualizing networks with genetic information using VR, we want to know if the system that we built can be used for any size of this type of network. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. The questions are:
+GeneNet VR has been developed to explore biological networks that contain genetic information. For this project, we have used two datasets from MIxT\cite{dumeaux_fjukstad_interactions_tumor_blood} where we applied several VR techniques to build a visualization system. In this chapter we want to evaluate GeneNet VR, focusing on its scalability and its performance. Since we are visualizing networks with genetic information using VR, we want to know if the system that we built can be used for larger sizes of this type of datasets. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. The questions are:
 \begin{enumerate}
   \item For which interactions do we achieve the recommended FPS (72) when scaling the network?
   \item What characteristics of the network influence the scalability?
-  \item What is the performance by using Oculus Link and the performance using just the Quest hardware?
+  \item What is the performance by using a PC with Oculus Link and the performance using just the Quest hardware?
   % \item Bonus: how will “beautifications” influence scalability?
   \item How do users perceive the interaction of the network?
 \end{enumerate}
@@ -36,9 +36,9 @@ Question one is based on the Oculus' performance guidelines\cite{oculus_performa
   \item 50,000-100,000 triangles or vertices per frame.
 \end{itemize}
 
-As for the second question, we want to know what characteristics influence the scalability of the system. Some parts will have more impact in the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes, number of lines and number of clusters.
+As for the second question, we want to know what characteristics influence the scalability of the system. Some parts of the application will have more impact in the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes and number of lines.
 
-We will also evaluate the performance of the application being run in the Oculus Quest hardware and also in a PC, using the Oculus Link cable that connects the headset to the machine. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance is good in both the machine and the headset.
+We will also evaluate the performance of the application being run in the Oculus Quest hardware and also in a PC, using USB C cable that connects the headset with the machine. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance in the Oculus Headset is good enough for the visualization of MIxT.
 
 Finally, as the last question says, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
 
@@ -114,11 +114,9 @@ Memory & 4GB total
 \label{tab:oculus-specs}
 \end{table}
 
-The experiments were run in Unity, the same software that was used for the development. The version of Unity used for the expriments is 2018.4.10f1. Also Vulkan is used as the graphic API.
+The experiments were run in Unity, the same software that was used for the development. The version of Unity used for the expriments is 2018.4.10f1. Also OpenGL is used as the graphic API.
 
 % @TODO Write about how scalability was tested.
-A test scene was built in order to test the network and the scalability of it. A random network is built and we test how comfortable it is to navigate through it. This is measured by the FPS rate.
-
 VR profiling is a technique used to get an overview of the performance of our application. This is usually done in order to find bottlenecks so that we can eliminate them and improve the application's performance.
 
 To profile the application we used the built-in profiler in Unity, the software used for the development. The Unity Profiler gives information about per-fram CPU and GPU performance metrics.

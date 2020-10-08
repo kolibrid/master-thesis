@@ -271,3 +271,8 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+# Others
+textidote.jar
+*.html
+dico.txt
