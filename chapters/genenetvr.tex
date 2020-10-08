@@ -75,7 +75,7 @@ By teleporting to different places in the environment, we allow the user visuali
     \label{fig:translation}
 \end{figure}%
 
-To translate the network in GeneNet VR, the user needs to press on the hand trigger from the right controller (see “3. Translate network” in Figure \ref{fig:oculus_quest_inputs}). Then the user needs to keep holding this trigger down and move the hand to the direction to which we want the network to move to. This intuitive approach feels like we are just pulling from a rope tied to the network and we just move it to the direction we want.
+To translate the network in GeneNet VR, the user needs to press on the hand trigger from the right controller (see “3. Translate network” in Figure \ref{fig:oculus_quest_inputs}). Then the user needs to keep holding this trigger down and move the hand to the direction to which we want the network to move to (see Figure \ref{fig:translation}). This intuitive approach feels like we are just pulling from a rope tied to the network and we just move it to the direction we want.
 
 
 \subsection{Zooming in the network}
@@ -254,7 +254,7 @@ For the \textit{zoom in the network} component I wrote a C\# script where I use 
     \label{fig:network_zoom}
 \end{figure}%
 
-The \textit{translate the network} component consists is implemented in C\# as well. Here we do something similar to the \textit{zoom in the network} component. When the action for the translation of the network is triggered, the position of the right controller is stored as the initial position. Then, while the user is holding the trigger of the right controller, the current position for the controller is calculated for every frame. A vector is calculated like (current\_position - initial\_position) and normalized. With this we obtained the direction of the vector where the user is trying to move the network to. We add up that vector with a constant to update the position of the network in the 3D space.
+The \textit{translate the network} component consists is implemented in C\# as well (see Figure \ref{fig:network_translator}). Here we do something similar to the \textit{zoom in the network} component. When the action for the translation of the network is triggered, the position of the right controller is stored as the initial position. Then, while the user is holding the trigger of the right controller, the current position for the controller is calculated for every frame. A vector is calculated like (current\_position - initial\_position) and normalized. With this we obtained the direction of the vector where the user is trying to move the network to. We add up that vector with a constant to update the position of the network in the 3D space.
 
 \begin{figure}[h!]
     \centering%
