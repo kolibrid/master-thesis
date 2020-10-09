@@ -126,7 +126,7 @@ We ran all the experiments on the PC and we used the blood dataset from MIxT. We
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
 
 \subsection{Performance when translating the network}
-In this experiment we evaluate the performance when translating the network. To translate the network around in the scene we use a sine function in the y axis and a constant function in the z axis. For everyframe we update the position of the network creating a wave motion in the z axis direction. We obtain the delta time for every frame during a total of 700 frames (starting from frame number 501 until frame 1200). In Table \ref{tab:experiment_moving} we can see the results obtained in the experiment for all the network sizes and with the averages.
+In this experiment, we evaluate the performance when translating the network. To translate the network around in the scene, we have used a sine function in the y axis and a constant function in the z axis. For every frame we update the y and z position of the network object, creating a wave motion. We obtain the delta time for every frame during a total of 700 frames (starting from frame number 501 until frame 1200). In Table \ref{tab:experiment_moving} we can see the results obtained in the experiment for all the network sizes and with the averages.
 
 \begin{table}[h!]
 \centering
@@ -140,26 +140,31 @@ size/3 & 13.516 & 23.28 & 6.495 \\
 \label{tab:experiment_moving}
 \end{table}
 
-The average for all the sizes is quite similar. We can also see that the average time is slightly lower when the network is smaller. For the the 1\% column, we calculate the average for the 7 frames with highest times. For the 0.25\% column, we do something similar; we show the time of the frame with the worst time. As we can see, the times for these percentages are actually higher when the network is smaller, something that we didn't expect. We would have expected that the time was lower when the number of nodes was lower as well. However for the total averages, this tendency meets our expectations.
+The average for all the sizes is quite similar. We can also see that the average time is slightly lower when the network is smaller. For the 1\% column, we calculate the average for the 7 frames with highest times. For the 0.25\% column, we do something similar; we show the time of the frame with the worst time. As we can see, the times for these percentages are actually higher when the network is smaller, something that we didn't expect. We would have expected that the time was lower when the number of nodes was lower as well. However, for the total averages, this tendency meets our expectations.
 
 \subsection{Performance when scaling the network}
+In this experiment, we evaluate the performance when scaling up and down the network. We use a sine function as well. we update the size of the network object for every frame and since we use a sinus function, the network scales up an down several times. We obtain the delta time for every frame during a total of 700 frames, as well as in the translation performance experiment. See Table \ref{tab:experiment_scale} for the results obtained.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 13.418 & 13.418 & 6.505 \\
-size/2 & 12.685 & 12.685 & 6.485 \\
-size/3 & 13.631 & 13.631 & 6.494 \\
+size & 13.418 & 22.816 & 6.505 \\
+size/2 & 12.685 & 22.607 & 6.485 \\
+size/3 & 13.631 & 23.015 & 6.494 \\
 \end{tabular}
 \caption{Performance of scale the network.}
 \label{tab:experiment_scale}
 \end{table}
 
-\subsection{Performance when selecting nodes}
+The results from this experiment are similar to the ones obtained in the previous one about the translation of the network, but we find some differences. The average time for all the nodes (3rd column) is slightly different, the time for size/3 is higher than size/2, somthing that we would have expected the opposite. All the results for the size/2 are lower than for size/3.
 
-The blood dataset has a total of 2693 nodes. Each node can have between 10 and thousands of edges with other nodes. The node with the name ARGLU1 has the highest number of edges, a total of 1607. In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 200 edges. But a few ones have several thousands. We have selected a few nodes for the experiments that cover nodes with lower number of edges to higher number of edges.
-The nodes are: TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), FOPNL(1145), ARGLU1(1607).
+\subsection{Performance when selecting nodes}
+In this experiment we want to evaluate the performance when selecting nodes. When a node is selected in GeneNet VR, several things are done during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the gene node. Thrid, the relationships from that node are rendered in the scene. There are many things going on during this process and we evaluate the performance for the entire pipeline.
+
+As for the experiment design, we took into consideration the number of the relationships (lines) that had to be drawn in the scene. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
+
+In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. This suppose already the 12,92\% of all the nodes in the dataset. However there also a few nodes that have several hundred of lines. Because it was a bit hard to make a balanced selection, we just selected several nodes from the range 1 to 1607. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
 
 % Example scatter plot https://timodenk.com/blog/latex-plot-snippets/screen-shot-2017-02-18-at-15-10-07/
 % https://tex.stackexchange.com/questions/390161/drawing-3d-points-from-external-file
@@ -178,21 +183,30 @@ The nodes are: TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), AC
 
     \end{tikzpicture}
   \end{minipage}
-\caption{Scatter plot showing a distribution of the number of edges in the blood dataset.}
+\caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The X axis shows the number of edges and the Y axes shows the number of nodes that have that number of edges in the blood dataset.}
 \label{fig:edges_nodes_blood}
 \end{figure}
+
+In the experiment, we select the nodes that we mentioned before. We select one node every 100 frames, starting from the TGFBR3 node and following the order from the list. We calculate the averages after all the nodes have been selected. We also have a total of 700 frames, like in the previous experiments. In Figure \ref{tab:experiment_select} we can see the results.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 16.705 & 34.594 & 9.130 \\
-size/2 & 15.313 & 31.969 & 8.638 \\
-size/3 & 14.053 & 28.925 & 8.38 \\
+size & 65.569 & 100 & 8.711 \\
+size/2 & 56.389 & 100 & 8.638 \\
+size/3 & 56.385 & 100 & 8.583 \\
 \end{tabular}
 \caption{Performance of select node.}
 \label{tab:experiment_select}
 \end{table}
+
+The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more). In the low percentages we can see a big difference though. For the 0.25\%, it's always 100ms. And for the 1\% everage low, it's 65ms for the whole size and 56ms for size/2 and size/3. We can see that the node selection can have much more impact in the performance than the translation and scale of the network.
+
+\subsection{Performance discussion}
+We can see from the results that the number of nodes in the dataset doesn't have that much impact in the performance. It would be interesting to analyse the performance wiht datasets that have more than 2693 nodes. But for our project, we have just focused on the datasets that we work with and the blood dataset is the biggest one. For the future it we could analyse it for larger datasets to see how much impact this has.
+
+In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. For the node selection we have seen that the performance can be a lot worse than for the other interactions. In the experiment we just select 7 nodes, one every 100 frames. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame, when we trigger the action for it. We will analyse in the following section if the selection of nodes could have some impact in the performance and scalability of the network.
 
 \section{Scalability evaluation}
 
