@@ -68,9 +68,9 @@ Lines & They represent relationships between the nodes. Everytime a node is sele
 \label{tab:network-elements}
 \end{table}
 
-We have designed a series of experiments that can be reapeated several times. In our case we run each experiment 4 times and calculate the average. We also created a benchmark in Unity using C\# where we reproduce the interactions that we want to evaluate. The experiments are coded in the benchmark using scripts so that we can always reproduce them. For the networks translation and network scale we used mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection we chose a set of nodes.
+We have designed a series of experiments that can be reapeated several times. We ran each experiment 4 times and calculate the average in order to get realistic results. We also created a benchmark in Unity using C\# where we reproduce the interactions that we want to evaluate. The experiments are coded in the benchmark using scripts so that we can always reproduce them. For the networks translation and network scale we use mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection we have chosen a set of nodes.
 
-We ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see some of the hardware specification from the machine used. The GPU from the machine is also specified in Table \ref{tab:gpu-specs}. The hardware specification of the Oculus Quest is shown in Table \ref{tab:oculus-specs}.
+As for the hardware specification, we ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see the hardware specification for the machine. The GPU is also specified in Table \ref{tab:gpu-specs}. The hardware specification of the Oculus Quest is shown in Table \ref{tab:oculus-specs}.
 
 \begin{table}[h!]
 \centering
@@ -112,40 +112,35 @@ Memory & 4GB total
 \label{tab:oculus-specs}
 \end{table}
 
-The experiments were run in Unity, the same software that was used for the development. The version of Unity used is 2018.4.10f1. Also OpenGL is used as the graphic API.
+The experiments were run in Unity, the same software that we used for the development. We used the version 2018.4.10f1 of Unity for the whole project and experimentation. In Unity we used the OpenGL graphic API.
 
 % @TODO Write about how scalability was tested.
-In order to find bottlenecks, we used a profiling tool in Unity. A profiler is usually used to get an overview of the performance of the application. We used the built-in profiler in Unity. This gave us information about per-fram CPU  performance metrics. In addition, Unity also provides som metric information, that we can display in the Unity editor, like the number of vertices in the scene, triangles, frames per second, etc.
+In order to find bottlenecks, we used a profiling tool in Unity. A profiler is used to get an overview of the performance of the application. We used the built-in profiler in Unity. This gave us information about per-fram CPU  performance metrics. In addition, Unity also provides some metric information that we can be displayed in the Unity editor. We got information about the number of vertices in the scene, triangles, frames per second, etc.
 
 \section{Performance evaluation}
-In this section we will explain the experiments that we run for the performance analysis. We will also show the results that we obtained and discuss them. As we mentioned before, we will focus on the performance for several actions that the user usually does when exploring the networks. These are translation of the network, scale up or down the network and select nodes in the network as well as render the lines for the relationships. All the experimens are run 4 times and we show the averages.
+We will explain in this section the experiments to evaluate the performance. We will also show the results that we obtained and discuss them. As we mentioned before, we will focus on the performance for several actions that the user usually does when exploring the networks. These are translation of the network, scale up or down the network and select nodes in the network as well as render the lines for the relationships. All the experimens are run 4 times and we show the averages.
 
-We ran all the experiments on the PC and we used the blood dataset from MIxT. We also ran each experiment for different sizes of the blood dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). In order to analyse the performance, we obtained the deltaTime for each frame. In Unity, this variable privides the time between the current and previous frame. Once we obtain all the information we extract several information: the average of all the times, the 0.25\% worst and the 0.1\% worst of all the frames that the experiments last.
-
-\subsection{Performance when translating the network}
-
- We will also remove the relationships for the nodes that doesn't exist anymore from the reduced datasets. In total we will run 9 experiments (3x3). Furthermore I will resume the data in 3 tables like Table \ref{tab:experiment_moving}, Table \ref{tab:experiment_scale} and Table \ref{tab:experiment_select}. Each table shows the data from the experiments for a specific action. The last column shows the average of the 25\% of the worst times (so the 25\% of the frames that have higher values). An alternative to the tables could be a bar graph.
-
-As for how I will run the experiments, I want to create a script for each action. I want to create a script that moves the network, another script that scales up and down the network and a third one that selects a few nodes. We can select the 100 first frames an run the calculations for the percentages. This can be a tedious task if I have to do it manually, it would be better if I can do it programmatically (which I haven't seen a solution for so far).
-
-I run the experiments three times and calculate the average. For translate and scale experiments I calculate the time frame for a range of 1000 frames, from frame 501 to frame 1500 inclusive.
+We ran all the experiments on the PC and we used the blood dataset from MIxT. We also ran each experiment for different sizes of the blood dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). In order to analyse the performance, we obtained the deltaTime for each frame. In Unity, this variable privides the time between the current and the previous frame. Once we obtain all the times for all the frames that the experiments last, we extract make the following calculations: the average of all the times of the frames, the 0.25\% worst of all the frames and the 0.1\% worst of all the frames.
 
 % Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
 
-700 frames in total for all the experiments.
+\subsection{Performance when translating the network}
+In this experiment we evaluate the performance when translating the network. To translate the network around in the scene we use a sine function in the y axis and a constant function in the z axis. For everyframe we update the position of the network creating a wave motion in the z axis direction. We obtain the delta time for every frame during a total of 700 frames (starting from frame number 501 until frame 1200). In Table \ref{tab:experiment_moving} we can see the results obtained in the experiment for all the network sizes and with the averages.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 9.257 & 12.519 & 7.244 \\
-size/2 & 8.688 & 11.316 & 7.2 \\
-size/3 & 8.898 & 11.796 & 7.103 \\
+size & 12.174 & 20.111 & 6.553 \\
+size/2 & 12.791 & 21.996 & 6.498 \\
+size/3 & 13.516 & 23.28 & 6.495 \\
 \end{tabular}
-\caption{Performance of translate the network.}
+\caption{Performance results when translating the network.}
 \label{tab:experiment_moving}
 \end{table}
+
+The average for all the sizes is quite similar. We can also see that the average time is slightly lower when the network is smaller. For the the 1\% column, we calculate the average for the 7 frames with highest times. For the 0.25\% column, we do something similar; we show the time of the frame with the worst time. As we can see, the times for these percentages are actually higher when the network is smaller, something that we didn't expect. We would have expected that the time was lower when the number of nodes was lower as well. However for the total averages, this tendency meets our expectations.
 
 \subsection{Performance when scaling the network}
 
@@ -153,9 +148,9 @@ size/3 & 8.898 & 11.796 & 7.103 \\
 \centering
 \begin{tabular}{llll}
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 9.155 & 11.997 & 7.261 \\
-size/2 & 8.948 & 11.864 & 7.15 \\
-size/3 & 8.85 & 11.671 & 7.096 \\
+size & 13.418 & 13.418 & 6.505 \\
+size/2 & 12.685 & 12.685 & 6.485 \\
+size/3 & 13.631 & 13.631 & 6.494 \\
 \end{tabular}
 \caption{Performance of scale the network.}
 \label{tab:experiment_scale}
