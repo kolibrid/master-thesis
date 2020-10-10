@@ -120,7 +120,7 @@ In order to find bottlenecks, we used a profiling tool in Unity. A profiler is u
 \section{Performance evaluation}
 We will explain in this section the experiments to evaluate the performance. We will also show the results that we obtained and discuss them. As we mentioned before, we will focus on the performance for several actions that the user usually does when exploring the networks. These are translation of the network, scale up or down the network and select nodes in the network as well as render the lines for the relationships. All the experimens are run 4 times and we show the averages.
 
-We ran all the experiments on the PC and we used the blood dataset from MIxT. We also ran each experiment for different sizes of the blood dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). In order to analyse the performance, we obtained the deltaTime for each frame. In Unity, this variable privides the time between the current and the previous frame. Once we obtain all the times for all the frames that the experiments last, we extract make the following calculations: the average of all the times of the frames, the 0.25\% worst of all the frames and the 0.1\% worst of all the frames.
+We ran all the experiments on the PC and we used the blood dataset from MIxT. We chose this dataset because it is bigger than the biopsy one. We also ran each experiment for different sizes of the blood dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). In order to analyse the performance, we obtained the deltaTime for each frame. In Unity, this variable privides the time between the current and the previous frame. Once we obtain all the times for all the frames that the experiments last, we extract make the following calculations: the average of all the times of the frames, the 0.25\% worst of all the frames and the 0.1\% worst of all the frames.
 
 % Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
@@ -178,7 +178,7 @@ In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis re
     xmin=0,xmax=1610,
     ymin=0,ymax=240,
     ]
-    \addplot[color=blue, only marks] file{data/bloodEdges.dat};
+    \addplot[only marks,mark=asterisk,color=rred, style={thick}] file{data/bloodEdges.dat};
     \end{axis}
 
     \end{tikzpicture}
@@ -204,15 +204,64 @@ size/3 & 56.385 & 100 & 8.583 \\
 The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more). In the low percentages we can see a big difference though. For the 0.25\%, it's always 100ms. And for the 1\% everage low, it's 65ms for the whole size and 56ms for size/2 and size/3. We can see that the node selection can have much more impact in the performance than the translation and scale of the network.
 
 \subsection{Performance discussion}
-We can see from the results that the number of nodes in the dataset doesn't have that much impact in the performance. It would be interesting to analyse the performance wiht datasets that have more than 2693 nodes. But for our project, we have just focused on the datasets that we work with and the blood dataset is the biggest one. For the future it we could analyse it for larger datasets to see how much impact this has.
+We can see from the results, that the number of nodes in the dataset doesn't have that much impact in the performance. It would be interesting to analyse the performance wiht datasets that have more than 2693 nodes. For instance with 5000 and 10000 nodes, but for our project, we have just focused on the datasets MIxT, and the blood dataset is the biggest one. For a future work, it would be interesting to analyse larger datasets to see if the number of nodes could influence more in the performance.
 
-In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. For the node selection we have seen that the performance can be a lot worse than for the other interactions. In the experiment we just select 7 nodes, one every 100 frames. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame, when we trigger the action for it. We will analyse in the following section if the selection of nodes could have some impact in the performance and scalability of the network.
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.8*\textwidth,
+        height = 8cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Delta Time (ms)},
+        symbolic x coords={Translate,Scale,Select Node},
+        xtick = data,
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        legend cell align=left,
+        legend style={
+                at={(1,1.05)},
+                anchor=south east,
+                column sep=1ex
+        },
+        extra y ticks = 0.4,
+        extra y tick labels={},
+        extra y tick style={grid=major,major grid style={thick,draw=black}}
+        ]
+        \addplot[style={bblue,fill=bblue,mark=none}]
+            coordinates {(Translate, 12.174) (Scale,13.418) (Select Node,65.569)};
+            coordinates {(Translate, 20.111) (Scale,22.816) (Select Node,100)};
+
+        \addplot[style={rred,fill=rred,mark=none}]
+             coordinates {(Translate,12.791) (Scale,12.685) (Select Node,56.389)};
+
+        \addplot[style={ggreen,fill=ggreen,mark=none}]
+             coordinates {(Translate,13.516) (Scale,13.631) (Select Node,56.385)};
+
+        \legend{Size,Size/2,Size/3}
+        \addlegendimage{my legend}
+    \end{axis}
+\end{tikzpicture}
+\caption{Bar graph showing a summary of the performance results for the 1\% lowest average (7 frames with worst performance or higher times).}
+\label{fig:performance_bar}
+\end{figure}
+
+In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. However, for the node selection, we have seen that the performance can be a lot worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the results. In this bar graph we can see a summary of the 1\% worst time for the different interactions. We can see that for the node selection interaction, the time is much higher than the rest.
+
+One important observation is that in the experiment we just select 7 nodes, one every 100 frame. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Another point to take into account is that not all the nodes have the same number of edges to render. It would be interesting to know if the number of edges could decrease the performance as well. We will analyse in the following section if the selection of nodes and the number of edges could have more impact in the performance and scalability of the network.
 
 \section{Scalability evaluation}
+As we saw in the performance experiment for selecting the nodes, the time to render the frames can be very high. This could have influence in the quality of the application and generate some unconformity in the user's experience. It could happen that the application freezes for some milliseconds and that the application doesn't run smoothly when selecting the nodes. In this section we evaluate the performance when selecting the nodes and rendering the edges for the nodes. This will also help us study the scalability of the application so that it can be used for larger datasets.
 
-Once we see that the selecion of the nodes (including drawing the lines) has more impact in the performance and that it can create bottlenecks, we can evaluate the scalability of the line drawing. For this I can create an experiment where I measure the time that it takes to draw the lines for the selection of 15 nodes (20 can be too many for the graph). I can do three versions of this experiment where I scale the number of relationships by 2 and 3 times. I can also show the number of lines that are drawn for each node.
+We would like to know if the number of edges that we need to render in the scene can decrease the performance. We designed an experiment where we test the delta time (the time that a frame takes to render) for different amount of edges to render. In Figure \ref{fig:edges_nodes_blood} we showed the distribution between the number of edges and the number of nodes that have that amount of edges. We used this data and created a new dataset where we have a node from every "edge category" and then we selected each of the nodes and calculated the delta time. To put it simple we try to render the edges for each of the possible number of edges that we can find in the blood dataset and calculate the time for each of them.
 
-I can create a linear graph for this, like the one I showed (See Figure \ref{fig:graph_scalability}). I would also like to show the number of lines that each node renders. Maybe I can show this in the x axis. Any suggestion?
+In Figure \ref{fig:scalability_edges_blood} we can see the results for this experiment. In our benchmark we run the select node action for each of the nodes from the dataset that we created for this. We select a new node in each frame. We show the results using an scatter plot. The X axis represents the number of edges to render. The Y axis represents the total time that it took to render that amount of edges.
+
+We would have expected that when there are more edges to render, more time it would be needed for that. However, that is not as clear in the experiments results. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms to render. On the right side of the plot we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases they take less than 20 ms. This is not very consisten and we conclude here that the number of edges might influnce in the performance, but we can see that there are many other things that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
 
 \begin{figure}[h!]
   \centering
@@ -224,7 +273,7 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
     xmin=0,xmax=1610,
     ymin=0,ymax=100,
     ]
-    \addplot[only marks,color=blue] file{data/scalabilityBlood.dat};
+    \addplot[only marks,mark=asterisk,color=rred, style={thick}] file{data/scalabilityBlood.dat};
     \end{axis}
 
     \end{tikzpicture}
@@ -233,24 +282,35 @@ I can create a linear graph for this, like the one I showed (See Figure \ref{fig
 \label{fig:scalability_edges_blood}
 \end{figure}
 
-\begin{figure}[h!]
-  \centering
-  \begin{minipage}{.8\textwidth}
-  \begin{tikzpicture}
-    \begin{axis}
-    [ xlabel=Number of edges,
-    ylabel=Time (ms),
-    xmin=0,xmax=430,
-    ymin=0,ymax=100,
-    ]
-    \addplot[only marks,color=blue] file{data/scalabilityBiopsy.dat};
-    \end{axis}
+After running this experiment we ran the profiler from Unity to see what could be the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see an screenshot of the profiler in Unity. In the profiler window we can see a graph where the Y axis shows the amount of time that each frame took to render. we are selecting a frame in the middle, where we can see a spike (althugh it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window we can see a list of functions that are called during this frame. Also there are several columns and the the total column indicates the percentage of the time that a particular function took. As can see in the screenshot, we don't get much information about where the proble could be. But we can see that 65.4\% of the total time comes from the BehaviourUpdate function.
 
-    \end{tikzpicture}
-  \end{minipage}
-\caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the biopsy dataset.}
-\label{fig:scalability_edges_biopsy}
-\end{figure}
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=0.9\textwidth]{profiler}
+    \caption{Profiling the selection of the node ARGLU1(1607), which has the highest number of edges. We study what is the cause for the high amount of time that this takes to render.}
+    \label{fig:profiler}
+\end{figure}%
+
+We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k verteces, which is inside of the Oculus' performance guidelines.
+
+% \begin{figure}[h!]
+%   \centering
+%   \begin{minipage}{.9\textwidth}
+%   \begin{tikzpicture}
+%     \begin{axis}
+%     [ xlabel=Number of edges,
+%     ylabel=Time (ms),
+%     xmin=0,xmax=430,
+%     ymin=0,ymax=100,
+%     ]
+%     \addplot[only marks, mark=asterisk, color=rred, style={thick}] file{data/scalabilityBiopsy.dat};
+%     \end{axis}
+%
+%     \end{tikzpicture}
+%   \end{minipage}
+% \caption{Scatter plot showing the relation between the number of edges to render and the time that it takes to render for the biopsy dataset.}
+% \label{fig:scalability_edges_biopsy}
+% \end{figure}
 
 \section{Oculus Quest vs Computer}
 Create an experiment where serveral actions are run at the same time: translate, scale and select nodes. Capture the average low for several nodes.
@@ -266,9 +326,9 @@ Create an experiment where serveral actions are run at the same time: translate,
     ymin=0,ymax=100,
     legend pos=north west,
     ]
-    \addplot[color=blue] file{data/pc.dat};
+    \addplot[color=bblue, style={thick}] file{data/pc.dat};
     \addlegendentry{PC}
-    \addplot[color=red] file{data/headset.dat};
+    \addplot[color=rred, style={thick}] file{data/headset.dat};
     \addlegendentry{Oculus Quest}
     \end{axis}
 
