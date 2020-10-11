@@ -250,7 +250,7 @@ We can see from the results, that the number of nodes in the dataset doesn't hav
 \label{fig:performance_bar}
 \end{figure}
 
-In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. However, for the node selection, we have seen that the performance can be a lot worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the results. In this bar graph we can see a summary of the 1\% worst time for the different interactions. We can see that for the node selection interaction, the time is much higher than the rest.
+In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. However, for the node selection, we have seen that the performance can be a lot worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the results. In this bar graph we can see a summary of the 1\% worst time for the different interactions. We can see that the time for the node selection interaction is much higher.
 
 One important observation is that in the experiment we just select 7 nodes, one every 100 frame. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Another point to take into account is that not all the nodes have the same number of edges to render. It would be interesting to know if the number of edges could decrease the performance as well. We will analyse in the following section if the selection of nodes and the number of edges could have more impact in the performance and scalability of the network.
 
@@ -284,7 +284,7 @@ We would have expected that when there are more edges to render, more time it wo
 
 After running this experiment we ran the profiler from Unity to see what could be the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see an screenshot of the profiler in Unity. In the profiler window we can see a graph where the Y axis shows the amount of time that each frame took to render. we are selecting a frame in the middle, where we can see a spike (althugh it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window we can see a list of functions that are called during this frame. Also there are several columns and the the total column indicates the percentage of the time that a particular function took. As can see in the screenshot, we don't get much information about where the proble could be. But we can see that 65.4\% of the total time comes from the BehaviourUpdate function.
 
-\begin{figure}[h!]
+\begin{figure}
     \centering%
     \includegraphics[width=0.9\textwidth]{profiler}
     \caption{Profiling the selection of the node ARGLU1(1607), which has the highest number of edges. We study what is the cause for the high amount of time that this takes to render.}
@@ -313,7 +313,7 @@ We get also some other metric information from this screenshot (see the region f
 % \end{figure}
 
 \section{Oculus Quest vs Computer}
-Create an experiment where serveral actions are run at the same time: translate, scale and select nodes. Capture the average low for several nodes.
+We developed the application in a PC and tested it in Oculus Quest, an standalone headset. We did the testing using a USB C cable that connects the headset to the PC. However when we run the application in this way, we use the PC's hardware. The previous experiments were also run in the PC. We want to evaluate in this section, if the performance in the Oculus Quest is good enough when running GeneNet VR. The hardware for the Oculus Quest is not as good as for the machine, so we expect that the performance in the Oculus Quest is goin to be worse.
 
 \begin{figure}[h!]
   \centering
@@ -337,6 +337,10 @@ Create an experiment where serveral actions are run at the same time: translate,
 \caption{Performance running the application in a machine vs on Oculus Quest.}
 \label{fig:pc_vs_oculus}
 \end{figure}
+
+We designed an experiment that we could run in the PC and in the Oculus Quest to measure the performance for each of the machines. In the experiment we run several things at the same time. We used a combination of the three performance experiments that we explained before and use them together for this experiment. For a short period of time we translate the network, scale it and select several nodes, everything at the same time. The experiment lasts for 70 frames; it starts in frame 300 and ends in frame 370.
+
+In Figure \ref{fig:pc_vs_oculus}, we can see the results from the experiment, represented with a graph. The X axis represents the frame number (like a timeline). The Y axis represents the amount of time that a particular frame took to render in milliseconds. We can see that the performance for the Oculus Quest is a bit worse than for the PC; however, the difference is not very big. We can also see some peaks in the graph. This is due to the select node action. We select 7 nodes during the experiment. A new node is selected every 10 frames. The node selection starts in frame 300 with a node that doesn't have many edges and the last node of the experimen (in frame 360 has many nodes). Each new node selected has more edges that the previous one. We can see this refleted in the graph; every 10 frames there is a new picks, starting from frame 330, and this pick is higher. We can say that the number of edges has an impact with the performance.
 
 \section{Demo and interview}
 One of the questions that we asked ourselves during the evaluation process was about the comfortability of using BigNext VR to explore a biological network. This is an important aspect when building VR applications. Some of the aspects to take into account are for instance the motion sickness or the intuitiveness. In order to evaluate this we made a questionnaire for bioinformaticians that would test the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with people. The reason is because it wasn't possible to test GeneNet VR with people on a single Oculus Quest device without avoiding the social distancing rules.
