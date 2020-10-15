@@ -326,10 +326,10 @@ We developed the application in a PC and tested it in Oculus Quest, an standalon
     ymin=0,ymax=100,
     legend pos=north west,
     ]
-    \addplot[color=bblue, style={thick}] file{data/pc.dat};
-    \addlegendentry{PC}
     \addplot[color=rred, style={thick}] file{data/headset.dat};
     \addlegendentry{Oculus Quest}
+    \addplot[color=bblue, style={thick}] file{data/pc.dat};
+    \addlegendentry{PC}
     \end{axis}
 
     \end{tikzpicture}
