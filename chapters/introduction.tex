@@ -18,23 +18,24 @@ We believe that virtual reality (VR) can offer new possibilities for visual insp
 \begin{enumerate}
   \item Visualization of networks in an immersive 3D space.
   \item Possibility to move around the virtual environment and visualize the network from different perspectives as in real life.
-  \item Interaction with the the environment by using hand controllers or our hands.
+  \item Interaction with the the environment by using hand controllers or the hands themselves.
   \item Integration of 2D interfaces in the virtual world that the user can interact with.
 \end{enumerate}
 
 We have implemented GeneNet VR, a virtual reality application for the visualization of 3-dimensional networks of genetic data. We have used up-to-date virtual reality techniques that we believe improve the visualization of this type of data structures. The techniques that we have used consist on: exploration of the network by moving around the virtual space, making it easier for the user to see the network from different perspectives; interaction with the network and the nodes to comprehend better the data and its associations; and the use of 2-dimensional user interfaces to manipulate the data for a easier pattern finding.
 
-We saw that some of the interactions in GeneNet VR could have more impact in the performance of the application. This problem could escalate when using larger datasets. A high performance solution is desired so that the pattern exploration in the network is not affected.
+We saw that some of the interactions in GeneNet VR could have more impact in the performance of the application. This problem could escalate when using larger datasets. A high performance solution is desired so that pattern exploration in the network is not affected and novel patterns can be found in the networks.
 
 \textbf{Thesis statement: } \emph{Virtual Reality techniques can be useful for the visualization of abstract networks and for the exploration of patterns in them}.
 
 \section{Challenges and research problem}
-This project focus mainly on solving the problem of visualization of high dimenasional data from the MIxT project by using virtual reality. Furthermore the application allows the user to interact with the network created from the data in the virtual environment. It also allows the user compare the blood and biopsy networks at the same time in order to finde relationship, which wasn't possible in the MIxT web application as this only allows the user to visualize one network at a time.
+It can be hard to identify novel patterns when visualizing large amounts of data. Some data structures, like the data networks, also have the challenge of data interconnectivity. These type of data structures represent relationships and are composed by nodes and edges. Even though we have many tools like machine learning, that help researchers automatize and accelerate the pattern recognition process, many times we still need a human expert to inspect these networks\cite{network_expert}.
 
-MIxT\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017} is a web application for bioinformaticians. Among other tools, it offers a network visualization of genes which are represented as nodes in the network and where the edges represent statistically significant correlation in expression between two nodes. This tool was used in a study\cite{dumeaux_fjukstad_interactions_tumor_blood} that identifies genes and pathways in the primary tumor that are tightly linked to genes and pathways in the systemic response of a patient with breast cancer.
-When exploring a network in MIxT, it can be hard to understand the data and its relationships because there is too much data. This problem is easy to occur when there are too many node and edges. In figure \ref{fig:mixt_network} we can see an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships among them and when we zoom in in the network, it becomes very difficult to understand the data and the relationships as shown in in Figure \ref{fig:mixt_network_zoom}.
+In fields like biology, network visualization seem to be particularly helpful\cite{pujana_network_modeling}\cite{fraser_view_function}. There are many types of relationships that can be measure in a biological context, for example interactions between proteins or genetic interections when revealed by combinations of mutations. All these interactions and correlations can be easier to visualize as a network\cite{merico_visualization}.
 
- The network is also in 2-dimensions and what we propose in this project is to use a virtual reality 3d visualization in order to cope better with this problem.
+MIxT\cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017} is a web application for bioinformaticians that was used to identify genes and pathways in the primary tumor that are tightly linked to genes and pathways in the systemic response of a patient with breast cancer\cite{dumeaux_fjukstad_interactions_tumor_blood}. Among other tools, it offers a network visualization of genes which are represented as nodes and edges that represent statistically significant correlation in expression between the nodes.
+
+When exploring a network in MIxT, sometimes it can be difficult to find patterns because of the data overload. This problem happens expecially when there are many nodes and relationships together. In figure \ref{fig:mixt_network} we can see an example of the network visualization from MIxT. As we can see in Figure \ref{fig:mixt_network1}, there are many nodes and relationships; this problem gets worse when we zoom in the network as in Figure \ref{fig:mixt_network_zoom}.
 
 \begin{figure}[h!]
     \centering%
@@ -55,9 +56,22 @@ When exploring a network in MIxT, it can be hard to understand the data and its 
     \label{fig:mixt_network}
 \end{figure}
 
-\section{Proposed solution}
+\section{Proposed solution and contribution}
+We have built GeneNet VR, a Virtual Reality visualization system that focuses on solving the problem of visualization of networks with data overload in order to improve the discovery of novel patterns. We used the datasets from the MIxT project so that we work with realistic data sources. We applied Virtual Reality for the visualization and interaction with the networks and offer the following tools that differ from the visualization system built on MIxT:
 
-\section{Significance and contribution}
-This project contributes in the exploration of the possibilities that Virtual Reality offers for visualization of big data in bioinformatics.
+\begin{itemize}
+  \item 3-dimensional view of the network.
+  \item Possibility to move around the virtual space to see the network from different angles.
+  \item Application of 3D transformations to the network like scaling and translation.
+  \item Visualization of single node relationships.
+  \item Node filtering.
+  \item Visualization of two networks at the same time in order to compare them in real time.
+\end{itemize}
+
+GeneNet VR results in an application that offers a different way for the visualization of biological networks and that gives visualization experts interesting tools to explore and transform the data. The application is also developed for Oculus Quest, a standalone VR headset, where we take the advanatage of visualizing the networks without the need of cables and a computer.
+
+For the evaluation of GeneNet VR, we have focused on performance and scalability problems, which we consider important for the experts during the visualization process so that the identification of patterns doesn't get interrupted by slowliness and low FPS. We found out that the performance is good when visualizing datasets similar to the ones from MIxT. As for future work, we would like to test GeneNet VR with larger datasets and with datasets from other fields that are not biology.
 
 \section{Outline}
+
+We have structured the thesis in the following chapters: Chapter 2 descibes how GeneNet VR was implemented, the architecture, design and the Virtual Reality techniques that were used. Chapter 3 focuses on explaining the visualization of MIxT in Virtual Reality. Chapter 4 describes some related projects found in the literature and we compare them with GeneNet VR. In Chapter 5 we describe the experimens and conclusions that carried out in order to evaluate GeneNet VR. In Chapter 6 we explain the conclusions from the project. In Chapter 7 we describe the future work ideas that we have for GeneNet VR.
