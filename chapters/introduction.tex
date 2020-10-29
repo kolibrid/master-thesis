@@ -1,7 +1,38 @@
-It is very cheap nowadays to produce data and many people are doing it due to technological advancement. Just as an example, in the field of genomics, the sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Now we can sequence hundreds of genomes in a few days\cite{big_biological_impacts_bd}. This leads to the accumulation of vast quantities of genomic data, which can be used for new scientific discoveries, diagnose of rare diseases, etc. However we still need a human expert to visually inspect the data to find new signals and discover interesting patterns or to set a diagnosis. No matter how much resources we use into extracting the data if we don't get anything interesting out of it\cite{zhang_paciorkowski_craig_cui_2019}.
+It is very cheap nowadays to produce data and many people are doing it due to technological advancement. Just as an example, in the field of genomics, the sequencing of the first human genome (2002) took around 13 years and cost over \$3 million to complete. Now, we can sequence hundreds of genomes in just a few days\cite{big_biological_impacts_bd}. However, the vast amounts of data that we produce can result in problems like data information overload, data interconnectivity and high dimensionality. Therefore, we need better solutions to visualize large amounts of data.
 
-Some of the main problems that researchers face when analysing genomic data are: information overload, data interconnectivity and high dimensionality. One way to deal with all this data is to invent novel analysis. However, we still need visual inspection of the data, which is an important challenge, and this is what we attempt to solve. For this reason, it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data. In the field of system biology, there are usually network representations where the nodes or bioentities are connected to each other and where these edges represent associations. Networks can increase dramatically in size and complexity and this is due to computational power to create very large networks, scientific knowledge about large networks and the big amounts of data that we have to analyze. We need better visualization systems for the analysis and inspection of networks and at the same time we need robust applications that can handle the data overload.
+% These problems can be overcome with a visualization system that can scale to large sizes of data and where the interactions are not cumbersome. In this way, we can visualize the data in order to find interesting patterns that will lead to new scientific discoveries
+%  \cite{zhang_paciorkowski_craig_cui_2019}.
 
+% Some of the main problems that researchers face when analysing genomic data are: information overload, data interconnectivity and high dimensionality. One way to deal with all this data is to invent novel analysis. However, we still need visual inspection of the data, which is an important challenge, and this is what we attempt to solve. For this reason, it is very important to implement efficient visualization technologies that can lead to find new patterns and the extraction of good conclusions of the data.
+
+In the field of system biology, there are usually network representations where the nodes or bioentities are connected to each other and where these edges represent associations. Networks can increase dramatically in size and complexity and many visualization systems for biological networks have a lack of scalability and the user interactions can be cumbersome. Virtual Reality (VR) has shown to have benefits when visualizing abstract information and offers very rich interactivity solutions \cite{zhang_paciorkowski_craig_cui_2019}. Some specific challenges that we face when visualizing biological data in VR are the following:
+\begin{itemize}
+  \item Achieve the performance needed for the visualization and interaction with large biological networks.
+  \item Understand the scalability limitations for the exploration of biological networks in VR.
+  \item VR equipment is expensive and it is also tied to a computer that needs a powerful GPU.
+\end{itemize}
+
+% enough computational power to create these large networks, scientific knowledge about large networks a. We need better visualization systems for the analysis and inspection of biological networks and at the same time we need robust applications that can handle the data overload.
+
+[Here I would like to read about how the challenges described in the previous work has been addressed by previous work, and why these solutions have not solved all challenges.]
+
+[What I expect to read here is why your solution is better than the previous solutions described in the previous section.]
+
+We believe that virtual reality (VR) can offer new possibilities for visual inspection in large networks and for the inspection of patterns in these. Even though VR is still a field under exploration, it has been demonstrated that it help scientists work more effectively in fields like medicine \cite{Laver11}\cite{xia_ip_samman_wong_gateno_wang_yeung_kot_tideman_2001}\cite{brain_damage_rehab}, biology\cite{10.1093/bioinformatics/bti581}\cite{thorley_lawson_duca_shapiro_2008} and neuroscience\cite{bohil_alicea_biocca_2011}\cite{minderer_harvey_donato_moser_2016}, to  cite some examples. VR can be very powerful because it takes advantage of the way the human being perceives and analysis things. We have a great ability to discover patterns; however, we are biologically optimized to see the world and the patterns in 3 dimensions. Some of the advantages that VR has over non-VR approaches are the following:
+
+\begin{enumerate}
+  \item View of the environment in 3 dimensions and the possibility to move around the virtual space as in real life, giving a feeling of immersion.
+  \item Interaction with the the environment by using hand controllers or the hands themselves, giving the user a feeling of presence.
+  \item Possibility to combine 2-dimensional interfaces within the 3-dimensional virtual world that the user can interact with.
+\end{enumerate}
+
+We have implemented GeneNet VR, a virtual reality application for the visualization of biological networks. We used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} that contain genetic information from patients with breast cancer. The MIxT project has some a known visual and scalability problems and we have used up-to-date virtual reality interaction techniques to improve it. The techniques that we have used consist on: exploration of the network by moving around the virtual space, making it easier for the user to see the network from different angles; interaction with the network and the nodes to comprehend better the data and the interconnections; and the use of 2-dimensional user interfaces to transform the data.
+
+We used the following methodology during the project: we built an application prototype of GeneNet VR in Unity. Then, we evaluated performance aspects of it in both PC and in the Oculus Quest hardware. Finally, we conducted several interviews with test users where we got feedback about the quality and where we extracted some conclusions and ideas for future work. We concluded from the performance evaluation that GeneNet VR has a good performance for the network sizes that we used. Also, the interactions met the required FPS in general. Only the selection of nodes and showing the relationships showed to have more impact in the performance, but still the application could run smoothly. We also evaluated the performance on the Oculus Quest hardware and concluded that it was also good, meaning that we can visualize these type of networks in relatively affordable headsets like the one we used.
+
+\textbf{Thesis statement: } \emph{Virtual Reality is advantageous for the visualization of large biological networks and for the exploration of patterns in them using affordable hardware}.
+
+\section{Challenges and research problem}
 In Figure \ref{fig:network_biology_evolution} we can see a representation of the evolution for visualization of networks in system biology. Before the computers, networks were represented in 2 dimensions and they were static representations that lacked interactivity, see Figure \ref{fig:network_biology_evolution} A. With the computer era and the advancement in computer graphics, 3D representations were possible, with the addition of interactions (See Figure  \ref{fig:network_biology_evolution} C). As computer science progressed, visualization improved and also new technologies emerged like virtual reality, which has a huge potential with regards to the interactivity (Figure \ref{fig:network_biology_evolution} I).
 
 \begin{figure}[h!]
@@ -13,21 +44,6 @@ In Figure \ref{fig:network_biology_evolution} we can see a representation of the
     \label{fig:network_biology_evolution}
 \end{figure}%
 
-We believe that virtual reality (VR) can offer new possibilities for visual inspection in large networks and for the inspection of patterns in these. Even though VR is still a field under exploration, it has been demonstrated that it help scientists work more effectively in fields like medicine \cite{Laver11}\cite{xia_ip_samman_wong_gateno_wang_yeung_kot_tideman_2001}\cite{brain_damage_rehab}, biology\cite{10.1093/bioinformatics/bti581}\cite{thorley_lawson_duca_shapiro_2008} and neuroscience\cite{bohil_alicea_biocca_2011}\cite{minderer_harvey_donato_moser_2016}, to  cite some examples. VR can be very powerful because it takes advantage of the way the human being perceives and analysis things. We have a great ability to discover patterns; however, we are biologically optimized to see the world and the patterns in 3 dimensions. Some of the advantages that VR has over non-VR approaches are the following:
-
-\begin{enumerate}
-  \item View of the environment in 3 dimensions and the possibility to move around the virtual space as in real life, giving a feeling of immersion.
-  \item Interaction with the the environment by using hand controllers or the hands themselves, giving the user a feeling of presence.
-  \item Possibility to combine 2-dimensional interfaces within the 3-dimensional virtual world that the user can interact with.
-\end{enumerate}
-
-We have implemented GeneNet VR, a virtual reality application for the visualization of 3-dimensional networks of genetic data. We have used up-to-date virtual reality techniques that we believe improve the visualization of this type of data structures. The techniques that we have used consist on: exploration of the network by moving around the virtual space, making it easier for the user to see the network from different perspectives; interaction with the network and the nodes to comprehend better the data and its associations; and the use of 2-dimensional user interfaces to manipulate the data for a easier pattern finding.
-
-We saw that some of the interactions in GeneNet VR could have more impact in the performance of the application. This problem could escalate when using larger datasets. A high performance solution is desired so that pattern exploration in the network is not affected and novel patterns can be found in the networks.
-
-\textbf{Thesis statement: } \emph{Virtual Reality techniques can be useful for the visualization of abstract networks and for the exploration of patterns in them}.
-
-\section{Challenges and research problem}
 It can be hard to identify novel patterns when visualizing large amounts of data. Some data structures, like the data networks, also have the challenge of data interconnectivity. These type of data structures represent relationships and are composed by nodes and edges. Even though we have many tools like machine learning, that help researchers automatize and accelerate the pattern recognition process, many times we still need a human expert to inspect these networks\cite{network_expert}.
 
 In fields like biology, network visualization seem to be particularly helpful\cite{pujana_network_modeling}\cite{fraser_view_function}. There are many types of relationships that can be measure in a biological context, for example interactions between proteins or genetic interections when revealed by combinations of mutations. All these interactions and correlations can be easier to visualize as a network\cite{merico_visualization}.

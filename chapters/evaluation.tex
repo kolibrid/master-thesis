@@ -26,7 +26,7 @@ GeneNet VR has been developed to explore biological networks that contain geneti
   \item What characteristics of the network influence the scalability?
   \item What is the performance by using a PC with Oculus Link and the performance using just the Quest hardware?
   % \item Bonus: how will “beautifications” influence scalability?
-  \item How do users perceive the interaction of the network?
+  \item How do users perceive the application?
 \end{enumerate}
 
 Question one is based on the Oculus' performance guidelines\cite{oculus_performance_baselines}, that say that an application should meet the following:
@@ -343,24 +343,16 @@ We designed an experiment that we could run in the PC and in the Oculus Quest to
 In Figure \ref{fig:pc_vs_oculus}, we can see the results from the experiment, represented with a graph. The X axis represents the frame number (like a timeline). The Y axis represents the amount of time that a particular frame took to render in milliseconds. We can see that the performance for the Oculus Quest is a bit worse than for the PC; however, the difference is not very big. We can also see some peaks in the graph. This is due to the select node action. We select 7 nodes during the experiment. A new node is selected every 10 frames. The node selection starts in frame 300 with a node that doesn't have many edges and the last node of the experimen (in frame 360 has many nodes). Each new node selected has more edges that the previous one. We can see this refleted in the graph; every 10 frames there is a new picks, starting from frame 330, and this pick is higher. We can say that the number of edges has an impact with the performance.
 
 \section{Demo and interview}
-One of the questions that we asked ourselves during the evaluation process was about how the users perceive the interactions with the networks. In order to evaluate this we made a qualitative questionnaire for users to answer when testing the application. Unfortunately, due to the Covid-19 situtation\cite{covid_19}, we were not able to carry out the questionnaire with many people. It wasn't possible to test GeneNet VR with people on a single Oculus Quest device without avoiding the social distancing rules. We estimated to have around 10 participants with knowdledge in bioinformatics to. With this number of participants, we could have made some statistics and obtained feedback for future improvement. However, due to the situation, we just tested it with one person.
+One of the questions that we asked ourselves during the evaluation process was about how the users perceive the interactions with the networks. In order to evaluate this we made some interviews to users in order to get feedback about the quality of the application.
 
 Questions related to the locomotion of the VR application:
 \begin{itemize}
-  \item Can you teleport yourself to other parts of the scene? Is it easy to telepor yourself to the place that you want to teleport to?
-  \item Can you teleport yourself to a spot in the scene a face that direction that you want? Is it easy to do this?
-  \item Can you snap rotate to visualize the scene from other angles? Is it easy to do this?
+  \item How do you perceive the application?
+  \item How do you perceive the pattern finding?
+  \item Is there anything that is missing?
 \end{itemize}
 
-Questions related to interaction with the network:
-\begin{itemize}
-  \item Can you select a node? Is it easy to select the node that you want with the laser pointer?
-  \item Can you select a node that is far away? Is it easy to precisely that node that you want to select?
-  \item Can you translate the network to other position?
-  \item Can you scale the network?
-  \item Can you morph the network from one dataset to another?
-\end{itemize}
-
+Dicussion about the interview:
 % The following questionnaire is divided in four sections; a general section about VR headsets, a section about comfortability exploring the network using GeneNet VR, a section about the different actions in GeneNet VR and finally a section about feedback.
 %
 % To complete the questionnaire, the teste has to indicate the level of agreement or disagreement with each of the  statements, mark yes or no when it is asked and in the feedback section reply the questions with constructive feedback if possible.\\
