@@ -86,7 +86,15 @@ We have built GeneNet VR, a Virtual Reality visualization system that focuses on
   \item Visualization of two networks at the same time in order to compare them in real time.
 \end{itemize}
 
-GeneNet VR results in an application that offers a different way for the visualization of biological networks and that gives visualization experts interesting tools to explore the data. The application is also developed for Oculus Quest, an affordable standalone VR headset, where we take the advanatage of visualizing the networks without the need of cables and a computer.
+GeneNet VR results in an application that offers a different way for the visualization of biological networks and that gives visualization experts interesting tools to explore the data. The application is developed for Oculus Quest, a cheap standalone VR headset, where we take the advanatage of visualizing the networks without the need of cables and a computer. See Figure \ref{fig:bignet_intro} for an example of GeneNet VR running, where a user explores the blood dataset from MIxT.
+
+\begin{figure}[h!]
+    \setlength{\tempheight}{15ex}
+    \centering
+    \includegraphics[width=\textwidth]{mixt_vr_introduction}
+    \caption{A screenshot from GeneNet VR where a user is exploring the blood dataset from MIxT. The node TMED7 is selected and its interconnectionx are shown. The user is filtering the nodes from the dataset using a 2-dimensional menu.}
+    \label{fig:bignet_intro}
+\end{figure}
 
 For the evaluation of GeneNet VR, we have focused on performance and scalability problems, which we consider important for the experts during the visualization process so that the identification of patterns doesn't get interrupted by slowliness and low FPS. We found out that the performance is good when visualizing datasets similar to the ones from MIxT in both PC and the Oculus Quest headset. As for future work, we would like to test GeneNet VR with larger datasets and with datasets from other fields that are not biology.
 
