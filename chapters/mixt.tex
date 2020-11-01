@@ -1,0 +1,44 @@
+% What is MIxT used for? And how would users do it in VR?
+% How the MIxT application is implemented in GeneNet VR and what it does.
+% What are typical network characteristics for this (type of) application? Size, clusters, edges, connectivity, etc?
+
+The Matched Interaction Across Tissues (MIxT) is a system developed by UiT and Concordia University for exploring and comparing transcriptional profiles from two or more matched tissues across individuals \cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}. This system is implemented as a web application and it has a 2-dimensional visualization tool to explore biological networks \footnote{https://mixt-tumor-stroma.bci.mcgill.ca/network}. This tool has, however, some known scalability and visualization problems.
+
+We have used MIxT in GeneNet VR as a case study. In addition, we used this case study in the evaluation since it is a realistic application where we used complex networks that originally didn't scale in the existing web application. In this chapter we will describe what MIxT is used for, its disadvantages for scaling large biological networks and the challenges of building a VR visualization system that can solve the visualization and scalability problems.
+
+\section{What is MIxT used for?}
+MIxT is a web application for interactive data exploration in system biology developed by UiT and Concordia University. A reasearch was carried out for the study of interactions between the tumor and the blood systemic response of breast cancer patients. In the study, they profiled RNA in blood and matched tumor from 173 patients with breast cancer. The goal of the study was to identify genes and pathways in the primary tumor that are tightly linked to genes and pathways in the patient's systemic response (SR). The SR is the body's response to an infectious or non infectious insult. A biological pathway is a series of actions among the molecules in a cell that leads to a certain product or change in the cell. The result of the study suggests new ways of monitor breast cancer by looking outside the tumor and studying the patient's systemic response.
+
+MIxT provides an interactive view for networks. In Figure \ref{fig:mixt_webapp}, we show a screenshot from the network view. This view is two-dimensional and the user can do some interactions to explore data, but these are very limited. The users can zoom in and zoom out and also drag and drop with the mouse in the view in order to "move around". Also, by hovering on a node, the user can see the name of that node. By clicking on a node, the user goes to another page with more detailed biological information about that gene.
+
+\begin{figure}[h!]
+    \setlength{\tempheight}{15ex}
+    \centering
+    \includegraphics[width=\textwidth]{mixt_webapp}
+    \caption{Screenshot from the network view in the MIxT web application.}
+    \label{fig:mixt_webapp}
+\end{figure}
+
+An evident problem in this view appears when we start to explore the network. The clusters have many nodes and each node can have multiple edges, so the graph ends up looking like a hairball and it is not easy to explore (see Figure \ref{fig:mixt_hairball} for a screenshot of this problem from MIxT). In addition, the edges need to be rendered every time the user interacts with the network. It may take a few secons until the user can view all the edges that are in the view frame. This is a problem since the user needs to do many interactions when exploring the network. The visualization process becomes cumbersome and tedious in MIxT.
+
+\begin{figure}[h!]
+    \setlength{\tempheight}{15ex}
+    \centering
+    \includegraphics[width=\textwidth]{mixt_hairball}
+    \caption{Hairball problem in the network view in MIxT.}
+    \label{fig:mixt_hairball}
+\end{figure}
+
+\section{MIxT in VR}
+We have implemented a Virtual Reality version of the network view from MIxT in order to solve some scalability and visualization problems that this tool has. In addition to the originally challenges that the network visualizer has, there other challenges that we need to take into account in VR. In this section, we are going to explain these challenges and how we solved them in GeneNet VR.
+
+When moving the original visualization system to VR, we have to count with a new dimension and also the immersive feeling for the user. Having a new dimension is an advantage when we want to visualize high-dimensional data, like gene networks. However, we need to cope with occlusion problems. When the user visualizes the network from a particular angle, the nodes and edges that are in front of the user's viewpoint may hide other nodes and edges that are behind them. To solve this problem, we need to give the user the possibility to view the network from different angles. In GeneNet VR we have implemented a locomotion solution that allows the user to teleport to other parts of the scene. The user can also rotate the viewpoint to the right or to the left. In addition, the user has the possibility to move the network around by using the VR right controller.
+
+As we mentioned before, the original network view from MIxT has an information overload problem. The network looks like a hairball and it's hard to explore it and find patterns in it. To solve this problem in VR, we show only the edges from the nodes that the user wants to explore. This solution reduces the amount of information that is shown, but it needs some interaction solutions so that the user can easily explore the edges of the network. In GeneNet VR, we have implemented a node selector that allows the user to select a particular node using a laser pointer. When the laser collides with a node, the edges of this node are shown. Also, the user can scale up and down the network by using the VR controllers. In addition, a filtering menu was implemented in GeneNet VR, where the user can filter out the information from the network that is not relevant.
+
+Another problem from the MIxT network view is that it can be slow when visualizing the data. The nodes may take a few seconds to show completely, so the visualization process can be hard.
+
+\section{Network characteristics}
+The human being has 23 pairs of chromosomes in each of our cells. Each chromosome can contain from hundreds to thousands of genes. There are estimated to be around 30.000 genes. In GeneNet VR, the blood dataset is the biggest one, and contains a total of 2693 genes. We don't expect to deal with a network of 30.000, but it is true, as we can see from the datasets, that they can contain several thousands nodes and also several thousand edges. For instance, in the blood dataset, we can find a node that has 1607 relationships to other nodes.
+
+[What are typical network characteristics for this (type of) application? Size, clusters, edges, connectivity, etc?]
