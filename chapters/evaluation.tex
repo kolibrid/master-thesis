@@ -20,13 +20,13 @@
 % Links
 % Profiler panel
 
-GeneNet VR has been developed to explore biological networks that contain genetic information. For this project, we have used two datasets from MIxT \cite{dumeaux_fjukstad_interactions_tumor_blood}, where we applied several VR techniques to build a visualization and interaction system. In this chapter we want to evaluate GeneNet VR, focusing on its scalability and performance. Since we are visualizing networks with genetic information, we want to know if the system that we built can be used for larger sizes of this type of datasets. As part of the evaluation process, we designed a list of questions that we will try to answer along this chapter. The questions are:
+As part of the evaluation process, we designed a list of questions about the performance and the quality of GeneNet VR. We will
 \begin{enumerate}
-  \item For which interactions do we achieve the recommended FPS (72) when scaling the network?
-  \item What characteristics of the network influence the scalability?
-  \item What is the performance by using a PC with Oculus Link and the performance using just the Quest hardware?
+  \item For which interactions do we achieve the recommended FPS (72) for large biological networks?
+  \item What network properties influence the scalability?
+  \item How is performance of large network interaction improved when using a powerful PC compared to the standalone Oculus Quest?
   % \item Bonus: how will “beautifications” influence scalability?
-  \item How do users perceive the application?
+  \item How do users perceive the visualization of large biological networks in GeneNet VR?
 \end{enumerate}
 
 Question one is based on the Oculus' performance guidelines\cite{oculus_performance_baselines}, that say that an application should meet the following:
@@ -44,7 +44,9 @@ We will also evaluate the performance of the application being run in the Oculus
 
 Finally, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
 
-\section{Experimentation plan}
+\section{Methodology of experiment setup}
+GeneNet VR has been developed to explore large biological networks that contain genetic information. We have used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} and built a use case where we apply several VR techniques. In this chapter we want to evaluate the scalability, performance and quality of GeneNet VR.
+
 An experimentation plan was designed to ensure that the experiments are consistent and that they can be reproduced several times in order to get realistic measurements. We take into consideration the following aspects for our experiments:
 \begin{enumerate}
   \item Scalability for different interactions.
