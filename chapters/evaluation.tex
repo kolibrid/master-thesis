@@ -20,7 +20,7 @@
 % Links
 % Profiler panel
 
-As part of the evaluation process, we designed a list of questions about the performance and the quality of GeneNet VR. We will
+As part of the evaluation of our prototype, we wrote a list of questions focusing on performance and quality and that we will try to answer along this chapter. These questions are:
 \begin{enumerate}
   \item For which interactions do we achieve the recommended FPS (72) for large biological networks?
   \item What network properties influence the scalability?
@@ -29,56 +29,51 @@ As part of the evaluation process, we designed a list of questions about the per
   \item How do users perceive the visualization of large biological networks in GeneNet VR?
 \end{enumerate}
 
-Question one is based on the Oculus' performance guidelines\cite{oculus_performance_baselines}, that say that an application should meet the following:
+\section{Methodology of experiment setup}
+% An experimentation plan was designed to ensure that the experiments are consistent and that they can be reproduced several times in order to get realistic measurements. We take into consideration the following aspects for our experiments:
+% \begin{enumerate}
+%   \item Scalability for different interactions.
+%   \item Network characteristics.
+%   \item Bottlenecks.
+%   \item User study.
+%   \item Hardware and software specification.
+% \end{enumerate}
+
+GeneNet VR has been developed to explore large biological networks that contain genetic information. We have used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} and built a use case where we try to solve visualization and scalability problems.
+
+The performance is an aspect of GeneNet VR that we want to evaluate. Without a good performance, visualization tools like this one can become tedious to use. Also, smooth interactions are needed, so that the user can easily explore the networks to find information and patterns in them. We will evaluate the performance for the interactions that are commonly used in GeneNet VR. These are translate, scale and select nodes in the network. We will also evaluate if the number of nodes and edges influence in the scalability of the application. We will also study if there are bottlenecks and what is causing them. In Table \ref{tab:network-elements}, we show the elements that compose the networks that we used and how they can influence in the scalability.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l p{9cm}}
+\hline
+Element & Description \\
+\hline
+Clusters & The algorithm used to create the clusters is run during the initialization of the system, before the user can start exploring the networks. This can be time consuming because it involves many operations to process the text files (they have several thousands of lines). However, this is only processed once. \\
+Nodes & Represented as 2D squares in the space, they consist of 2 triangles. They are always showing in the scene and their position change while scaling, translating and morphing the network.  \\
+Lines & They represent relationships between the nodes. Every time a node is selected, line objects are created in the scene. They are 2-dimensional and consist of 2 points. Depending on the node we might need to render several hundreds of these lines in the scene. \\
+\end{tabular}
+\caption{Elements of the network that have influence in the scalability.}
+\label{tab:network-elements}
+\end{table}
+
+In the website of Oculus, we can find a reference with the Oculus' performance baselines that an application should meet \cite{oculus_performance_baselines} and that we will follow during the evaluation. These are the following:
 \begin{itemize}
   \item 72 FPS for Oculus Quest (required by Oculus).
   \item 50-100 draw calls per frame.
   \item 50,000-100,000 triangles or vertices per frame.
 \end{itemize}
 
-We will evaluate the performance for the interactions we use most for the visualization of the networks. These are: translation of the network, scaling of the network and node selection (including the line rendering for the relationships).
+We will also evaluate the performance of the application being run on the Oculus Quest hardware, and compare it with the performance in the PC. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance on the Oculus headset is good enough for the visualization of datasets like the ones from MIxT.
 
-As for the second question, we want to know what characteristics influence the scalability of the system. Some parts of the application will have more impact on the performance than others. To keep it simple, we will evaluate the impact in the performance done by the following elements, that are the most important for the visualization: number of nodes,  number of lines and number of clusters. However, since the cluster algorithm is applied when initializing the network, we will just focus on the number of nodes and the number of lines.
-
-We will also evaluate the performance of the application being run in the Oculus Quest hardware and compare it with the performance in the PC. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance in the Oculus Headset is good enough for the visualization of MIxT.
-
-Finally, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
-
-\section{Methodology of experiment setup}
-GeneNet VR has been developed to explore large biological networks that contain genetic information. We have used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} and built a use case where we apply several VR techniques. In this chapter we want to evaluate the scalability, performance and quality of GeneNet VR.
-
-An experimentation plan was designed to ensure that the experiments are consistent and that they can be reproduced several times in order to get realistic measurements. We take into consideration the following aspects for our experiments:
-\begin{enumerate}
-  \item Scalability for different interactions.
-  \item Network characteristics.
-  \item Bottlenecks.
-  \item User study.
-  \item Hardware and software specification.
-\end{enumerate}
-
-As we mentioned before, we will evaluate the performance of the system when we translate, scale and select nodes in the network. We will focus on the number of nodes and lines that the network has to have an idea of how the network scales. While studying the performance we will also see if there are bottlenecks and what is causing them. We will describe in Table \ref{tab:network-elements} the elements of the system that can more impact in the scalability.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{l p{9cm}}
-\textbf{Element} & \textbf{Description} \\
-Clusters & The algorithm used to create the clusters is run in the initialization of the system, before everything renders. This can be time consuming because it involves many operations to process the text files (they have several thousands of lines). However this is only called at the beginning and not after the system is initialized. \\
-Nodes   & Represented as 2D squares in the space, they consist of 2 triangles. They are always showing in the scene and they position change while scaling and translating the network.  \\
-Lines & They represent relationships between the nodes. Everytime a node is selected, line objects are added to the scene. They are 2-dimensional and consist of 2 triangles. Depending on the node we might need to render several hundreds of these lines in the scene. \\
-\end{tabular}
-\caption{Elements of the network that have influence in the scalability.}
-\label{tab:network-elements}
-\end{table}
-
-We have designed a series of experiments that can be reapeated several times. We ran each experiment 4 times and calculate the average in order to get realistic results. We also created a benchmark in Unity using C\# where we reproduce the interactions that we want to evaluate. The experiments are coded in the benchmark using scripts so that we can always reproduce them. For the networks translation and network scale we use mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection we have chosen a set of nodes.
-
-As for the hardware specification, we ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs} we can see the hardware specification for the machine. The GPU is also specified in Table \ref{tab:gpu-specs}. The hardware specification of the Oculus Quest is shown in Table \ref{tab:oculus-specs}.
+As for the hardware specification, we ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs}, we can see the hardware specification for the machine. The GPU of the machine is also specified in Table \ref{tab:gpu-specs}. The hardware specification of the Oculus Quest is shown in Table \ref{tab:oculus-specs}.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\multicolumn{2}{c}{Machine specification}                        \\
+\hline
 Processor   & Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz \\
+\hline
 RAM memory  & 64.0 GB                                            \\
 System type & 64-bit Operating System
 \end{tabular}
@@ -89,8 +84,9 @@ System type & 64-bit Operating System
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\multicolumn{2}{c}{GPU specification} \\
+\hline
 Adapter type   & NVIDIA GeForce GTX 1080 Ti \\
+\hline
 Chip Type  &  GeForce GTX 1080 Ti \\
 DAC Type & Integrated RAMDAC \\
 Available memory & 45025 MB
@@ -102,8 +98,9 @@ Available memory & 45025 MB
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\multicolumn{2}{c}{Oculus Quest specifications} \\
+\hline
 Panel Type   & Dual OLED 1600x1440 \\
+\hline
 Supported Refresh Rate  &  72Hz \\
 Tracking & Inside out, 6DOF \\
 CPU & Qualcomm® Snapdragon 835 \\
@@ -114,55 +111,68 @@ Memory & 4GB total
 \label{tab:oculus-specs}
 \end{table}
 
-The experiments were run in Unity, the same software that we used for the development. We used the version 2018.4.10f1 of Unity for the whole project and experimentation. In Unity we used the OpenGL graphic API.
+We built a benchmark in Unity in order to run the experiments several times. We used the same version of Unity as in the prototype, version 2018.4.10f1. The 3D rendering API that we have used is OpenGL. In total, we ran each experiment 4 times and we showed an average of the results using tables and graphs. The experiments are coded in the benchmark using scripts so that we can reproduce them several times. For the networks translation and network scale interactions, we use mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection we have chosen a set of nodes.
 
-% @TODO Write about how scalability was tested.
-In order to find bottlenecks, we used a profiling tool in Unity. A profiler is used to get an overview of the performance of the application. We used the built-in profiler in Unity. This gave us information about per-fram CPU  performance metrics. In addition, Unity also provides some metric information that we can be displayed in the Unity editor. We got information about the number of vertices in the scene, triangles, frames per second, etc.
+We measured the frame time (time the a frame takes to render), to analyse the performance. In Unity, the frame time is stored in a variable named deltaTime from the Time class. In order to find bottlenecks, we used a profiling tool from Unity. A profiler is used to get an overview of the performance of the application. This gave us information about per-frame CPU performance metrics. In addition, Unity also provides some metric information that we can be displayed in the Unity editor. We got information about the number of vertices in the scene and the number of triangles.
 
-\section{Performance evaluation}
-We will explain in this section the experiments to evaluate the performance. We will also show the results that we obtained and discuss them. As we mentioned before, we will focus on the performance for several actions that the user usually does when exploring the networks. These are translation of the network, scale up or down the network and select nodes in the network as well as render the lines for the relationships. All the experimens are run 4 times and we show the averages.
+% Finally, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
 
-We ran all the experiments on the PC and we used the blood dataset from MIxT. We chose this dataset because it is bigger than the biopsy one. We also ran each experiment for different sizes of the blood dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). In order to analyse the performance, we obtained the deltaTime for each frame. In Unity, this variable privides the time between the current and the previous frame. Once we obtain all the times for all the frames that the experiments last, we extract make the following calculations: the average of all the times of the frames, the 0.25\% worst of all the frames and the 0.1\% worst of all the frames.
+To evaluate the quality of GeneNet VR, we conducted a series of interviews with several employees from UiT involved in computer science and biology research projects. These interviews were conducted in an informal way and have the purpose of obtaining feedback about aspects like the research contribution in bioinformatics, the performance of the application and the interactions, the usability and also improvements that can be done to the project.
+
+\section{For which interactions do we achieve the recommended FPS (72) for large biological networks?}
+
+
+The experiments from this section were run on the PC and we used the blood dataset from MIxT. We chose this dataset because it is the largest one. We also ran each experiment for different sizes of the dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). We didn't run the experiments using larger datasets and also on the Oculus Quest due to lack of time.
+
+Each experiment lasts for 700 frames, starting from frame number 501 until frame 1200 in the application's timeline. We start from frame number 501 because some slowliness occurs during the  first frames, due to the initizalization of the application. In order to evaluate the experiments, we stored the frame time for each frame for a total of 700 frames. The frame time is the time that a frame takes to render. We use this value to determine if the application meets the 72 FPS. Once we obtain all the frame times, we extract the following averages for each experiment: the average frame time of all the frames, the average of the 0.25\% worst times and the average of the 1\% worst times.
+
+The average of all the frames is the most important value to look at, because it can give us an idea wether the experiment meets the required FPS or not. In a perfect application where all the frames last the same amount of time and where the frame rate is 72, each frame would last around 13.9 milliseconds. However, this is not the case in real applications. If the general average is above the 13.9 milliseconds, it means that the experiment didn't pass the 72 FPS. By looking at the 0.25\% worst frame time and the 1\% worst frame time, we will get the frame with the worst time and the 7 frames with the worst times respectively (our experiments last for 700 frames). If we see that these frames have much worse times, compared with the general average, we will use a profiler to see if there are bottlenecks and try to give a solution to them.
 
 % Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
 
-\subsection{Performance when translating the network}
-In this experiment, we evaluate the performance when translating the network. To translate the network around in the scene, we have used a sine function in the y axis and a constant function in the z axis. For every frame we update the y and z position of the network object, creating a wave motion. We obtain the delta time for every frame during a total of 700 frames (starting from frame number 501 until frame 1200). In Table \ref{tab:experiment_moving} we can see the results obtained in the experiment for all the network sizes and with the averages.
+\subsection{Translating the network meets the 72 FPS}
+In thise experiment, we evaluate the performance when translating the network. In the benchmark, the network is moved around in the scene using a sine function in the y axis and a constant function in the z axis. For every frame we update the y and z position of the network object. In Table \ref{tab:experiment_moving}, we can see the results that we obtained.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
+\hline
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 12.174 & 20.111 & 6.553 \\
-size/2 & 12.791 & 21.996 & 6.498 \\
-size/3 & 13.516 & 23.28 & 6.495 \\
+\hline
+size & 12.17 & 20.11 & 6.55 \\
+size/2 & 12.79 & 22 & 6.5 \\
+size/3 & 13.52 & 23.28 & 6.5 \\
 \end{tabular}
-\caption{Performance results when translating the network.}
+\caption{Performance results in milliseconds when translating the network.}
 \label{tab:experiment_moving}
 \end{table}
 
-The average for all the sizes is quite similar. We can also see that the average time is slightly lower when the network is smaller. For the 1\% column, we calculate the average for the 7 frames with highest times. For the 0.25\% column, we do something similar; we show the time of the frame with the worst time. As we can see, the times for these percentages are actually higher when the network is smaller, something that we didn't expect. We would have expected that the time was lower when the number of nodes was lower as well. However, for the total averages, this tendency meets our expectations.
+The averages for all the sizes are below 13.9 milliseconds, so translating the blood dataset network meets the 72 FPS. There isn't a significant difference between the averages for the different network sizes. This is because the network that we are using is probably too small. It would be interesting to use larger networks to find out for which network size the performance is no longer good enough.
 
-\subsection{Performance when scaling the network}
+% Standard deviation? In statistics, the standard deviation is a measure of the amount of variation or dispersion of a set of values. A low standard deviation indicates that the values tend to be close to the mean of the set, while a high standard deviation indicates that the values are spread out over a wider range.
+
+\subsection{Scaling the network meets the 72 FPS}
 In this experiment, we evaluate the performance when scaling up and down the network. We use a sine function as well. we update the size of the network object for every frame and since we use a sinus function, the network scales up an down several times. We obtain the delta time for every frame during a total of 700 frames, as well as in the translation performance experiment. See Table \ref{tab:experiment_scale} for the results obtained.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
+\hline
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 13.418 & 22.816 & 6.505 \\
-size/2 & 12.685 & 22.607 & 6.485 \\
-size/3 & 13.631 & 23.015 & 6.494 \\
+\hline
+size & 13.42 & 22.82 & 6.51 \\
+size/2 & 12.69 & 22.61 & 6.49 \\
+size/3 & 13.63 & 23.02 & 6.49 \\
 \end{tabular}
-\caption{Performance of scale the network.}
+\caption{Performance results in milliseconds for the scale the network interaction.}
 \label{tab:experiment_scale}
 \end{table}
 
 The results from this experiment are similar to the ones obtained in the previous one about the translation of the network, but we find some differences. The average time for all the nodes (3rd column) is slightly different, the time for size/3 is higher than size/2, somthing that we would have expected the opposite. All the results for the size/2 are lower than for size/3.
 
-\subsection{Performance when selecting nodes}
-In this experiment we want to evaluate the performance when selecting nodes. When a node is selected in GeneNet VR, several things are done during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the gene node. Thrid, the relationships from that node are rendered in the scene. There are many things going on during this process and we evaluate the performance for the entire pipeline.
+\subsection{Performance of the node selection interaction}
+In this experiment we want to evaluate the performance when selecting nodes. When a node is selected in GeneNet VR, several things are done during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the gene node. Third, the relationships from that node are rendered in the scene. There are many things going on during this process and we evaluate the performance for the entire pipeline.
 
 As for the experiment design, we took into consideration the number of the relationships (lines) that had to be drawn in the scene. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
 
@@ -194,10 +204,12 @@ In the experiment, we select the nodes that we mentioned before. We select one n
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
+  \hline
 Dataset size & 1\% average low & 0.25\% average low & Average \\
-size & 65.569 & 100 & 8.711 \\
-size/2 & 56.389 & 100 & 8.638 \\
-size/3 & 56.385 & 100 & 8.583 \\
+\hline
+size & 65.57 & 100 & 8.71 \\
+size/2 & 56.39 & 100 & 8.64 \\
+size/3 & 56.39 & 100 & 8.58 \\
 \end{tabular}
 \caption{Performance of select node.}
 \label{tab:experiment_select}
