@@ -3,6 +3,7 @@
 \usepackage[backend=bibtex,style=numeric]{biblatex}
 \usepackage{gensymb}
 \usepackage{pgfplots}
+\usepackage{pgfplotstable}
 \usepackage{tikz}
 \usepackage[toc,page]{appendix}
 \usepackage{adjustbox}
@@ -17,11 +18,42 @@
 
 \pgfplotmarksize=3pt
 
+\makeatletter
+\long\def\ifnodedefined#1#2#3{%
+    \@ifundefined{pgf@sh@ns@#1}{#3}{#2}%
+}
+
+\pgfplotsset{
+    discontinuous/.style={
+    scatter,
+    scatter/@pre marker code/.code={
+        \ifnodedefined{marker}{
+            \pgfpointdiff{\pgfpointanchor{marker}{center}}%
+             {\pgfpoint{0}{0}}%
+             \ifdim\pgf@y>0pt
+                \tikzset{options/.style={mark=*, fill=white}}
+                \draw [densely dashed] (marker-|0,0) -- (0,0);
+                \draw plot [mark=*] coordinates {(marker-|0,0)};
+             \else
+                \tikzset{options/.style={mark=none}}
+             \fi
+        }{
+            \tikzset{options/.style={mark=none}}
+        }
+        \coordinate (marker) at (0,0);
+        \begin{scope}[options]
+    },
+    scatter/@post marker code/.code={\end{scope}}
+    }
+}
+
+\makeatother
+
 \begin{document}
 
 %:-------------------------- Frontpage ------------------------
 
-\title{GeneNet VR: Visualization of Biological Networks in Virtual Reality for Rapid Pattern Finding Using Cheap Hardware}
+\title{GeneNet VR: Visualization of Large Biological Networks in Virtual Reality for Rapid Pattern Finding Using Cheap Hardware}
 % \subtitle{Subtitle}% Note: this is optional, and may be commented out
 \author{\'Alvaro Mart\'inez Fern\'andez}
 \thesisfaculty{Faculty of Science and Technology \\ Department of Computer Science}

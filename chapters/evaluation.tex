@@ -24,7 +24,7 @@ As part of the evaluation of our prototype, we wrote a list of questions focusin
 \begin{enumerate}
   \item For which interactions do we achieve the recommended FPS (72) for large biological networks?
   \item What network properties influence the scalability?
-  \item How is performance of large network interaction improved when using a powerful PC compared to the standalone Oculus Quest?
+  \item Do we achieve the recommended FPS (72) for large biological networks when using the standalone Oculus Quest?
   % \item Bonus: how will “beautifications” influence scalability?
   \item How do users perceive the visualization of large biological networks in GeneNet VR?
 \end{enumerate}
@@ -41,7 +41,7 @@ As part of the evaluation of our prototype, we wrote a list of questions focusin
 
 GeneNet VR has been developed to explore large biological networks that contain genetic information. We have used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} and built a use case where we try to solve visualization and scalability problems.
 
-The performance is an aspect of GeneNet VR that we want to evaluate. Without a good performance, visualization tools like this one can become tedious to use. Also, smooth interactions are needed, so that the user can easily explore the networks to find information and patterns in them. We will evaluate the performance for the interactions that are commonly used in GeneNet VR. These are translate, scale and select nodes in the network. We will also evaluate if the number of nodes and edges influence in the scalability of the application. We will also study if there are bottlenecks and what is causing them. In Table \ref{tab:network-elements}, we show the elements that compose the networks that we used and how they can influence in the scalability.
+The performance is an aspect of GeneNet VR that we want to evaluate. Without a good performance, visualization tools like this one can become tedious to use. Also, smooth interactions are needed, so that the user can easily explore the networks to find information and patterns in them. We will evaluate the performance sor the interactions that are commonly used when exploring networks in GeneNet VR and that involve manipulating the position or size of the network or showing the edges. These are translate, scale and select nodes in the network. Because of time limitation, we couldn't evaluate other interactions. We will also evaluate if the number of nodes and edges influence in the scalability of the application. We will also study if there are bottlenecks and what is causing them. In Table \ref{tab:network-elements}, we show the elements that compose the networks that we used and how they can influence in the scalability.
 
 \begin{table}[h!]
 \centering
@@ -74,7 +74,7 @@ As for the hardware specification, we ran the experiments in a machine with Wind
 \hline
 Processor   & Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz \\
 \hline
-RAM memory  & 64.0 GB                                            \\
+RAM & 64.0 GB                                            \\
 System type & 64-bit Operating System
 \end{tabular}
 \caption{Machine specification.}
@@ -88,7 +88,6 @@ System type & 64-bit Operating System
 Adapter type   & NVIDIA GeForce GTX 1080 Ti \\
 \hline
 Chip Type  &  GeForce GTX 1080 Ti \\
-DAC Type & Integrated RAMDAC \\
 Available memory & 45025 MB
 \end{tabular}
 \caption{GPU specification.}
@@ -138,11 +137,11 @@ In thise experiment, we evaluate the performance when translating the network. I
 \centering
 \begin{tabular}{llll}
 \hline
-Dataset size & 1\% average low & 0.25\% average low & Average \\
+Dataset size & 0.25\% average low & 1\% average low & Average \\
 \hline
-size & 12.17 & 20.11 & 6.55 \\
-size/2 & 12.79 & 22 & 6.5 \\
-size/3 & 13.52 & 23.28 & 6.5 \\
+size & 20.11 & 12.17 & 6.55 \\
+size/2 & 22  & 12.79 & 6.5 \\
+size/3 & 23.28 & 13.52 & 6.5 \\
 \end{tabular}
 \caption{Performance results in milliseconds when translating the network.}
 \label{tab:experiment_moving}
@@ -153,30 +152,30 @@ The averages for all the sizes are below 13.9 milliseconds, so translating the b
 % Standard deviation? In statistics, the standard deviation is a measure of the amount of variation or dispersion of a set of values. A low standard deviation indicates that the values tend to be close to the mean of the set, while a high standard deviation indicates that the values are spread out over a wider range.
 
 \subsection{Scaling the network meets the 72 FPS}
-In this experiment, we evaluate the performance when scaling up and down the network. We use a sine function as well. we update the size of the network object for every frame and since we use a sinus function, the network scales up an down several times. We obtain the delta time for every frame during a total of 700 frames, as well as in the translation performance experiment. See Table \ref{tab:experiment_scale} for the results obtained.
+We also evaluated the performance when scaling network. We used a sine function as well and update the size of the network object for every frame to scale it up an down. In Table \ref{tab:experiment_scale} we can see the results that we obtained.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
 \hline
-Dataset size & 1\% average low & 0.25\% average low & Average \\
+Dataset size & 0.25\% average low & 1\% average low & Average \\
 \hline
-size & 13.42 & 22.82 & 6.51 \\
-size/2 & 12.69 & 22.61 & 6.49 \\
-size/3 & 13.63 & 23.02 & 6.49 \\
+size & 22.82 & 13.42 & 6.51 \\
+size/2 & 22.61 & 12.69 & 6.49 \\
+size/3 & 23.02 & 13.63 & 6.49 \\
 \end{tabular}
 \caption{Performance results in milliseconds for the scale the network interaction.}
 \label{tab:experiment_scale}
 \end{table}
 
-The results from this experiment are similar to the ones obtained in the previous one about the translation of the network, but we find some differences. The average time for all the nodes (3rd column) is slightly different, the time for size/3 is higher than size/2, somthing that we would have expected the opposite. All the results for the size/2 are lower than for size/3.
+The average time for this experiment is also under the 13.9 milliseconds limit, meaning that the interaction reaches the 72 FPS. The low 1\% is also under the 13.9 milliseconds, so we don't consider that there are any big issues for the performance of this interaction. The variation among the network sizes is also insignificant. An evaluation with bigger networks would be necessary to determine the network size limit for which the performance is not good.
 
-\subsection{Performance of the node selection interaction}
-In this experiment we want to evaluate the performance when selecting nodes. When a node is selected in GeneNet VR, several things are done during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the gene node. Third, the relationships from that node are rendered in the scene. There are many things going on during this process and we evaluate the performance for the entire pipeline.
+\subsection{Selecting nodes the network meets the 72 FPS but with possible bottlenecks}
+In this experiment we want to evaluate the performance when selecting nodes in the network. When a node is selected in GeneNet VR, several things happen during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the selected gene node. Third, the edges for the selected node are created in the scene.
 
-As for the experiment design, we took into consideration the number of the relationships (lines) that had to be drawn in the scene. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
+In this experiment we only evaluate the edge creation for the nodes, although it would be ideal to evaluate all the previous three parts. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
 
-In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. This suppose already the 12,92\% of all the nodes in the dataset. However there also a few nodes that have several hundred of lines. Because it was a bit hard to make a balanced selection, we just selected several nodes from the range 1 to 1607. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
+In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. Most of the nodes have very few connections. However, there a few nodes that have several hundred of lines. It was a bit hard to make a balanced selection, so we just selected several nodes from the range that goes from 1 to 1607 (edges), even though this is probably unrealistic. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
 
 % Example scatter plot https://timodenk.com/blog/latex-plot-snippets/screen-shot-2017-02-18-at-15-10-07/
 % https://tex.stackexchange.com/questions/390161/drawing-3d-points-from-external-file
@@ -199,26 +198,62 @@ In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis re
 \label{fig:edges_nodes_blood}
 \end{figure}
 
-In the experiment, we select the nodes that we mentioned before. We select one node every 100 frames, starting from the TGFBR3 node and following the order from the list. We calculate the averages after all the nodes have been selected. We also have a total of 700 frames, like in the previous experiments. In Figure \ref{tab:experiment_select} we can see the results.
+% \begin{figure}[h!]
+%   \centering
+%   \begin{minipage}{.8\textwidth}
+%
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%         clip=false,
+%         jump mark left,
+%         ymin=0,ymax=1,
+%         xmin=0, xmax=19,
+%         every axis plot/.style={very thick},
+%         discontinuous,
+%         table/create on use/cumulative distribution/.style={
+%             create col/expr={\pgfmathaccuma + \thisrow{f(x)}}
+%         }
+%     ]
+%     \addplot [red] table [y=cumulative distribution]{
+%     x f(x)
+%     1 231/231
+%     2 117/231
+%     3 93/231
+%     5 84/231
+%     8 51/231
+%     12 42/231
+%     15 33/231
+%     17 39/231
+%     19 38/231
+%     };
+%     \end{axis}
+%     \end{tikzpicture}
+%
+%   \end{minipage}
+% \caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The X axis shows the number of edges and the Y axes shows the number of nodes that have that number of edges in the blood dataset.}
+% \label{fig:edges_nodes_blood}
+% \end{figure}
+
+In Figure \ref{tab:experiment_select}, we can see the results from this experiment.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{llll}
   \hline
-Dataset size & 1\% average low & 0.25\% average low & Average \\
+Dataset size & 0.25\% average low & 1\% average low & Average \\
 \hline
-size & 65.57 & 100 & 8.71 \\
-size/2 & 56.39 & 100 & 8.64 \\
-size/3 & 56.39 & 100 & 8.58 \\
+size & 100 & 65.57 & 8.71 \\
+size/2 & 100 & 56.39 & 8.64 \\
+size/3 & 100 & 56.39 & 8.58 \\
 \end{tabular}
-\caption{Performance of select node.}
+\caption{Performance results in milliseconds for the select node interaction.}
 \label{tab:experiment_select}
 \end{table}
 
-The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more). In the low percentages we can see a big difference though. For the 0.25\%, it's always 100ms. And for the 1\% everage low, it's 65ms for the whole size and 56ms for size/2 and size/3. We can see that the node selection can have much more impact in the performance than the translation and scale of the network.
+The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more), but still inside of the 72 FPS (under 13.9 milliseconds). For the low percentages we don't reach the 72 FPS though. The results say that the creation of the edges when selecting a node can have have more impact in the performance, and it would be interesting to find if there are any bottlenecks and how to solve them.
 
 \subsection{Performance discussion}
-We can see from the results, that the number of nodes in the dataset doesn't have that much impact in the performance. It would be interesting to analyse the performance wiht datasets that have more than 2693 nodes. For instance with 5000 and 10000 nodes, but for our project, we have just focused on the datasets MIxT, and the blood dataset is the biggest one. For a future work, it would be interesting to analyse larger datasets to see if the number of nodes could influence more in the performance.
+From the results we can conclude that there wasn't much point comparing the three sizes that we compared for the blood network, since the system is being undertilized. It would be interesting to evaluate larger networks where the system has performance problems in order to determin for which size limits the system performs at 72 FPS.
 
 \begin{figure}[h!]
 \centering
@@ -260,22 +295,21 @@ We can see from the results, that the number of nodes in the dataset doesn't hav
         \addlegendimage{my legend}
     \end{axis}
 \end{tikzpicture}
-\caption{Bar graph showing a summary of the performance results for the 1\% lowest average (7 frames with worst performance or higher times).}
+\caption{Bar graph showing a summary of the performance results for the 1\% lowest average (7 frames with worst performance).}
 \label{fig:performance_bar}
 \end{figure}
 
-In general, the performance is good for the experiments that we ran. Having an average of 7-8 milliseconds for all the frames means that we meet the 72 FPS that the Oculus' performance guidelines suggest. However, for the node selection, we have seen that the performance can be a lot worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the results. In this bar graph we can see a summary of the 1\% worst time for the different interactions. We can see that the time for the node selection interaction is much higher.
+The performance is good for the interactions that we evaluated. Having an average of 7-8 milliseconds means that we meet the 72 FPS that the Oculus' performance guidelines suggest. As we mentioned before, an average above 13.9 milliseconds is the limit. However, for the node selection, we have seen that the performance can be much worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the 1\% worst results. The performance for this interaction is important because this shows relevant information to the user that is needed to explore the dataset. The edges are created in the scene every time a node is selected. A better solution could be to create the necessary edges in the scene when the application is initialized and show them where they are needed.
 
-One important observation is that in the experiment we just select 7 nodes, one every 100 frame. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Another point to take into account is that not all the nodes have the same number of edges to render. It would be interesting to know if the number of edges could decrease the performance as well. We will analyse in the following section if the selection of nodes and the number of edges could have more impact in the performance and scalability of the network.
+One important observation is that in the experiment we just select 7 nodes, one every 100 frame. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Also, not all the nodes have the same number of edges. It would be interesting to know if the number of edges could decrease the performance as well. We will analyse in the following section if the number of edges could have more impact in the performance and scalability of the network.
 
-\section{Scalability evaluation}
-As we saw in the performance experiment for selecting the nodes, the time to render the frames can be very high. This could have influence in the quality of the application and generate some unconformity in the user's experience. It could happen that the application freezes for some milliseconds and that the application doesn't run smoothly when selecting the nodes. In this section we evaluate the performance when selecting the nodes and rendering the edges for the nodes. This will also help us study the scalability of the application so that it can be used for larger datasets.
+\section{What network properties influence the scalability?}
 
-We would like to know if the number of edges that we need to render in the scene can decrease the performance. We designed an experiment where we test the delta time (the time that a frame takes to render) for different amount of edges to render. In Figure \ref{fig:edges_nodes_blood} we showed the distribution between the number of edges and the number of nodes that have that amount of edges. We used this data and created a new dataset where we have a node from every "edge category" and then we selected each of the nodes and calculated the delta time. To put it simple we try to render the edges for each of the possible number of edges that we can find in the blood dataset and calculate the time for each of them.
+The number of nodes and the number of edges can influence in the scalability of the system. We saw in the performance experiments that the datasets that we are using are small for our system. However, the time to create the edges when selecting the nodes can be very high. We will further evaluate the performance when selecting the nodes in this section in order to determine how the number of edges can influence the scalability. For future experiments, it would be necessary to use networks with higher number of nodes to understand how the number of nodes can influence the scalability.
 
-In Figure \ref{fig:scalability_edges_blood} we can see the results for this experiment. In our benchmark we run the select node action for each of the nodes from the dataset that we created for this. We select a new node in each frame. We show the results using an scatter plot. The X axis represents the number of edges to render. The Y axis represents the total time that it took to render that amount of edges.
+We designed an experiment where we test the time frame for different amount of edges to render. In Figure \ref{fig:edges_nodes_blood} we showed the distribution between the number of edges and the number of nodes that have that amount of edges. We used this data and created a new dataset where we have a node from every "edge category" and then we selected each of the nodes and calculated the time frame. To put it simple, we try to render the edges for each of the possible number of edges that we can find in the blood dataset and calculate the time that GeneNet VR takes to create them in the scene.
 
-We would have expected that when there are more edges to render, more time it would be needed for that. However, that is not as clear in the experiments results. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms to render. On the right side of the plot we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases they take less than 20 ms. This is not very consisten and we conclude here that the number of edges might influnce in the performance, but we can see that there are many other things that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
+In Figure \ref{fig:scalability_edges_blood}, we can see the results as a scatter plot for this experiment. In the benchmark, we run the select node action for each of the nodes from the dataset that we created for this. We select a new node every frame.
 
 \begin{figure}[h!]
   \centering
@@ -287,6 +321,9 @@ We would have expected that when there are more edges to render, more time it wo
     xmin=0,xmax=1610,
     ymin=0,ymax=100,
     ]
+    \draw [ultra thick, dotted]
+        (axis cs: 0,13.9) -- (axis cs: 1610,13.9)
+        node[pos=0.85, above] {72 FPS limit};
     \addplot[only marks,mark=asterisk,color=rred, style={thick}] file{data/scalabilityBlood.dat};
     \end{axis}
 
@@ -296,7 +333,9 @@ We would have expected that when there are more edges to render, more time it wo
 \label{fig:scalability_edges_blood}
 \end{figure}
 
-After running this experiment we ran the profiler from Unity to see what could be the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see an screenshot of the profiler in Unity. In the profiler window we can see a graph where the Y axis shows the amount of time that each frame took to render. we are selecting a frame in the middle, where we can see a spike (althugh it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window we can see a list of functions that are called during this frame. Also there are several columns and the the total column indicates the percentage of the time that a particular function took. As can see in the screenshot, we don't get much information about where the proble could be. But we can see that 65.4\% of the total time comes from the BehaviourUpdate function.
+From the results, we would have expected that when the number of edges to create is higher, more time it is needed to create them. However, that is not what the results are showing. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms. On the right side of the plot we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases they take less than 20 ms. This is not very consisten and can conclude that the number of edges might influnce in the performance and then in the scalability of the application, but we can see that there are many other aspects that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
+
+After running this experiment, we used the profiler from Unity to try to fing the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see an screenshot of the profiler in Unity. In the profiler window, we can see a graph where the Y axis shows the amount of time that each frame took to render. We are selecting a frame in the middle, where we can see a spike (although it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window we can see a list of functions that are called during this frame. Also, there are several columns and we can see the percentage of the time that a particular function took. Analysing the profiler, we can see that 65.4\% of the total time comes from the BehaviourUpdate function. This function processes all the Update methods in Unity. It's probably that the problem is in the implementation that we chose. We would need further analysis into this and maybe split our function to create the lines into smaller functions and analyse each of them. But because of lack of time, we haven't done that in here.
 
 \begin{figure}
     \centering%
@@ -305,7 +344,9 @@ After running this experiment we ran the profiler from Unity to see what could b
     \label{fig:profiler}
 \end{figure}%
 
-We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k verteces, which is inside of the Oculus' performance guidelines.
+We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k verteces, which is inside of the Oculus' performance guidelines that we mentioned in this chapter.
+
+It's hard to determine from the experiments that we ran, if the number of edges can have an impact in the scalability of the system. We would need to better isolate this part of the code and further evaluate it. However, we expect that the number of edges can have an impact. As we have mentioned before, a better implementation solution could improve the performance of this. Instead of create the edges in the scene every time a node is selected, we can create all the necessary edges in the initialization of the system, and show them when they are needed. So, normally they would be hidden, but we show them when the user selects a node.
 
 % \begin{figure}[h!]
 %   \centering
@@ -326,8 +367,8 @@ We get also some other metric information from this screenshot (see the region f
 % \label{fig:scalability_edges_biopsy}
 % \end{figure}
 
-\section{Oculus Quest vs Computer}
-We developed the application in a PC and tested it in Oculus Quest, an standalone headset. We did the testing using a USB C cable that connects the headset to the PC. However when we run the application in this way, we use the PC's hardware. The previous experiments were also run in the PC. We want to evaluate in this section, if the performance in the Oculus Quest is good enough when running GeneNet VR. The hardware for the Oculus Quest is not as good as for the machine, so we expect that the performance in the Oculus Quest is goin to be worse.
+\section{Do we achieve the recommended FPS (72) for large biological networks when using the standalone Oculus Quest?}
+We would like to know if we can use a cheap VR headset like the Oculus Quest to visualize larg biological networks. The hardware for the Oculus Quest is not as good as the machine's, so we expect that the performance in the Oculus Quest will be worse. We also want to know how the performance is improved when using a machine with better hardware.
 
 \begin{figure}[h!]
   \centering
@@ -344,19 +385,24 @@ We developed the application in a PC and tested it in Oculus Quest, an standalon
     \addlegendentry{Oculus Quest}
     \addplot[color=bblue, style={thick}] file{data/pc.dat};
     \addlegendentry{PC}
+    \draw [ultra thick, dotted]
+        (axis cs: 301,13.9) -- (axis cs: 370,13.9)
+        node[pos=0.3, above] {72 FPS limit};
     \end{axis}
 
     \end{tikzpicture}
   \end{minipage}
-\caption{Performance running the application in a machine vs on Oculus Quest.}
+\caption{Performance of GeneNet VR when visualizing the blood dataset tunning on a machine and on the Oculus Quest. The X axis represents the frame number (like a timeline). The Y axis represents the amount of time in milliseconds that a particular frame took to render.}
 \label{fig:pc_vs_oculus}
 \end{figure}
 
-We designed an experiment that we could run in the PC and in the Oculus Quest to measure the performance for each of the machines. In the experiment we run several things at the same time. We used a combination of the three performance experiments that we explained before and use them together for this experiment. For a short period of time we translate the network, scale it and select several nodes, everything at the same time. The experiment lasts for 70 frames; it starts in frame 300 and ends in frame 370.
+We designed an experiment that we could run in both the PC and the Oculus Quest to measure the performance. In this experiment we used combination of the three performance experiments for the interactions and we use them together for this experiment. For a short period of time we translate the network, scale it and select several nodes. The experiment lasts for 70 frames; it starts in frame 300 and ends in frame 370.
 
-In Figure \ref{fig:pc_vs_oculus}, we can see the results from the experiment, represented with a graph. The X axis represents the frame number (like a timeline). The Y axis represents the amount of time that a particular frame took to render in milliseconds. We can see that the performance for the Oculus Quest is a bit worse than for the PC; however, the difference is not very big. We can also see some peaks in the graph. This is due to the select node action. We select 7 nodes during the experiment. A new node is selected every 10 frames. The node selection starts in frame 300 with a node that doesn't have many edges and the last node of the experimen (in frame 360 has many nodes). Each new node selected has more edges that the previous one. We can see this refleted in the graph; every 10 frames there is a new picks, starting from frame 330, and this pick is higher. We can say that the number of edges has an impact with the performance.
+In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results from the experiments. The performance for the Oculus Quest is worse than for the PC, as we had expected; however, most of the frames reach the 72 FPS limit. We can see some peaks in the graph, related to the selection of the nodes. We select a node every 10 frames (7 nodes in total). The nodes are selected in this order (in parenthesis is the number of edges): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586) and ACTR6(756).
 
-\section{Demo and interview}
+We can extract from the experiment that we can use GeneNet VR for the network sizes that we used from MIxT and that we achieve the 72 FPS. However, the performance is on the limit of the 72 FPS and when we select nodes with more than 10 edges, the performance can be bad during that frame. It would be necessary evaluate the performance of GeneNet VR using larger networks on the Oculus Quest. Also improve the creationg of the edges as we mentioned before.
+
+\section{How do users perceive the visualization of large biological networks in GeneNet VR?}
 One of the questions that we asked ourselves during the evaluation process was about how the users perceive the interactions with the networks. In order to evaluate this we made some interviews to users in order to get feedback about the quality of the application.
 
 Questions related to the locomotion of the VR application:
