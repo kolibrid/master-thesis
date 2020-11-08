@@ -71,9 +71,7 @@ As for the hardware specification, we ran the experiments in a machine with Wind
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\hline
 Processor   & Intel(R) Xeon(R) CPU E3-1275 v6 @ 2.80GHz 3.79 GHz \\
-\hline
 RAM & 64.0 GB                                            \\
 System type & 64-bit Operating System
 \end{tabular}
@@ -84,11 +82,9 @@ System type & 64-bit Operating System
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\hline
 Adapter type   & NVIDIA GeForce GTX 1080 Ti \\
-\hline
-Chip Type  &  GeForce GTX 1080 Ti \\
-Available memory & 45025 MB
+ROPS & 88 \\
+Memory size & 11 GB \\
 \end{tabular}
 \caption{GPU specification.}
 \label{tab:gpu-specs}
@@ -97,9 +93,7 @@ Available memory & 45025 MB
 \begin{table}[h!]
 \centering
 \begin{tabular}{ll}
-\hline
 Panel Type   & Dual OLED 1600x1440 \\
-\hline
 Supported Refresh Rate  &  72Hz \\
 Tracking & Inside out, 6DOF \\
 CPU & Qualcomm® Snapdragon 835 \\
@@ -277,9 +271,9 @@ From the results we can conclude that there wasn't much point comparing the thre
                 anchor=south east,
                 column sep=1ex
         },
-        extra y ticks = 0.4,
-        extra y tick labels={},
-        extra y tick style={grid=major,major grid style={thick,draw=black}}
+        extra y ticks = 13.9,
+        extra y tick labels={72 FPS limit},
+        extra y tick style={grid=major,major grid style={thick,dashed, draw=black}}
         ]
         \addplot[style={bblue,fill=bblue,mark=none}]
             coordinates {(Translate, 12.174) (Scale,13.418) (Select Node,65.569)};
@@ -290,7 +284,6 @@ From the results we can conclude that there wasn't much point comparing the thre
 
         \addplot[style={ggreen,fill=ggreen,mark=none}]
              coordinates {(Translate,13.516) (Scale,13.631) (Select Node,56.385)};
-
         \legend{Size,Size/2,Size/3}
         \addlegendimage{my legend}
     \end{axis}
@@ -400,19 +393,75 @@ We designed an experiment that we could run in both the PC and the Oculus Quest 
 
 In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results from the experiments. The performance for the Oculus Quest is worse than for the PC, as we had expected; however, most of the frames reach the 72 FPS limit. We can see some peaks in the graph, related to the selection of the nodes. We select a node every 10 frames (7 nodes in total). The nodes are selected in this order (in parenthesis is the number of edges): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586) and ACTR6(756).
 
-We can extract from the experiment that we can use GeneNet VR for the network sizes that we used from MIxT and that we achieve the 72 FPS. However, the performance is on the limit of the 72 FPS and when we select nodes with more than 10 edges, the performance can be bad during that frame. It would be necessary evaluate the performance of GeneNet VR using larger networks on the Oculus Quest. Also improve the creationg of the edges as we mentioned before.
+From the results we can say that we reach the 72 FPS using the Oculus Quest for our network size. However, the performance is on the limit of the 72 FPS and when we select nodes with more than 10 edges, the performance can be get worse. It would be necessary to evaluate GeneNet VR using larger networks on the Oculus Quest. Also improve the creationg of the edges as a better programming solution, as we mentioned before.
 
 \section{How do users perceive the visualization of large biological networks in GeneNet VR?}
-One of the questions that we asked ourselves during the evaluation process was about how the users perceive the interactions with the networks. In order to evaluate this we made some interviews to users in order to get feedback about the quality of the application.
-
-Questions related to the locomotion of the VR application:
+In order to answer to this question, we used a qualitative research approach where we conducted a series of semi-structured interviews with several biologists and computer scientists from the University of Troms\o. A semi-structured interview is an in-depth interview where the respondents have to answer open-ended questions \cite{interviews}. The interviews were conducted only once and they covered the duration of 30 min to around one hour. In order to have the interview data captured, we took hand written notes during the interview. The open-ended questions that we used are the following:
 \begin{itemize}
   \item How do you perceive the application?
-  \item How do you perceive the pattern finding?
-  \item Is there anything that is missing?
+  \item How do you perceive the application for pattern finding?
+  \item What is missing in the application?
 \end{itemize}
 
-Dicussion about the interview:
+Before starting the interview, a preliminary introduction to the respondent was given. We explained them the research problem, as well as what MIxT is, the datasets that we are visualizing and how they can use the different interactions with the VR controllers. Then, we would start interviewing the respondents using the Oculus Quest connected to the machine. We used the machine because there is a bug on the UI menu when running the application on the Oculus Quest. In addition, with the Oculus Quest connected to the machine, we can see what the respondents are seeing in GeneNet VR and we can better guide them and have a more fluent communication. Due to the COVID-19 pandemic \cite{covid_19}, we also applied some measures in the interviews. We tried to keep as much distance as possible and we also washed the VR headset and the controllers with sanitizer gel for each interview.
+
+We interviewed 6 people in total. We gathered some information about their background as well. In Table  \ref{tab:respondents} we have a summary of the participants and some information about their research field and if they have used VR before.
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{c X X}
+\hline
+Respondent & Research field & Has used VR before? \\
+\hline
+1 & Computer science and works with social networks  & Owns an HTC Vive and uses on a regular basis \\
+2 & Clinical pharmacy and pharmacoepidemiology & Several times to play videogames \\
+3 & Pharmacoepidemiology. Has worked with drug networks & Has never used it \\
+4 & Biology. Has worked with gene co-expression networks & Has used it very little \\
+5 & Biology. Has worked with gene expression analysis & Has never user it \\
+6 & Biology. Has worked with GCN and biological networks & Has never used it \\
+\hline
+\end{tabularx}
+\caption{Information about the respondents.}
+\label{tab:respondents}
+\end{table}
+
+\subsection{How do you perceive the application?}
+All the repondents think that GeneNet VR has some advantages for the visualization of large biological networks. The ones that hadn't used VR before or very little also think that Virtual Reality is an interesting way to visualize gene networks.
+
+As for the performance of the application, none of the respondents found any performance issues in GeneNet VR. Also, they think that the interactions are smooth when exploring the networks. There was just a couple of times that one of the interactions like the node selector didn't work, so we had to restart the application.
+
+The participans who had used VR before easily learned how to use the different interactions with the controllers. The ones who hadn't used VR before or very little needed some more practise and guidance first but after a few interactions they could feel comfortable exploring the networks. Some participants also claimed that it would be necessary for them to use the application for some time to better get used to it. The interactions seemed intuitive for some of the participants, but the ones with more knowledge about VR claimed that it could be possible to implement more intuitive actions. In general, the participants also think that the quantity of interactions seems good and that there are not too many to learn.
+
+During the interviews we also asked if using a standalone headset like the Oculus Quest is advantegous. One respondent thinks that it is. The reasons why it is advantegous is that it is easier to use since you don't need cables and you can also stand and use it anywhere you want. Two respondents claimed that they prefere to use this kind of visualization tools while sitting. The rest of the respondents didn't consider it relevant.
+
+\subsection{How do you perceive the application for pattern finding?}
+In general, the participants claimed that finding patterns in GeneNet VR seems to be easier than in other visualization tools that they have used. Some of them also claimed that they don't know the MIxT datasets very well so they don't know what to look for, but they would find GeneNet VR helpful when exploring their own datasets in order to find patterns.
+
+We also received some feedback about how to improve the visualization for pattern finding. For examples, it would be useful to show the names of the connected nodes to the node that we are selecting. Also the possibility to isolate or highlight the nodes that we are selecting would be helpful. Finally, some of them said that pattern finding would also be easier if they had the chance to change the layout of the network.
+
+\subsection{What is missing in the application?}
+We received interesting feedback about how to improve GeneNet VR and also what new functionalities we could add to improve the visualization of large biological networks. Since we interviewed several scientists from different fields, we also received feedback for the visualization of other networks like drug and social networks. These networks share a similar structure with the gene co-expression networks, so we also considered it as useful feedback for the project.
+
+The edges in MIxT represent a significant co-expression relationship between two nodes. This information is shown in GeneNet VR as a line that goes from one node to another. However, we don't show how significant co-expressed the nodes are. This is some relevant information that especially the biologists miss. They suggest for instance using a colour range that goes from less significant co-expressed to more significan co-expressed. The same can be done but by changing the thinkness of the edge.
+
+As we mentioned before, the names of the nodes that are connected to the selected node is also relevant information that is missing. We could for instance show a small UI window with the list of those nodes, or a text label on them. A respondant also suggested that we can show the name of the connected node when we get close to it.
+
+\subsection{Discussion}
+
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{l p{9cm}}
+% \hline
+% Element & Description \\
+% \hline
+% Clusters & The algorithm used to create the clusters is run during the initialization of the system, before the user can start exploring the networks. This can be time consuming because it involves many operations to process the text files (they have several thousands of lines). However, this is only processed once. \\
+% Nodes & Represented as 2D squares in the space, they consist of 2 triangles. They are always showing in the scene and their position change while scaling, translating and morphing the network.  \\
+% Lines & They represent relationships between the nodes. Every time a node is selected, line objects are created in the scene. They are 2-dimensional and consist of 2 points. Depending on the node we might need to render several hundreds of these lines in the scene. \\
+% \end{tabular}
+% \caption{Elements of the network that have influence in the scalability.}
+% \label{tab:network-elements}
+% \end{table}
+
 % The following questionnaire is divided in four sections; a general section about VR headsets, a section about comfortability exploring the network using GeneNet VR, a section about the different actions in GeneNet VR and finally a section about feedback.
 %
 % To complete the questionnaire, the teste has to indicate the level of agreement or disagreement with each of the  statements, mark yes or no when it is asked and in the feedback section reply the questions with constructive feedback if possible.\\
