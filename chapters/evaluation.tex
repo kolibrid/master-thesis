@@ -396,7 +396,7 @@ In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results from the e
 From the results we can say that we reach the 72 FPS using the Oculus Quest for our network size. However, the performance is on the limit of the 72 FPS and when we select nodes with more than 10 edges, the performance can be get worse. It would be necessary to evaluate GeneNet VR using larger networks on the Oculus Quest. Also improve the creationg of the edges as a better programming solution, as we mentioned before.
 
 \section{How do users perceive the visualization of large biological networks in GeneNet VR?}
-% purposing sampling 
+% purposing sampling
 In order to answer to this question, we used a qualitative research approach where we conducted a series of semi-structured interviews with several biologists and computer scientists from the University of Troms\o. A semi-structured interview is an in-depth interview where the respondents have to answer open-ended questions \cite{interviews}. The interviews were conducted only once and they covered the duration of 30 min to around one hour. In order to have the interview data captured, we took hand written notes during the interview. The open-ended questions that we used are the following:
 \begin{itemize}
   \item How do you perceive the application?
@@ -433,7 +433,7 @@ As for the performance of the application, none of the respondents found any per
 
 The participans who had used VR before easily learned how to use the different interactions with the controllers. The ones who hadn't used VR before or very little needed some more practise and guidance first but after a few interactions they could feel comfortable exploring the networks. Some participants also claimed that it would be necessary for them to use the application for some time to better get used to it. The interactions seemed intuitive for some of the participants, but the ones with more knowledge about VR claimed that it could be possible to implement more intuitive actions. In general, the participants also think that the quantity of interactions seems good and that there are not too many to learn.
 
-During the interviews we also asked if using a standalone headset like the Oculus Quest is advantegous. One respondent thinks that it is. The reasons why it is advantegous is that it is easier to use since you don't need cables and you can also stand and use it anywhere you want. Two respondents claimed that they prefere to use this kind of visualization tools while sitting. The rest of the respondents didn't consider it relevant.
+During the interviews we also asked if using a standalone headset like the Oculus Quest is advantegous. Two respondents said that it is. The reasons why it is advantegous is that it is easier to use since you don't need cables and you can also stand and use it anywhere you want. On the other hand, two respondents claimed that they prefer to use this kind of visualization tools while sitting. The rest of the respondents didn't consider it relevant.
 
 \subsection{How do you perceive the application for pattern finding?}
 In general, the participants claimed that finding patterns in GeneNet VR seems to be easier than in other visualization tools that they have used. Some of them also claimed that they don't know the MIxT datasets very well so they don't know what to look for, but they would find GeneNet VR helpful when exploring their own datasets in order to find patterns.
@@ -441,13 +441,36 @@ In general, the participants claimed that finding patterns in GeneNet VR seems t
 We also received some feedback about how to improve the visualization for pattern finding. For examples, it would be useful to show the names of the connected nodes to the node that we are selecting. Also the possibility to isolate or highlight the nodes that we are selecting would be helpful. Finally, some of them said that pattern finding would also be easier if they had the chance to change the layout of the network.
 
 \subsection{What is missing in the application?}
-We received interesting feedback about how to improve GeneNet VR and also what new functionalities we could add to improve the visualization of large biological networks. Since we interviewed several scientists from different fields, we also received feedback for the visualization of other networks like drug and social networks. These networks share a similar structure with the gene co-expression networks, so we also considered it as useful feedback for the project.
+We obtained interesting feedback about how to improve GeneNet VR. Since we interviewed several scientists from different fields, we also obtained feedback for the visualization of other networks like drug and social networks. These networks share a similar structure with the gene co-expression networks.
 
-The edges in MIxT represent a significant co-expression relationship between two nodes. This information is shown in GeneNet VR as a line that goes from one node to another. However, we don't show how significant co-expressed the nodes are. This is some relevant information that especially the biologists miss. They suggest for instance using a colour range that goes from less significant co-expressed to more significan co-expressed. The same can be done but by changing the thinkness of the edge.
+The edges in MIxT represent a significant co-expression relationship between two nodes. This information is shown in GeneNet VR as a line that goes from one node to another. However, we don't show how significant co-expressed the nodes are. This is some relevant information that especially the biologists are missing. They suggest using a colour range that goes from less significant co-expressed to more significan co-expressed. The same can be done by changing the thinkness of the edge.
 
-As we mentioned before, the names of the nodes that are connected to the selected node is also relevant information that is missing. We could for instance show a small UI window with the list of those nodes, or a text label on them. A respondant also suggested that we can show the name of the connected node when we get close to it.
+The names of the nodes that are connected to the selected node are also relevant information that is missing. As suggested from the interviews, we can show a small UI window with the list of those nodes, or a text label on them. A respondant also suggested that we can show the name of the connected node when we get close to it. Another respondant also suggested to highlight the nodes that we are selecting.
+
+Some respondants mentioned that it would also be useful to rotate the networks using the hand controllers. The Oculus Quest headset is equipped with 2 6DOF controllers that support both orientation and positional tracking. We could solve this problem by using the orientation of the controllers.
+
+We have created a list with other improvements for GeneNet VR that we discussed in the interviews:
+\begin{itemize}
+  \item Improve the distance feeling. The nodes are 2-dimensional shapes, and they all have the same brightness. A solution could be to make them darker when they are far away.
+  \item Possibility to change the layout of the network in order to categorize the arrangement of the nodes.
+  \item Add favourite angles: from above, from belowe, from a particular part of the network.
+  \item Filter the nodes by clusters.
+  \item Instead of use snap rotation, use a smooth rotation.
+  \item Change the shape of the nodes into spheres or into a more 3-dimensional shape.
+  \item Search functionality to search for node names.
+  \item Possibility to "pin" a node in order to compare it with other nodes.
+  \item Use centrality measures: change the colour by centrality.
+  \item Possibility to turn on and off the name of the node and also the edges.
+  \item Add a collision circle to the nodes so that they are easier to select.
+  \item Have the possibility to use other pathway libraries.
+  \item Possibility to manually add other genes.
+  \item Use a slider to filter the nodes by their co-expression value.
+\end{itemize}
 
 \subsection{Discussion}
+We can say from the results that Virtual Reality is a resourceful technology for the visualization of large networks. Thanks to the rich interactivity, the users could explore the datasets in a smooth and easy way. The Oculus Quest headset has also the advantage that it doesn't need cables, something attractive for some users.
+
+The respondants claimed that GeneNet VR is very useful for the visualization of these networks. Even though the networks have a large volume of data, they could visualize them easily thanks to the interactions that GeneNet VR offers. They also found the application easy to use for the exploration of the networks, also the users who hadn't used VR before. In addition, none of the users experienced any motion sickness during the testing and they claimed that the application was comfortable to use. As for the performance of the application, the users found it to be very good.
 
 % \begin{table}[h!]
 % \centering
