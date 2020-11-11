@@ -4,10 +4,3 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Introduction	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\mainmatter$/;"	chapter	line:114
-GeneNet VR	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/introduction}$/;"	chapter	line:117
-MIxT	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/genenetvr}$/;"	chapter	line:120
-Related work	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/mixt}$/;"	chapter	line:123
-Evaluation and discussion	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/related-work}$/;"	chapter	line:126
-Conclusion	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/evaluation}$/;"	chapter	line:129
-Future work	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/main.tex	/^\\input{chapters\/conclusion}$/;"	chapter	line:132
