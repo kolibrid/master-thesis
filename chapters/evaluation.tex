@@ -1,4 +1,4 @@
-respondent % Benchmarking in Unity
+% Benchmarking in Unity
 % https://blogs.unity3d.com/2018/09/25/performance-benchmarking-in-unity-how-to-get-started/
 % Maybe try VRWorks https://developer.nvidia.com/vrworks
 
@@ -20,7 +20,7 @@ respondent % Benchmarking in Unity
 % Links
 % Profiler panel
 
-As part of the evaluation of our prototype, we wrote a list of questions focusing on performance and quality and that we will try to answer along this chapter. These questions are:
+As part of the evaluation of our prototype, we wrote a list of questions focusing on performance and quality and that we will try to answer along with this chapter. These questions are:
 \begin{enumerate}
   \item For which interactions do we achieve the recommended FPS (72) for large biological networks?
   \item What network properties influence the scalability?
@@ -41,7 +41,7 @@ As part of the evaluation of our prototype, we wrote a list of questions focusin
 
 GeneNet VR has been developed to explore large biological networks that contain genetic information. We have used two datasets from the MIxT project \cite{dumeaux_fjukstad_interactions_tumor_blood} and built a use case where we try to solve visualization and scalability problems.
 
-The performance is an aspect of GeneNet VR that we want to evaluate. Without a good performance, visualization tools like this one can become tedious to use. Also, smooth interactions are needed, so that the user can easily explore the networks to find information and patterns in them. We will evaluate the performance sor the interactions that are commonly used when exploring networks in GeneNet VR and that involve manipulating the position or size of the network or showing the edges. These are translate, scale and select nodes in the network. Because of time limitation, we couldn't evaluate other interactions. We will also evaluate if the number of nodes and edges influence in the scalability of the application. We will also study if there are bottlenecks and what is causing them. In Table \ref{tab:network-elements}, we show the elements that compose the networks that we used and how they can influence in the scalability.
+The performance is an aspect of GeneNet VR that we want to evaluate. Without a good performance, visualization tools like this one can become tedious to use. Also, smooth interactions are needed, so that the user can easily explore the networks to find information and patterns in them. We will evaluate the performance for the interactions that are commonly used when exploring networks in GeneNet VR and that involve manipulating the position or size of the network or showing the edges. These are translate, scale, and select nodes in the network. Because of the time limitations, we couldn't evaluate other interactions. We will also evaluate if the number of nodes and edges influence the scalability of the application. We will also study if there are bottlenecks and what is causing them. In Table \ref{tab:network-elements}, we show the elements that compose the networks that we used and how they can influence the scalability.
 
 \begin{table}[h!]
 \centering
@@ -49,22 +49,22 @@ The performance is an aspect of GeneNet VR that we want to evaluate. Without a g
 \hline
 Element & Description \\
 \hline
-Clusters & The algorithm used to create the clusters is run during the initialization of the system, before the user can start exploring the networks. This can be time consuming because it involves many operations to process the text files (they have several thousands of lines). However, this is only processed once. \\
-Nodes & Represented as 2D squares in the space, they consist of 2 triangles. They are always showing in the scene and their position change while scaling, translating and morphing the network.  \\
+Clusters & The algorithm used to create the clusters are run during the initialization of the system before the user can start exploring the networks. This can be time-consuming because it involves many operations to process the text files (they have several thousands of lines). However, this is only processed once. \\
+Nodes & Represented as 2D squares in the space, they consist of 2 triangles. They are always showing in the scene and their position change while scaling, translating, and morphing the network.  \\
 Lines & They represent relationships between the nodes. Every time a node is selected, line objects are created in the scene. They are 2-dimensional and consist of 2 points. Depending on the node we might need to render several hundreds of these lines in the scene. \\
 \end{tabular}
 \caption{Elements of the network that have influence in the scalability.}
 \label{tab:network-elements}
 \end{table}
 
-In the website of Oculus, we can find a reference with the Oculus' performance baselines that an application should meet \cite{oculus_performance_baselines} and that we will follow during the evaluation. These are the following:
+On the website of Oculus, we can find a reference with the Oculus' performance baselines that an application should meet \cite{oculus_performance_baselines} and that we will follow during the evaluation. These are the following:
 \begin{itemize}
   \item 72 FPS for Oculus Quest (required by Oculus).
   \item 50-100 draw calls per frame.
   \item 50,000-100,000 triangles or vertices per frame.
 \end{itemize}
 
-We will also evaluate the performance of the application being run on the Oculus Quest hardware, and compare it with the performance in the PC. The hardware of the Oculus Quest is not as powerful as the one of the machine that was used for the development. We would like to know if the performance on the Oculus headset is good enough for the visualization of datasets like the ones from MIxT.
+We will also evaluate the performance of the application being run on the Oculus Quest hardware, and compare it with the performance in the PC. The hardware of the Oculus Quest is not as powerful as the machine's hardware that was used for the development. We would like to know if the performance on the Oculus headset is good enough for the visualization of datasets like the ones from MIxT.
 
 As for the hardware specification, we ran the experiments in a machine with Windows 10. In Table \ref{tab:machine-specs}, we can see the hardware specification for the machine. The GPU of the machine is also specified in Table \ref{tab:gpu-specs}. The hardware specification of the Oculus Quest is shown in Table \ref{tab:oculus-specs}.
 
@@ -104,28 +104,28 @@ Memory & 4GB total
 \label{tab:oculus-specs}
 \end{table}
 
-We built a benchmark in Unity in order to run the experiments several times. We used the same version of Unity as in the prototype, version 2018.4.10f1. The 3D rendering API that we have used is OpenGL. In total, we ran each experiment 4 times and we showed an average of the results using tables and graphs. The experiments are coded in the benchmark using scripts so that we can reproduce them several times. For the networks translation and network scale interactions, we use mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection we have chosen a set of nodes.
+We built a benchmark in Unity in order to run the experiments several times. We used the same version of Unity as in the prototype, version 2018.4.10f1. The 3D rendering API that we have used is OpenGL. In total, we ran each experiment 4 times and we showed an average of the results using tables and graphs. The experiments are coded in the benchmark using scripts so that we can reproduce them several times. For the network translation and network scale interactions, we use mathematical functions to translate the network around the scene and to scale the network up and down. For the node selection, we have chosen a set of nodes.
 
-We measured the frame time (time the a frame takes to render), to analyse the performance. In Unity, the frame time is stored in a variable named deltaTime from the Time class. In order to find bottlenecks, we used a profiling tool from Unity. A profiler is used to get an overview of the performance of the application. This gave us information about per-frame CPU performance metrics. In addition, Unity also provides some metric information that we can be displayed in the Unity editor. We got information about the number of vertices in the scene and the number of triangles.
+We measured the frame time (time the frame takes to render), to analyze the performance. In Unity, the frame time is stored in a variable named deltaTime from the Time class. In order to find bottlenecks, we used a profiling tool from Unity. A profiler is used to get an overview of the performance of the application. This gave us information about per-frame CPU performance metrics. In addition, Unity also provides some metric information that we can be displayed in the Unity editor. We got information about the number of vertices in the scene and the number of triangles.
 
 % Finally, we want to know how the users perceive the interaction and visualization of the network. We will evaluate this with a qualitative method with a demo of the application using the MIxT datasets and also an interview.
 
-To evaluate the quality of GeneNet VR, we conducted a series of interviews with several employees from UiT involved in computer science and biology research projects. These interviews were conducted in an informal way and have the purpose of obtaining feedback about aspects like the research contribution in bioinformatics, the performance of the application and the interactions, the usability and also improvements that can be done to the project.
+To evaluate the quality of GeneNet VR, we conducted a series of interviews with several employees from UiT involved in computer science and biology research projects. These interviews were conducted in an informal way and have the purpose of obtaining feedback about aspects like the research contribution in bioinformatics, the performance of the application and the interactions, the usability, and also improvements that can be done to the project.
 
 \section{For which interactions do we achieve the recommended FPS (72) for large biological networks?}
 
 
-The experiments from this section were run on the PC and we used the blood dataset from MIxT. We chose this dataset because it is the largest one. We also ran each experiment for different sizes of the dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes) and a third part (897 nodes). We didn't run the experiments using larger datasets and also on the Oculus Quest due to lack of time.
+The experiments from this section were run on the PC and we used the blood dataset from MIxT. We chose this dataset because it is the largest one. We also ran each experiment for different sizes of the dataset: the whole dataset (2693 nodes), half size of the dataset (1346 nodes), and a third part (897 nodes). We didn't run the experiments using larger datasets and also on the Oculus Quest due to lack of time.
 
-Each experiment lasts for 700 frames, starting from frame number 501 until frame 1200 in the application's timeline. We start from frame number 501 because some slowliness occurs during the  first frames, due to the initizalization of the application. In order to evaluate the experiments, we stored the frame time for each frame for a total of 700 frames. The frame time is the time that a frame takes to render. We use this value to determine if the application meets the 72 FPS. Once we obtain all the frame times, we extract the following averages for each experiment: the average frame time of all the frames, the average of the 0.25\% worst times and the average of the 1\% worst times.
+Each experiment lasts for 700 frames, starting from frame number 501 until frame 1200 in the application's timeline. We start from frame number 501 because some slowness occurs during the first frames, due to the initialization of the GeneNet VR. In order to evaluate the experiments, we stored the frame time for each frame for a total of 700 frames. The frame time is the time that a frame takes to render. We use this value to determine if the application meets the 72 FPS. Once we obtain all the frame times, we extract the following averages for each experiment: the average frame time of all the frames, the average of the 0.25\% worst times, and the average of the 1\% worst times.
 
-The average of all the frames is the most important value to look at, because it can give us an idea wether the experiment meets the required FPS or not. In a perfect application where all the frames last the same amount of time and where the frame rate is 72, each frame would last around 13.9 milliseconds. However, this is not the case in real applications. If the general average is above the 13.9 milliseconds, it means that the experiment didn't pass the 72 FPS. By looking at the 0.25\% worst frame time and the 1\% worst frame time, we will get the frame with the worst time and the 7 frames with the worst times respectively (our experiments last for 700 frames). If we see that these frames have much worse times, compared with the general average, we will use a profiler to see if there are bottlenecks and try to give a solution to them.
+The average of all the frames is the most important value to look at because it can give us an idea of whether the experiment meets the required FPS or not. In a perfect application where all the frames last the same amount of time and where the frame rate is 72, each frame would last around 13.9 milliseconds. However, this is not the case in real applications. If the general average is above 13.9 milliseconds, it means that the experiment didn't pass the 72 FPS. By looking at the 0.25\% worst frame time and the 1\% worst frame time, we will get the frame with the worst time and the 7 frames with the worst times respectively (our experiments last for 700 frames). If we see that these frames have much worse times, compared with the general average, we will use a profiler to see if there are bottlenecks and try to give a solution to them.
 
 % Draw calls: https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381
 % Basically a draw call contains all the information telling GPU about textures, states, shaders, rendering objects, buffers, etc. encapsulated as CPU work that prepares drawing resources for the graphics card. Converting state vectors (all the information mentioned before) to hardware commands for the GPU is very “expensive” for the CPU and API complexity becomes API overhead that does not help.
 
 \subsection{Translating the network meets the 72 FPS}
-In thise experiment, we evaluate the performance when translating the network. In the benchmark, the network is moved around in the scene using a sine function in the y axis and a constant function in the z axis. For every frame we update the y and z position of the network object. In Table \ref{tab:experiment_moving}, we can see the results that we obtained.
+In this experiment, we evaluate the performance when translating the network. In the benchmark, the network is moved around in the scene using a sine function in the y-axis and a constant function in the z-axis. For every frame, we update the y and z position of the network object. In Table \ref{tab:experiment_moving}, we can see the results that we obtained.
 
 \begin{table}[h!]
 \centering
@@ -141,12 +141,12 @@ size/3 & 23.28 & 13.52 & 6.5 \\
 \label{tab:experiment_moving}
 \end{table}
 
-The averages for all the sizes are below 13.9 milliseconds, so translating the blood dataset network meets the 72 FPS. There isn't a significant difference between the averages for the different network sizes. This is because the network that we are using is probably too small. It would be interesting to use larger networks to find out for which network size the performance is no longer good enough.
+The averages for all the sizes are below 13.9 milliseconds, so translating the blood dataset network meets the 72 FPS. There isn't a significant difference between the averages for the different network sizes. This is because the network that we are using is probably too small. It would be interesting to use larger networks to find out which network size the performance is no longer good enough.
 
 % Standard deviation? In statistics, the standard deviation is a measure of the amount of variation or dispersion of a set of values. A low standard deviation indicates that the values tend to be close to the mean of the set, while a high standard deviation indicates that the values are spread out over a wider range.
 
 \subsection{Scaling the network meets the 72 FPS}
-We also evaluated the performance when scaling network. We used a sine function as well and update the size of the network object for every frame to scale it up an down. In Table \ref{tab:experiment_scale} we can see the results that we obtained.
+We also evaluated the performance when scaling the network. We used a sine function as well and update the size of the network object for every frame to scale it up and down. In Table \ref{tab:experiment_scale} we can see the results that we obtained.
 
 \begin{table}[h!]
 \centering
@@ -162,14 +162,14 @@ size/3 & 23.02 & 13.63 & 6.49 \\
 \label{tab:experiment_scale}
 \end{table}
 
-The average time for this experiment is also under the 13.9 milliseconds limit, meaning that the interaction reaches the 72 FPS. The low 1\% is also under the 13.9 milliseconds, so we don't consider that there are any big issues for the performance of this interaction. The variation among the network sizes is also insignificant. An evaluation with bigger networks would be necessary to determine the network size limit for which the performance is not good.
+The average time for this experiment is also under the 13.9 milliseconds limit, meaning that the interaction reaches 72 FPS. The low 1\% is also under 13.9 milliseconds, so we don't consider that there are any big issues for the performance of this interaction. The variation among the network sizes is also insignificant. An evaluation with bigger networks would be necessary to determine the network size limit for which the performance is not good.
 
 \subsection{Selecting nodes the network meets the 72 FPS but with possible bottlenecks}
-In this experiment we want to evaluate the performance when selecting nodes in the network. When a node is selected in GeneNet VR, several things happen during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the selected gene node. Third, the edges for the selected node are created in the scene.
+In this experiment, we want to evaluate the performance when selecting nodes in the network. When a node is selected in GeneNet VR, several things happen during this process. First, an algorithm finds the node that the user is trying to select. Second, two text objects are updated with the new names of the selected gene node. Third, the edges for the selected node are created in the scene.
 
-In this experiment we only evaluate the edge creation for the nodes, although it would be ideal to evaluate all the previous three parts. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
+In this experiment, we only evaluate the edge creation for the nodes, although it would be ideal to evaluate all the previous three parts. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
 
-In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis represents the the number of edges in ascendent order and the Y axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. Most of the nodes have very few connections. However, there a few nodes that have several hundred of lines. It was a bit hard to make a balanced selection, so we just selected several nodes from the range that goes from 1 to 1607 (edges), even though this is probably unrealistic. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
+In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the x-axis represents the number of edges in ascendent order and the y-axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. Most of the nodes have very few connections. However, there a few nodes that have several hundred of lines. It was a bit hard to make a balanced selection, so we just selected several nodes from the range that goes from 1 to 1607 (edges), even though this is probably unrealistic. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
 
 % Example scatter plot https://timodenk.com/blog/latex-plot-snippets/screen-shot-2017-02-18-at-15-10-07/
 % https://tex.stackexchange.com/questions/390161/drawing-3d-points-from-external-file
@@ -188,7 +188,7 @@ In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the X axis re
 
     \end{tikzpicture}
   \end{minipage}
-\caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The X axis shows the number of edges and the Y axes shows the number of nodes that have that number of edges in the blood dataset.}
+\caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the number of nodes that have that number of edges in the blood dataset.}
 \label{fig:edges_nodes_blood}
 \end{figure}
 
@@ -244,10 +244,10 @@ size/3 & 100 & 56.39 & 8.58 \\
 \label{tab:experiment_select}
 \end{table}
 
-The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more), but still inside of the 72 FPS (under 13.9 milliseconds). For the low percentages we don't reach the 72 FPS though. The results say that the creation of the edges when selecting a node can have have more impact in the performance, and it would be interesting to find if there are any bottlenecks and how to solve them.
+The average delta time is a bit higher than the ones in the translation and scaling experiments (around 2 milliseconds more), but still inside of the 72 FPS (under 13.9 milliseconds). For the low percentages, we don't reach the 72 FPS though. The results say that the creation of the edges when selecting a node can have more impact on the performance, and it would be interesting to find if there are any bottlenecks and how to solve them.
 
 \subsection{Performance discussion}
-From the results we can conclude that there wasn't much point comparing the three sizes that we compared for the blood network, since the system is being undertilized. It would be interesting to evaluate larger networks where the system has performance problems in order to determin for which size limits the system performs at 72 FPS.
+From the results, we can conclude that there wasn't much point comparing the three sizes that we compared for the blood network, since the system is being underutilized. It would be interesting to evaluate larger networks where the system has performance problems in order to determine which size limits the system performs at 72 FPS.
 
 \begin{figure}[h!]
 \centering
@@ -294,15 +294,15 @@ From the results we can conclude that there wasn't much point comparing the thre
 
 The performance is good for the interactions that we evaluated. Having an average of 7-8 milliseconds means that we meet the 72 FPS that the Oculus' performance guidelines suggest. As we mentioned before, an average above 13.9 milliseconds is the limit. However, for the node selection, we have seen that the performance can be much worse than for the other interactions, see Figure \ref{fig:performance_bar} for a summary of the 1\% worst results. The performance for this interaction is important because this shows relevant information to the user that is needed to explore the dataset. The edges are created in the scene every time a node is selected. A better solution could be to create the necessary edges in the scene when the application is initialized and show them where they are needed.
 
-One important observation is that in the experiment we just select 7 nodes, one every 100 frame. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Also, not all the nodes have the same number of edges. It would be interesting to know if the number of edges could decrease the performance as well. We will analyse in the following section if the number of edges could have more impact in the performance and scalability of the network.
+One important observation is that in the experiment we just select 7 nodes, one every 100 frames. However, when we use GeneNete VR, it's easy to select many nodes in just a few frames. This is because the select node function is run for every frame when we trigger the action for it, and if we point at a region where there are many nodes together, it will be easy to select several of them in a short period of time. Also, not all nodes have the same number of edges. It would be interesting to know if the number of edges could decrease the performance as well. We will analyze in the following section if the number of edges could have more impact on the performance and scalability of the network.
 
 \section{What network properties influence the scalability?}
 
-The number of nodes and the number of edges can influence in the scalability of the system. We saw in the performance experiments that the datasets that we are using are small for our system. However, the time to create the edges when selecting the nodes can be very high. We will further evaluate the performance when selecting the nodes in this section in order to determine how the number of edges can influence the scalability. For future experiments, it would be necessary to use networks with higher number of nodes to understand how the number of nodes can influence the scalability.
+The number of nodes and the number of edges can influence the scalability of the system. We saw in the performance experiments that the datasets that we are using are small for our system. However, the time to create the edges when selecting the nodes can be very high. We will further evaluate the performance when selecting the nodes in this section in order to determine how the number of edges can influence the scalability. For future experiments, it would be necessary to use networks with a higher number of nodes to understand how the number of nodes can influence scalability.
 
-We designed an experiment where we test the time frame for different amount of edges to render. In Figure \ref{fig:edges_nodes_blood} we showed the distribution between the number of edges and the number of nodes that have that amount of edges. We used this data and created a new dataset where we have a node from every "edge category" and then we selected each of the nodes and calculated the time frame. To put it simple, we try to render the edges for each of the possible number of edges that we can find in the blood dataset and calculate the time that GeneNet VR takes to create them in the scene.
+We designed an experiment where we test the time frame for different a amount of edges to render. In Figure \ref{fig:edges_nodes_blood} we showed the distribution between the number of edges and the number of nodes that have that amount of edges. We used this data and created a new dataset where we have a node from every "edge category" and then we selected each of the nodes and calculated the time frame. To put it simply, we try to render the edges for each of the possible numbers of edges that we can find in the blood dataset and calculate the time that GeneNet VR takes to create them in the scene.
 
-In Figure \ref{fig:scalability_edges_blood}, we can see the results as a scatter plot for this experiment. In the benchmark, we run the select node action for each of the nodes from the dataset that we created for this. We select a new node every frame.
+In Figure \ref{fig:scalability_edges_blood}, we can see the results as a scatter plot for this experiment. In the benchmark, we run the select node action for each of the nodes from the dataset that we created for this. We select a new node in every frame.
 
 \begin{figure}[h!]
   \centering
@@ -326,9 +326,9 @@ In Figure \ref{fig:scalability_edges_blood}, we can see the results as a scatter
 \label{fig:scalability_edges_blood}
 \end{figure}
 
-From the results, we would have expected that when the number of edges to create is higher, more time it is needed to create them. However, that is not what the results are showing. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms. On the right side of the plot we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases they take less than 20 ms. This is not very consisten and can conclude that the number of edges might influnce in the performance and then in the scalability of the application, but we can see that there are many other aspects that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
+From the results, we would have expected that when the number of edges to create is higher, more time is needed to create them. However, that is not what the results are showing. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms. On the right side of the plot, we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases, they take less than 20 ms. This is not very consistent and can conclude that the number of edges might influence in the performance and then in the scalability of the application, but we can see that there are many other aspects that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
 
-After running this experiment, we used the profiler from Unity to try to fing the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see an screenshot of the profiler in Unity. In the profiler window, we can see a graph where the Y axis shows the amount of time that each frame took to render. We are selecting a frame in the middle, where we can see a spike (although it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window we can see a list of functions that are called during this frame. Also, there are several columns and we can see the percentage of the time that a particular function took. Analysing the profiler, we can see that 65.4\% of the total time comes from the BehaviourUpdate function. This function processes all the Update methods in Unity. It's probably that the problem is in the implementation that we chose. We would need further analysis into this and maybe split our function to create the lines into smaller functions and analyse each of them. But because of lack of time, we haven't done that in here.
+After running this experiment, we used the profiler from Unity to try to find the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see a screenshot of the profiler in Unity. In the profiler window, we can see a graph where the y-axis shows the amount of time that each frame took to render. We are selecting a frame in the middle, where we can see a spike (although it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window, we can see a list of functions that are called during this frame. Also, there are several columns and we can see the percentage of the time that a particular function took. Analyzing the profiler, we can see that 65.4\% of the total time comes from the BehaviourUpdate function. This function processes all the Update methods in Unity. It's probably that the problem is in the implementation that we chose. We would need further analysis into this and maybe split our function to create the lines into smaller functions and analyze each of them. But because of lack of time, we haven't done that here.
 
 \begin{figure}
     \centering%
@@ -337,9 +337,9 @@ After running this experiment, we used the profiler from Unity to try to fing th
     \label{fig:profiler}
 \end{figure}%
 
-We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k verteces, which is inside of the Oculus' performance guidelines that we mentioned in this chapter.
+We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k vertices, which is inside of the Oculus' performance guidelines that we mentioned in this chapter.
 
-It's hard to determine from the experiments that we ran, if the number of edges can have an impact in the scalability of the system. We would need to better isolate this part of the code and further evaluate it. However, we expect that the number of edges can have an impact. As we have mentioned before, a better implementation solution could improve the performance of this. Instead of create the edges in the scene every time a node is selected, we can create all the necessary edges in the initialization of the system, and show them when they are needed. So, normally they would be hidden, but we show them when the user selects a node.
+It's hard to determine from the experiments that we ran if the number of edges can have an impact on the scalability of the system. We would need to better isolate this part of the code and further evaluate it. However, we expect that the number of edges can have an impact. As we have mentioned before, a better implementation solution could improve the performance of this. Instead of creating the edges in the scene every time a node is selected, we can create all the necessary edges in the initialization of the system, and show them when they are needed. So, normally they would be hidden, but we show them when the user selects a node.
 
 % \begin{figure}[h!]
 %   \centering
@@ -361,7 +361,7 @@ It's hard to determine from the experiments that we ran, if the number of edges 
 % \end{figure}
 
 \section{Do we achieve the recommended FPS (72) for large biological networks when using the standalone Oculus Quest?}
-We would like to know if we can use a cheap VR headset like the Oculus Quest to visualize larg biological networks. The hardware for the Oculus Quest is not as good as the machine's, so we expect that the performance in the Oculus Quest will be worse. We also want to know how the performance is improved when using a machine with better hardware.
+We would like to know if we can use a cheap VR headset like the Oculus Quest to visualize large biological networks. The hardware for the Oculus Quest is not as good as the machine's hardware, so we expect that the performance in the Oculus Quest will be worse. We also want to know how the performance is improved when using a machine with better hardware.
 
 \begin{figure}[h!]
   \centering
@@ -385,26 +385,26 @@ We would like to know if we can use a cheap VR headset like the Oculus Quest to 
 
     \end{tikzpicture}
   \end{minipage}
-\caption{Performance of GeneNet VR when visualizing the blood dataset tunning on a machine and on the Oculus Quest. The X axis represents the frame number (like a timeline). The Y axis represents the amount of time in milliseconds that a particular frame took to render.}
+\caption{Performance of GeneNet VR when visualizing the blood dataset tunning on a machine and on the Oculus Quest. The x-axis represents the frame number (like a timeline). The y-axis represents the amount of time in milliseconds that a particular frame took to render.}
 \label{fig:pc_vs_oculus}
 \end{figure}
 
-We designed an experiment that we could run in both the PC and the Oculus Quest to measure the performance. In this experiment we used combination of the three performance experiments for the interactions and we use them together for this experiment. For a short period of time we translate the network, scale it and select several nodes. The experiment lasts for 70 frames; it starts in frame 300 and ends in frame 370.
+We designed an experiment that we could run in both the PC and the Oculus Quest to measure the performance. In this experiment, we used a combination of the three performance experiments for the interactions and we use them together for this experiment. For a short period of time, we translate the network, scale it, and select several nodes. The experiment lasts for 70 frames; it starts in frame 300 and ends in frame 370.
 
-In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results from the experiments. The performance for the Oculus Quest is worse than for the PC, as we had expected; however, most of the frames reach the 72 FPS limit. We can see some peaks in the graph, related to the selection of the nodes. We select a node every 10 frames (7 nodes in total). The nodes are selected in this order (in parenthesis is the number of edges): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586) and ACTR6(756).
+In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results of the experiments. The performance for the Oculus Quest is worse than for the PC, as we had expected; however, most of the frames reach the 72 FPS limit. We can see some peaks in the graph, related to the selection of the nodes. We select a node every 10 frames (7 nodes in total). The nodes are selected in this order (in parenthesis is the number of edges): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), and ACTR6(756).
 
-From the results we can say that we reach the 72 FPS using the Oculus Quest for our network size. However, the performance is on the limit of the 72 FPS and when we select nodes with more than 10 edges, the performance can be get worse. It would be necessary to evaluate GeneNet VR using larger networks on the Oculus Quest. Also improve the creationg of the edges as a better programming solution, as we mentioned before.
+From the results, we can say that we reach 72 FPS using the Oculus Quest for our network size. However, the performance is on the limit of 72 FPS and when we select nodes with more than 10 edges, the performance can get worse. It would be necessary to evaluate GeneNet VR using larger networks on the Oculus Quest. Also improve the creation of the edges as a better programming solution, as we mentioned before.
 
 \section{How do users perceive the visualization of large biological networks in GeneNet VR?}
 % purposing sampling
-In order to answer to this question, we used a qualitative research approach where we conducted a series of semi-structured interviews with several biologists and computer scientists from the University of Troms\o. A semi-structured interview is an in-depth interview where the respondents have to answer open-ended questions \cite{interviews}. The interviews were conducted only once and they covered the duration of 30 min to around one hour. We took hand written notes during the interview to have the data captured. The open-ended questions that we used are the following:
+In order to answer this question, we used a qualitative research approach where we conducted a series of semi-structured interviews with several biologists and computer scientists from the University of Troms\o. A semi-structured interview is an in-depth interview where the respondents have to answer open-ended questions \cite{interviews}. The interviews were conducted only once and they covered the duration of 30 min to around one hour. We took handwritten notes during the interview to have the data captured. The open-ended questions that we used are the following:
 \begin{itemize}
   \item How do you perceive the application?
   \item How do you perceive the application for pattern finding?
   \item What is missing in the application?
 \end{itemize}
 
-Before starting the interview, a preliminary introduction to each respondent was given. We explained the research problem, as well as what MIxT is, the datasets that we are visualizing and how they can use the different interactions with the VR controllers in GeneNet VR. Then the respondents tested the application using the Oculus Quest connected to the machine. We used the machine because there is a bug on the UI menu when running the application on the Oculus Quest hardware. In addition, with the Oculus Quest connected to the machine, we can see what the respondents are seeing in GeneNet VR and we can better guide them and have a more fluent communication. Due to the COVID-19 pandemic \cite{covid_19}, we also applied some measures in the interviews. We tried to keep as much distance as possible and we also washed the VR headset and the controllers with sanitizer gel for each interview. We used the open-ended questions to start conversations with the respondents where we discuss several quality aspects.
+Before starting the interview, a preliminary introduction to each respondent was given. We explained the research problem, as well as what MIxT is, the datasets that we are visualizing, and how they can use the different interactions with the VR controllers in GeneNet VR. Then the respondents tested the application using the Oculus Quest connected to the machine. We used the machine because there is a bug on the UI menu when running the application on the Oculus Quest hardware. In addition, with the Oculus Quest connected to the machine, we can see what the respondents are seeing in GeneNet VR and we can better guide them and have a more fluent communication. Due to the COVID-19 pandemic \cite{covid_19}, we also applied some measures in the interviews. We tried to keep as much distance as possible and we also washed the VR headset and the controllers with sanitizer gel for each interview. We the open-ended questions to start conversations with the respondents where we discuss several quality aspects.
 
 We interviewed 6 people in total. We gathered some information about their background as well. In Table  \ref{tab:respondents} we have a summary of the participants and some information about their research field and if they have used VR before.
 
@@ -427,39 +427,39 @@ Respondent & Research field & Has used VR before? \\
 \end{table}
 
 \subsection{How do you perceive the application?}
-All the repondents think that GeneNet VR has some advantages for the visualization of large biological networks. The ones that hadn't used VR before or very little also think that Virtual Reality is an interesting way to visualize gene networks.
+All the respondents think that GeneNet VR has some advantages for the visualization of large biological networks. The ones that hadn't used VR before or very little also think that Virtual Reality is an interesting way to visualize gene networks.
 
 As for the performance of the application, none of the respondents found any performance issues in GeneNet VR. Also, they think that the interactions are smooth when exploring the networks. There was just a couple of times that one of the interactions like the node selector didn't work, so we had to restart the application.
 
-The participans who had used VR before easily learned how to use the different interactions with the controllers. The ones who hadn't used VR before or very little needed some more practise and guidance first but after a few interactions, they could feel comfortable exploring the networks. Respondant 1 also claimed that it would be necessary to use the application for some time in order to make the most of it. The respondents 4, 5 and 6 highlighted that the interactions are intuitive and easy to learn. However, respondant 1 claimed that that it could be possible to implement more intuitive interactions. All the participants also think that the quantity of interactions seems good and that there are not too many to learn.
+The participants who had used VR before easily learned how to use the different interactions with the controllers. The ones who hadn't used VR before or very little needed some more practice and guidance first but after a few interactions, they could feel comfortable exploring the networks. Respondent 1 also claimed that it would be necessary to use the application for some time in order to make the most of it. Respondents 4, 5, and 6 highlighted that the interactions are intuitive and easy to learn. However, respondent 1 claimed that it could be possible to implement more intuitive interactions. All the participants also think that the quantity of interactions seems good and that there are not too many to learn.
 
-During the interviews we also asked if using a standalone headset like the Oculus Quest is advantegous. Respondents 1 and 5 respondents said that it is. The reasons why it is advantegous is that it is easier to use since you don't need cables and you can also stand and use it anywhere you want. It is also easy if you can walk around in order to explore the network, according to respondent 5. On the other hand, two respondents (2 and 3) claimed that they prefer to use this kind of visualization tools while sitting. The rest of the respondents didn't consider it relevant.
+During the interviews, we also asked if using a standalone headset like the Oculus Quest is advantageous. Respondents 1 and 5 respondents said that it is. The reason why it is advantageous is that it is easier to use since you don't need cables and you can also stand and use it anywhere you want. It is also easy if you can walk around in order to explore the network, according to respondent 5. On the other hand, two respondents (2 and 3) claimed that they prefer to use this kind of visualization tool while sitting. The rest of the respondents didn't consider it relevant.
 
 \subsection{How do you perceive the application for pattern finding?}
-The participants agree that finding patterns in GeneNet VR seems to be easier than in other visualization tools that they have used. They also agree in that they don't know the MIxT datasets very well so it can be hard to know what to look for. The participants with a biological background seemed to understand better the datasets and they knew some of the genes from the network. Some participants (1, 2, 3 and 4) said that it would be helpful to find patterns in their datasets. Participant 4 was also interesting in visualizing a GCN dataset that the participant was working with at the moment. Participant 1 was also interested in visualizing social networks. The participants from the field in pharmacoepidemiology also claimed that it would be very helpful for them to visualize their drug datasets using GeneNet VR because the networks are very similar.
+The participants agree that finding patterns in GeneNet VR seems to be easier than in other visualization tools that they have used. They also agree that they don't know the MIxT datasets very well so it can be hard to know what to look for. The participants with a biological background seemed to understand better the datasets and they knew some of the genes from the network. Some participants (1, 2, 3, and 4) said that it would be helpful to find patterns in their datasets. Participant 4 was also interested in visualizing a GCN dataset that the participant was working with at the moment. Participant 1 was also interested in visualizing social networks. The participants from the field in pharmacoepidemiology also claimed that it would be very helpful for them to visualize their drug datasets using GeneNet VR because the networks are very similar.
 
-We also received some feedback about how to improve the visualization for pattern finding. For example, it would be useful to show the names of the connected nodes to the node that we are selecting. Also the possibility to isolate or highlight the nodes that we are selecting would be helpful. Finally, pattern finding would also be easier if they had the chance to change the layout of the network.
+We also received some feedback about how to improve the visualization for pattern finding. For example, it would be useful to show the names of the connected nodes to the node that we are selecting. Also, the possibility to isolate or highlight the nodes that we are selecting would be helpful. Finally, pattern finding would also be easier if they had the chance to change the layout of the network.
 
 \subsection{What is missing in the application?}
 We obtained interesting feedback about how to improve GeneNet VR. Since we interviewed several research scientists from different fields, we also obtained feedback for the visualization of other networks like drug and social networks. These networks share a similar structure with the gene co-expression networks.
 
-The edges in MIxT represent a significant co-expression relationships between two nodes. This information is shown in GeneNet VR as a line that goes from one node to another. However, we don't show how significant co-expressed the nodes are. This is some relevant information that especially the biologists are missing. Most of the participantes suggested using a colour range that goes from less significant co-expressed to more significan co-expressed or by changing the thinkness of the edges.
+The edges in MIxT represent significant co-expression relationships between two nodes. This information is shown in GeneNet VR as a line that goes from one node to another. However, we don't show how significant co-expressed the nodes are. This is some relevant information that especially the biologists are missing. Most of the participants suggested using a color range that goes from less significant co-expressed to more significant co-expressed or by changing the thickness of the edges.
 
 The names of the nodes that are connected to the selected node are also relevant information that is missing. As suggested from the interviews, we can show a small UI window with the list of those nodes, or a text label on them. A solution could also be to show the name of the connected node when we get close to it or to show all of them but highlighting the nodes that we are selecting.
 
-Some respondents (1, 3 and 4) mentioned that it would also be useful to rotate the networks using the hand controllers. The Oculus Quest headset is equipped with 2 6DOF controllers that support both orientation and positional tracking. Respondant 1 pointed out that this problem could be solved by using the orientation of the controllers.
+Some respondents (1, 3, and 4) mentioned that it would also be useful to rotate the networks using the hand controllers. The Oculus Quest headset is equipped with 2 6DOF controllers that support both orientation and positional tracking. Respondent 1 pointed out that this problem could be solved by using the orientation of the controllers.
 
 We have created a list with other improvements for GeneNet VR that we discussed in the interviews:
 \begin{itemize}
   \item Improve the distance feeling. The nodes are 2-dimensional shapes, and they all have the same brightness. A solution could be to make them darker when they are far away.
   \item Possibility to change the layout of the network in order to categorize the arrangement of the nodes.
-  \item Add favourite angles: from above, from belowe, from a particular part of the network.
+  \item Add favorite angles: from above, from below, from a particular part of the network.
   \item Filter the nodes by clusters.
   \item Instead of use snap rotation, use a smooth rotation.
   \item Change the shape of the nodes into spheres or into a more 3-dimensional shape.
   \item Search functionality to search for node names.
   \item Possibility to "pin" a node in order to compare it with other nodes.
-  \item Use centrality measures: change the colour by centrality.
+  \item Use centrality measures: change the color by centrality.
   \item Possibility to turn on and off the name of the node and also the edges.
   \item Add a collision circle to the nodes so that they are easier to select.
   \item Have the possibility to use other pathway libraries.
@@ -470,9 +470,9 @@ We have created a list with other improvements for GeneNet VR that we discussed 
 \subsection{Discussion}
 The results from the quality evaluation that we carried out indicate that GeneNet VR is a helpful visualization tool for large biological networks. It is easy to use and to learn even for users new to VR, the performance and the interactions are smooth and thanks to the interactions that GeneNet VR provides, the users can easily explore these networks.
 
-GeneNet VR is also implemented for the Oculus Quest headset, which is an standalone headset that doesn't need cables. This has shown to be an advantage for some users who prefer more flexibility when they need to use a visualization tool. As respondant 1 mentioned, it is also encouraging because you can use it anywhere you want.
+GeneNet VR is also implemented for the Oculus Quest headset, which is a standalone headset that doesn't need cables. This has shown to be an advantage for some users who prefer more flexibility when they need to use a visualization tool. As respondent 1 mentioned, it is also encouraging because you can use it anywhere you want.
 
-We would like to highlight from the results that all the participantes except number 5 were very interested in visualizing their datasets in GeneNet VR, because they would find it very helpful. Participant 4 works with some biological GCN datasets and has a hard time trying to extract patterns and conclusions from them. But GeneNet VR would solve many problems for participant 4 because it offers a better way to explore the them and the process would be much faster. Participant 6 also works with some biologcial network and would find it interesting to visualize the datasets with GeneNet VR. Participant 1 was interested in visualizing social networks because this tool will give the participant a better perspective in order to find interesting patterns. Also the participants from pharmacoepidemiology work with drug networks and this tool would give them a better way to visualize these datasets.
+We would like to highlight from the results that all the participants except number 5 were very interested in visualizing their datasets in GeneNet VR because they would find it very helpful. Participant 4 works with some biological GCN datasets and has a hard time trying to extract patterns and conclusions from them. But GeneNet VR would solve many problems for participant 4 because it offers a better way to explore them and the process would be much faster. Participant 6 also works with some biological networks and would find it interesting to visualize the datasets with GeneNet VR. Participant 1 was interested in visualizing social networks because this tool will give the participant a better perspective in order to find interesting patterns. Also, the participants from pharmacoepidemiology work with drug networks and this tool would give them a better way to visualize these datasets.
 
 % \begin{table}[h!]
 % \centering

@@ -4,4 +4,4 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-New requirements based on the interviews	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/futureWork.tex	/^Finally, we would also like to run other experiments to further evaluate the performance of the application and study better the scalability. We would like to use larger datasets in order to determine where is the size limit for which we can visualize these datasets in GeneNet VR for both PC and the Oculus Quest headset.$/;"	section	line:15
+Virtual Reality Chemical Space	/Users/alvaromartinezfernandez/Documents/UiT/Masteroppgave/thesis/chapters/related-work.tex	/^I will focus in this chapter on similar works found in the literature for the visualization of bioinformatics data in VR.$/;"	section	line:1
