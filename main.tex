@@ -1,6 +1,6 @@
 \documentclass[USenglish]{uit-thesis}
 
-\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \usepackage{gensymb}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
@@ -82,11 +82,11 @@
 \end{epigraph}
 
 \begin{abstract}
-The visualization of large amounts of biological data can be challenging. Network representations are usually preferable for certain kinds of biological data, but they face problems such as information overload, high interconnectivity and high dimensionality. Some visualization tools try to solve these problems by reducing the interactivity in favour of more information or by using specific hardware. This thesis aims to improve these problems using Virtual Reality (VR) and the Oculus Quest, an affordable VR headset.
+Biological data is often visualized as networks. However, they face problems such as information overload, high interconnectivity and high dimensionality. Existing approaches try to solve these problems by reducing the interactivity in favor of more information or by using specific hardware. This thesis aims to solve these problems using Virtual Reality (VR) and the Oculus Quest, an affordable VR headset. Thanks to the rich interactivity that VR offers and the advancements in hardware, we can reduce the amount of information in favor of more interactivity.
 
-In order to test our hypothesis that Virtual Reality can be advantageous in the visualization of large biological networks, we built GeneNet VR, a prototype for the Oculus Quest. We created a case study where we used two gene networks from MIxT, a real application with visualization issues. A performance and scalability evaluation was carried out in addition to a qualitative research approach where we conducted purposive sampling through in-depth semi-structured interviews with several research scientists from UiT. The results showed that the performance for the datasets from our use case reaches the FPS required by Oculus and that GeneNet VR scales well for those network sizes. Oculus Quest is therefore an affordable solution for the visualization of large datasets. From the interviews we also learned that GeneNet VR has potential as a visualization tool and that VR demonstrates benefits for pattern finding in complex networks. GeneNet VR has also shown to be easy to use even for novice VR users. Additionally, we gathered interesting feedback and knowledge for further improvements applicable not only for biological networks, but also in other fields like drug and social networks.
+In order to test our hypothesis that Virtual Reality can be advantageous in the visualization of large biological networks, we built GeneNet VR, a prototype of a VR application for the Oculus Quest. As a case study, we used two gene networks from MIxT, a real application with visualization issues. We evaluated the performance and scalability of GeneNet VR and we conducted in-depth semi-structured interviews with several research scientists to evaluate the quality of the application.
 
-From the results we can say that Virtual Reality has the capability to solve common problems in the visualization of large biological networks. The rich interactivity that VR offers can compensate for the large amounts of data. With the advancement in hardware, VR headsets have also become more resourceful and economical. Thus, VR hardware like the Oculus Quest, should be considered a competitive solution for visualization tools, as described in this thesis.
+The results showed that the performance of GeneNet VR for the datasets from our use case reaches the 72 FPS required by the Oculus' performance guidelines and that GeneNet VR scales well for the largest dataset with 2693 nodes. We also evaluated the performance of GeneNet VR on the Oculus Quest hardware, which also reached the established limit of 72 FPS from Oculus. The Oculus Quest is therefore an affordable option for the visualization of large datasets. From the interviews, we also learned that GeneNet VR has potential as a visualization tool for large biological networks and that is easy to use even for novice VR users. Thus, VR hardware like the Oculus Quest should be considered a competitive solution for visualization tools, as described in this thesis.
 
 \end{abstract}
 
