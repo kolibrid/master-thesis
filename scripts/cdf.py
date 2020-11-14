@@ -1,9 +1,11 @@
 import csv
+import collections
 
 number_nodes = list()
 number_edges = list()
-norm_edges = list()
-max_num_edges = 0
+cum_edges = list()
+total_num_edges = 0
+previous_value = 0
 
 with open('./data/bloodEdges.dat') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=' ')
@@ -11,13 +13,16 @@ with open('./data/bloodEdges.dat') as csv_file:
         nodes, edges = int(row[0]), int(row[1])
         number_nodes.append(nodes)
         number_edges.append(edges)
-        if edges > max_num_edges:
-            max_num_edges = edges
+        total_num_edges += edges
 
-for f in number_edges:
-    norm_edges.append(round(f/max_num_edges, 3))
+number_nodes, number_edges = zip(*sorted(zip(number_nodes, number_edges)))
+
+for i in range(0, len(number_edges)):
+    previous_value += number_edges[i]/total_num_edges
+    cum_edges.append(round(previous_value, 3))
 
 f = open("./data/bloodEdgesCDF.dat", "w+")
-for i in range(0, len(number_nodes) - 1):
-    f.write(str(number_nodes[i]) + ' ' + str(norm_edges[i]) + '\n')
+f.write("x f(x)\n")
+for i in range(0, len(number_nodes)):
+    f.write(str(number_nodes[i]) + ' ' + str(cum_edges[i]) + '\n')
 f.close()

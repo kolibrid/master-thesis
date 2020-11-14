@@ -169,64 +169,42 @@ In this experiment, we want to evaluate the performance when selecting nodes in 
 
 In this experiment, we only evaluate the edge creation for the nodes, although it would be ideal to evaluate all the previous three parts. In the blood dataset, a node can have between 1 and 1607 edges. We wanted to have a balanced number of this for our experiment, so we decided to select several nodes that cover this range.
 
-In Figure \ref{fig:edges_nodes_blood} we show a scatter plot where the x-axis represents the number of edges in ascendent order and the y-axis represents the number of nodes that have that number of edges. As we can see, most of the nodes have less than 100 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. Most of the nodes have very few connections. However, there a few nodes that have several hundred of lines. It was a bit hard to make a balanced selection, so we just selected several nodes from the range that goes from 1 to 1607 (edges), even though this is probably unrealistic. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
+In Figure \ref{fig:edges_nodes_blood} we show the distribution of the number of edges in the blood dataset. As we can see, most of the nodes have less than 200 edges. For instance, there are 117 nodes that have 2 edges, and 231 nodes that have just 1 edge. Most of the nodes have very few connections. However, there a few nodes that have several hundred of lines. It was a bit hard to make a balanced selection, so we just selected several nodes from the range that goes from 1 to 1607 (edges), even though this is probably unrealistic. The nodes that we select during the experiment are the following (in parenthesis the number of edges that they have): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), ACTR6(756), ARGLU1(1607).
 
 % Example scatter plot https://timodenk.com/blog/latex-plot-snippets/screen-shot-2017-02-18-at-15-10-07/
 % https://tex.stackexchange.com/questions/390161/drawing-3d-points-from-external-file
-\begin{figure}[h!]
-  \centering
-  \begin{minipage}{.8\textwidth}
-  \begin{tikzpicture}
-    \begin{axis}
-    [ xlabel=Number of edges,
-    ylabel=Number of nodes,
-    xmin=0,xmax=1610,
-    ymin=0,ymax=240,
-    ]
-    \addplot[only marks,mark=asterisk,color=rred, style={thick}] file{data/bloodEdges.dat};
-    \end{axis}
-
-    \end{tikzpicture}
-  \end{minipage}
-\caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the number of nodes that have that number of edges in the blood dataset.}
-\label{fig:edges_nodes_blood}
-\end{figure}
-
 % \begin{figure}[h!]
 %   \centering
 %   \begin{minipage}{.8\textwidth}
-%
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%         clip=false,
-%         jump mark left,
-%         ymin=0,ymax=1,
-%         xmin=0, xmax=19,
-%         every axis plot/.style={very thick},
-%         discontinuous,
-%         table/create on use/cumulative distribution/.style={
-%             create col/expr={\pgfmathaccuma + \thisrow{f(x)}}
-%         }
+%   \begin{tikzpicture}
+%     \begin{axis}
+%     [ xlabel=Number of edges,
+%     ylabel=Number of nodes,
+%     xmin=0,xmax=1610,
+%     ymin=0,ymax=240,
 %     ]
-%     \addplot [red] table [y=cumulative distribution]{
-%     x f(x)
-%     1 231/231
-%     2 117/231
-%     3 93/231
-%     5 84/231
-%     8 51/231
-%     12 42/231
-%     15 33/231
-%     17 39/231
-%     19 38/231
-%     };
+%     \addplot[only marks,mark=asterisk,color=rred, style={thick}] file{data/bloodEdges.dat};
 %     \end{axis}
-%     \end{tikzpicture}
 %
+%     \end{tikzpicture}
 %   \end{minipage}
-% \caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The X axis shows the number of edges and the Y axes shows the number of nodes that have that number of edges in the blood dataset.}
+% \caption{Scatter plot showing a distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the number of nodes that have that number of edges in the blood dataset.}
 % \label{fig:edges_nodes_blood}
 % \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.8\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}
+        [xlabel=Number of edges, ylabel=Percentage of nodes, every axis plot/.append style={thick}]
+        \addplot+[rred] table[mark=none] {data/bloodEdgesCDF.dat};
+      \end{axis}
+    \end{tikzpicture}
+  \end{minipage}
+  \caption{Distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the percentage of the nodes that have that number of edges.}
+  \label{fig:edges_nodes_blood}
+\end{figure}
 
 In Figure \ref{tab:experiment_select}, we can see the results from this experiment.
 
