@@ -172,7 +172,7 @@ The average time for this experiment is also under the 13.9 milliseconds limit, 
     \begin{tikzpicture}
       \begin{axis}
         [xlabel=Number of edges,
-        ylabel=Percentage of nodes,
+        ylabel=F(x),
         xmin=0,xmax=1610,
         every axis plot/.append style={thick}
         ]
@@ -180,7 +180,7 @@ The average time for this experiment is also under the 13.9 milliseconds limit, 
       \end{axis}
     \end{tikzpicture}
   \end{minipage}
-  \caption{Distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the percentage of the nodes that have that number of edges.}
+  \caption{Distribution of the number of edges in the blood dataset. The x-axis shows the number of edges and the y-axes show the distribution of the nodes that have that number of edges.}
   \label{fig:edges_nodes_blood}
 \end{figure}
 
@@ -291,16 +291,23 @@ In Figure \ref{fig:scalability_edges_blood}, we can see the results as a scatter
 
 From the results, we would have expected that when the number of edges to create is higher, more time is needed to create them. However, that is not what the results are showing. We can see that when there are less than 200 edges, many of the times are less than 20ms. Nevertheless, some nodes that have less than 200 edges take more than 40 or even 50 ms. On the right side of the plot, we can see that some nodes with several hundreds of edges take more than 60 ms to render, but in some cases, they take less than 20 ms. This is not very consistent and can conclude that the number of edges might influence in the performance and then in the scalability of the application, but we can see that there are many other aspects that influence the performance as well. Unity is a complex game engine, and there are many things going on when we run the experiments.
 
-After running this experiment, we used the profiler from Unity to try to find the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:profiler}, we can see a screenshot of the profiler in Unity. In the profiler window, we can see a graph where the y-axis shows the amount of time that each frame took to render. We are selecting a frame in the middle, where we can see a spike (although it's a bit hard to see because of the selection bar). This frame corresponds with the selection of the node. It took 121.23ms to render. In the Overview window, we can see a list of functions that are called during this frame. Also, there are several columns and we can see the percentage of the time that a particular function took. Analyzing the profiler, we can see that 65.4\% of the total time comes from the BehaviourUpdate function. This function processes all the Update methods in Unity. It's probably that the problem is in the implementation that we chose. We would need further analysis into this and maybe split our function to create the lines into smaller functions and analyze each of them. But because of lack of time, we haven't done that here.
+After running this experiment, we used the profiler from Unity to try to find the cause for taking so much time when selecting some nodes. We profiled the selection of the node ARGLU1(1607), which has the maximum number of edges. In Figure \ref{fig:behaviour_update}, we can see a screenshot of the profiler in Unity. There is a list of functions that are called during this frame. Also, there are several columns and we can see the percentage of the time that a particular function took. Analyzing the profiler, we can see that 65.4\% of the total time comes from the BehaviourUpdate function. This function processes all the Update methods in Unity. It's probably that the problem is in the implementation that we chose. We would need further analysis into this and maybe split our function to create the lines into smaller functions and analyze each of them. But because of lack of time, we haven't done that here.
 
 \begin{figure}
     \centering%
-    \includegraphics[width=0.9\textwidth]{profiler}
-    \caption{Profiling the selection of the node ARGLU1(1607), which has the highest number of edges. We study what is the cause for the high amount of time that this takes to render.}
-    \label{fig:profiler}
+    \includegraphics[width=\textwidth]{behaviour_update}
+    \caption{Profiling the selection of the node ARGLU1(1607), which has the highest number of edges.}
+    \label{fig:behaviour_update}
 \end{figure}%
 
-We get also some other metric information from this screenshot (see the region far below and the small black grey square with the Statistics title), like the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k vertices, which is inside of the Oculus' performance guidelines that we mentioned in this chapter.
+We get also some other metric information from the profiler such as the number of triangles that the scene is rendering. This is the selection of the node with the highest number of edges and there are a total of 35.2k vertices as we can see in Figure \ref{fig:num_triangles}, which is inside of the Oculus' performance guidelines that we mentioned in this chapter.
+
+\begin{figure}
+    \centering%
+    \includegraphics[width=\textwidth]{num_triangles}
+    \caption{Number of triangles in the scene when selecting the node ARGLU1, which has 1607 edges, the largest number in the blood dataset.}
+    \label{fig:num_triangles}
+\end{figure}%
 
 It's hard to determine from the experiments that we ran if the number of edges can have an impact on the scalability of the system. We would need to better isolate this part of the code and further evaluate it. However, we expect that the number of edges can have an impact. As we have mentioned before, a better implementation solution could improve the performance of this. Instead of creating the edges in the scene every time a node is selected, we can create all the necessary edges in the initialization of the system, and show them when they are needed. So, normally they would be hidden, but we show them when the user selects a node.
 
