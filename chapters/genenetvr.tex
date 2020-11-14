@@ -19,7 +19,7 @@ GeneNet VR loads the data from files resulting from bioinformatics analyses with
 
 We implemented GeneNet VR in Unity, a cross-platform game engine. This software is used for a wide range of applications, especially for the development of videogames in 3D and 2D, VR applications and engineering solutions. We used C\# as the main programming language to develop the application in Unity. We also used VRTK, a VR toolkit to build VR solutions in Unity. As for the VR hardware, we used an Oculus Quest headset. This type of headset is an all-in-one HMD, which means that it doesn't need to be connected to a PC to run an application, it has its own hardware to run the applications although this can be more limited than the hardware from a PC. Also, GeneNet VR is implemented on a platform where it is also possible to run it on a PC that has more compute power than the standalone headset.
 
-We have used visualizations from MIxT as a case study. MIxT is a web application that is used for exploring and comparing bioinformatic data  \cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}  \cite{dumeaux_fjukstad_interactions_tumor_blood}. The datasets used here contain genetic information about a woman with breast cancer. There are in total 2 tissues; the first one is from a blood sample and the second one is from tumor tissue. The MIxT application has a visualization tool that has some issues, such as information overload and cumbersome interactions. In Figure \ref{fig:bignet_vr} we can see an example of GeneNet VR running using the blood dataset from MIxT. We will now go in deep with how we implemented GeneNet VR.
+We have used visualizations from MIxT as a case study. MIxT is a web application that is used for exploring and comparing bioinformatic data  \cite{fjukstad_dumeaux_olsen_lund_hallett_bongo_2017}  \cite{dumeaux_fjukstad_interactions_tumor_blood}. The datasets used here contain genetic information about a woman with breast cancer. There are in total 2 tissues; the first one is from a blood sample and the second one is from tumor tissue. The MIxT application has a visualization tool that has some issues, such as information overload and cumbersome interactions. In Figure \ref{fig:bignet_vr} we can see an example of GeneNet VR running using the blood dataset from MIxT. We will now detail how we implemented GeneNet VR.
 
 \begin{figure}[h!]
     \setlength{\tempheight}{15ex}
@@ -28,6 +28,72 @@ We have used visualizations from MIxT as a case study. MIxT is a web application
     \caption{Screenshot from GeneNet VR where a user explores a network.}
     \label{fig:bignet_vr}
 \end{figure}
+
+\section{Architecture and design}
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{architecture_design}
+    \caption{Architecture and design of GeneNet VR.}
+    \label{fig:architecture_design}
+\end{figure}%
+
+GeneNet VR is a VR application built in Unity. For the implementation of the different visualization and interaction components I programmed some C\# scripts, used also solutions that are native in Unity like the particle systems and made use of the VRTK library and the Oculus library for Unity.
+
+In Figure \ref{fig:architecture_design} we have an overview of the architecture of GeneNet VR. The big box represents the Unity application and it contains all the components and functionalities that I have developed for the project. We can see that the big box is divided in 4 regions. The first one, starting from the top, is the network creator component that uses external data in order to build the network. In the second region we have the different interaction components that are available for the user to interact with the network and the environment. The third region contains the visual components that help the user visualize the data. Finally, the last region contains the technologies and libraries that I have used to build the application. We can also see the Oculus Quest headset represented down on the left. Here the user can visualize the network and use the controllers to interact. As we can see in the figure, the Oculus Quest can be connected to the PC using an Oculus Link, which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance \cite{oculus_link}. This allows the user run GeneNet VR on the PC. Another possibility is also load GeneNet VR in the Oculus Quest and run it in the hardware of the headset without any cable or PC. We are going to explain now in more detail how each of the interaction components of GeneNet VR were implemented. I will use some flowcharts to explain some algorithms. In this section we will also mention some actions that are triggered using the Oculus controllers. These are specified in Figure \ref{fig:oculus_quest_inputs}.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_creator}
+    \caption{Network creator algorithm.}
+    \label{fig:network_creator}
+\end{figure}%
+
+The network creator (see Figure \ref{fig:network_creator}) initializes and builds the networks using the data files that were previously stored in the application's directory. It processes the data from the CSV files and stores the information in hash maps that can be later be used by the interaction components to transform or read the data of the networks like the node positions or colors. During this process of building the network, we apply a cluster algorithm as well. This algorithm consists of a loop of 10 iterations where for each iteration we go through each of the relationships from the relationship file. For each relationship we update the position of the nodes so that the ones that are connected are closer to each other in the space, resulting into clusters of nodes depending on how related they are.
+
+For the \textit{zoom in the network} component I wrote a C\# script where I use the Oculus integration to communicate with the Oculus Quest controllers. The algorithm is run every time the user enables the action for zooming (see Figure \ref{fig:network_zoom} for the algorithm). What the script does is to find out if the user is stretching or contracting the arms. For this, when the user triggers the action, the system stores the current position of the left and right controllers in the 3D space and calculates the distance between these 2 points. This position is called initial position. Until the user releases the triggers, the system calculates for every frame the current distance between the two controllers and compares it with the initial distance that was stored right before the user triggered the action. If the new distance is smaller than the initial one, the network will shrink; if it is bigger, the network will grow up.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_zoom}
+    \caption{Algorithm for zooming in the network.}
+    \label{fig:network_zoom}
+\end{figure}%
+
+The \textit{translate the network} component consists is implemented in C\# as well (see Figure \ref{fig:network_translator}). Here we do something similar to the \textit{zoom in the network} component. When the action for the translation of the network is triggered, the position of the right controller is stored as the initial position. Then, while the user is holding the trigger of the right controller, the current position for the controller is calculated for every frame. A vector is calculated like (current\_position - initial\_position) and normalized. With this we obtained the direction of the vector where the user is trying to move the network to. We add up that vector with a constant to update the position of the network in the 3D space.
+
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_translator}
+    \caption{Algorithm for translating the network.}
+    \label{fig:network_translator}
+\end{figure}%
+
+For the \textit{select node} component, when the user triggers the \textit{select node} action, an algorithm is used to calculate which node is the one that the user is trying to point at. In Figure \ref{fig:select_node}, we can see a flowchart of the algorithm that we implemented. I used C\# to code a script for this functionality. A laser pointer comes out from the right controller when the user triggers the action. In the algorithm we make use of this laser information which consists of a vector. In order to select the node that we are pointing at, we calculate for each node in the network a vector product composed by the laser vector and a vector that goes from the right controller position to each node position. The result is another vector where we extract its magnitude. The magnitude that is smaller will correspond with the node that is closer to the laser pointer. We will select this node with the smaller magnitude value. When a node is selected, the algorithm also draws the lines corresponding to the relationships of this node in the scene. If there were any lines before the new node is chosen, these are removed.
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{select_node}
+    \caption{Algorithm for the selecton of the nodes in the scene.}
+    \label{fig:select_node}
+\end{figure}%
+
+The \textit{network morph component} (see Figure \ref{fig:network_morph}) consists of a UI slider element that is in the menu and a method where we pass the value of the slider as a parameter. The values from the slider range from 0 to 10 and as the algorithm shows, value 0 will show the blood network in the scene and value 10 will show the biopsy one. When the value is greater than 0 or lower than 10, we interpolate the color and the position of the nodes. For the colour interpolation, we use a linear interpolation function from Unity called Color.Lerp. The position interpolation is only applied to the nodes that are in both the blood and the biopsy dataset. For this interpolation, we create a vector that goes from the node in the blood dataset to the node in the biopsy one. We divide this vector into 10 and multiply it for the slider value. This will be the new position for the node.
+\begin{figure}[h!]
+    \centering%
+    \includegraphics[width=\textwidth]{network_morph}
+    \caption{Algorithm for the network morph.}
+    \label{fig:network_morph}
+\end{figure}%
+
+For the \textit{node filter component}, a UI interface is used in Unity. This interface contains several checkboxes that are switched on by default. In addition, each checkbox has attached a function that is run every time the user switches it off or on. This function receives as a parameter a string value that is different from each checkbox. When the user switches  the checkbox, the algorithm looks into a hash map that looks like this:
+
+\begin{verbatim}
+private Dictionary<string, string[]> oncoGroups;
+\end{verbatim}
+
+We use the string variable that is passed to the function to look up the oncoGroups hash map, where each key corresponds to the name of each checkbox. We obtained a list of nodes that we need to turn on or off from the network.
+
+Finally, for the \textit{Teleportation and snap rotation component} we have used some scripts and prefabs that come with the VRTK library. I used as a reference some techniques to develop these locomotion solutions from a course on Unity\footnote{https://learn.unity.com/course/oculus-vr}.
 
 \section{Interaction with the network}
 Virtual reality headsets offer a rich inmmersive experience. This makes it possible to build complex VR applications where the user can do almost anything in a virtual world. Some examples of what it is possible to do in virtual reality is for example moving around, grabbing objects, interact with the environment using your hands or virtual tools, like pushing a button, 2D interfaces and menus, etc. In this section we will explain the techniques that we have implemented to visualize and interact with the network and make the most of VR.
@@ -222,69 +288,3 @@ This morphing tool help us visualize two datasets at the same time and compare t
 
 \section{Implementation details}
 Unity (version 2018.4.10f1 \cite{unity2018}) is the software that was used to build the system. It is a multi-platform game engine. It is known to be easy to use and for having a big community of creators and asset designers \cite{developing_vr_unity}. Even though it is intuitive to use, it also has low-level access for developers. As for Virtual Reality, Unity has been up-to-date with the new VR technologies thanks to professionals and amateurs in this area who have built an integration for Unity. In our case, our device is an Oculus Quest, and for this reason we use the Oculus integration for Unity \cite{oculus_unity_integration}. In addition, we have used VRTK, a collection of scripts and assets that help build VR solutions \cite{vrtk_what}. Finally, the programming language used in Unity to implement the system is C\#.
-
-\section{Architecture and design}
-
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{architecture_design}
-    \caption{Architecture and design of GeneNet VR.}
-    \label{fig:architecture_design}
-\end{figure}%
-
-GeneNet VR is a VR application built in Unity. For the implementation of the different visualization and interaction components I programmed some C\# scripts, used also solutions that are native in Unity like the particle systems and made use of the VRTK library and the Oculus library for Unity.
-
-In Figure \ref{fig:architecture_design} we have an overview of the architecture of GeneNet VR. The big box represents the Unity application and it contains all the components and functionalities that I have developed for the project. We can see that the big box is divided in 4 regions. The first one, starting from the top, is the network creator component that uses external data in order to build the network. In the second region we have the different interaction components that are available for the user to interact with the network and the environment. The third region contains the visual components that help the user visualize the data. Finally, the last region contains the technologies and libraries that I have used to build the application. We can also see the Oculus Quest headset represented down on the left. Here the user can visualize the network and use the controllers to interact. As we can see in the figure, the Oculus Quest can be connected to the PC using an Oculus Link, which is basically a high-quality USB 3 C to C or USB A to C cable with proven performance \cite{oculus_link}. This allows the user run GeneNet VR on the PC. Another possibility is also load GeneNet VR in the Oculus Quest and run it in the hardware of the headset without any cable or PC. We are going to explain now in more detail how each of the interaction components of GeneNet VR were implemented. I will use some flowcharts to explain some algorithms. In this section we will also mention some actions that are triggered using the Oculus controllers. These are specified in Figure \ref{fig:oculus_quest_inputs}.
-
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{network_creator}
-    \caption{Network creator algorithm.}
-    \label{fig:network_creator}
-\end{figure}%
-
-The network creator (see Figure \ref{fig:network_creator}) initializes and builds the networks using the data files that were previously stored in the application's directory. It processes the data from the CSV files and stores the information in hash maps that can be later be used by the interaction components to transform or read the data of the networks like the node positions or colors. During this process of building the network, we apply a cluster algorithm as well. This algorithm consists of a loop of 10 iterations where for each iteration we go through each of the relationships from the relationship file. For each relationship we update the position of the nodes so that the ones that are connected are closer to each other in the space, resulting into clusters of nodes depending on how related they are.
-
-For the \textit{zoom in the network} component I wrote a C\# script where I use the Oculus integration to communicate with the Oculus Quest controllers. The algorithm is run every time the user enables the action for zooming (see Figure \ref{fig:network_zoom} for the algorithm). What the script does is to find out if the user is stretching or contracting the arms. For this, when the user triggers the action, the system stores the current position of the left and right controllers in the 3D space and calculates the distance between these 2 points. This position is called initial position. Until the user releases the triggers, the system calculates for every frame the current distance between the two controllers and compares it with the initial distance that was stored right before the user triggered the action. If the new distance is smaller than the initial one, the network will shrink; if it is bigger, the network will grow up.
-
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{network_zoom}
-    \caption{Algorithm for zooming in the network.}
-    \label{fig:network_zoom}
-\end{figure}%
-
-The \textit{translate the network} component consists is implemented in C\# as well (see Figure \ref{fig:network_translator}). Here we do something similar to the \textit{zoom in the network} component. When the action for the translation of the network is triggered, the position of the right controller is stored as the initial position. Then, while the user is holding the trigger of the right controller, the current position for the controller is calculated for every frame. A vector is calculated like (current\_position - initial\_position) and normalized. With this we obtained the direction of the vector where the user is trying to move the network to. We add up that vector with a constant to update the position of the network in the 3D space.
-
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{network_translator}
-    \caption{Algorithm for translating the network.}
-    \label{fig:network_translator}
-\end{figure}%
-
-For the \textit{select node} component, when the user triggers the \textit{select node} action, an algorithm is used to calculate which node is the one that the user is trying to point at. In Figure \ref{fig:select_node}, we can see a flowchart of the algorithm that we implemented. I used C\# to code a script for this functionality. A laser pointer comes out from the right controller when the user triggers the action. In the algorithm we make use of this laser information which consists of a vector. In order to select the node that we are pointing at, we calculate for each node in the network a vector product composed by the laser vector and a vector that goes from the right controller position to each node position. The result is another vector where we extract its magnitude. The magnitude that is smaller will correspond with the node that is closer to the laser pointer. We will select this node with the smaller magnitude value. When a node is selected, the algorithm also draws the lines corresponding to the relationships of this node in the scene. If there were any lines before the new node is chosen, these are removed.
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{select_node}
-    \caption{Algorithm for the selecton of the nodes in the scene.}
-    \label{fig:select_node}
-\end{figure}%
-
-The \textit{network morph component} (see Figure \ref{fig:network_morph}) consists of a UI slider element that is in the menu and a method where we pass the value of the slider as a parameter. The values from the slider range from 0 to 10 and as the algorithm shows, value 0 will show the blood network in the scene and value 10 will show the biopsy one. When the value is greater than 0 or lower than 10, we interpolate the color and the position of the nodes. For the colour interpolation, we use a linear interpolation function from Unity called Color.Lerp. The position interpolation is only applied to the nodes that are in both the blood and the biopsy dataset. For this interpolation, we create a vector that goes from the node in the blood dataset to the node in the biopsy one. We divide this vector into 10 and multiply it for the slider value. This will be the new position for the node.
-\begin{figure}[h!]
-    \centering%
-    \includegraphics[width=\textwidth]{network_morph}
-    \caption{Algorithm for the network morph.}
-    \label{fig:network_morph}
-\end{figure}%
-
-For the \textit{node filter component}, a UI interface is used in Unity. This interface contains several checkboxes that are switched on by default. In addition, each checkbox has attached a function that is run every time the user switches it off or on. This function receives as a parameter a string value that is different from each checkbox. When the user switches  the checkbox, the algorithm looks into a hash map that looks like this:
-
-\begin{verbatim}
-private Dictionary<string, string[]> oncoGroups;
-\end{verbatim}
-
-We use the string variable that is passed to the function to look up the oncoGroups hash map, where each key corresponds to the name of each checkbox. We obtained a list of nodes that we need to turn on or off from the network.
-
-Finally, for the \textit{Teleportation and snap rotation component} we have used some scripts and prefabs that come with the VRTK library. I used as a reference some techniques to develop these locomotion solutions from a course on Unity\footnote{https://learn.unity.com/course/oculus-vr}.
