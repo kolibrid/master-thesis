@@ -309,6 +309,7 @@ We get also some other metric information from the profiler such as the number o
     \label{fig:num_triangles}
 \end{figure}%
 
+\subsection{Discussion}
 It's hard to determine from the experiments that we ran if the number of edges can have an impact on the scalability of the system. We would need to better isolate this part of the code and further evaluate it. However, we expect that the number of edges can have an impact. As we have mentioned before, a better implementation solution could improve the performance of this. Instead of creating the edges in the scene every time a node is selected, we can create all the necessary edges in the initialization of the system, and show them when they are needed. So, normally they would be hidden, but we show them when the user selects a node.
 
 % \begin{figure}[h!]
@@ -363,6 +364,7 @@ We designed an experiment that we could run in both the PC and the Oculus Quest 
 
 In Figure \ref{fig:pc_vs_oculus}, we can see a graph with the results of the experiments. The performance for the Oculus Quest is worse than for the PC, as we had expected; however, most of the frames reach the 72 FPS limit. We can see some peaks in the graph, related to the selection of the nodes. We select a node every 10 frames (7 nodes in total). The nodes are selected in this order (in parenthesis is the number of edges): TGFBR3 (1), EPSTI1(11), SMNDC1(90), HNRNPH3(290), ANGEL2(586), and ACTR6(756).
 
+\subsection{Discussion}
 From the results, we can say that we reach 72 FPS using the Oculus Quest for our network size. However, the performance is on the limit of 72 FPS and when we select nodes with more than 10 edges, the performance can get worse. It would be necessary to evaluate GeneNet VR using larger networks on the Oculus Quest. Also improve the creation of the edges as a better programming solution, as we mentioned before.
 
 \section{How do users perceive the visualization of large biological networks in GeneNet VR?}
@@ -374,7 +376,7 @@ In order to answer this question, we used a qualitative research approach where 
   \item What is missing in the application?
 \end{itemize}
 
-Before starting the interview, a preliminary introduction to each respondent was given. We explained the research problem, as well as what MIxT is, the datasets that we are visualizing, and how they can use the different interactions with the VR controllers in GeneNet VR. Then the respondents tested the application using the Oculus Quest connected to the machine. We used the machine because there is a bug on the UI menu when running the application on the Oculus Quest hardware. In addition, with the Oculus Quest connected to the machine, we can see what the respondents are seeing in GeneNet VR and we can better guide them and have a more fluent communication. Due to the COVID-19 pandemic \cite{covid_19}, we also applied some measures in the interviews. We tried to keep as much distance as possible and we also washed the VR headset and the controllers with sanitizer gel for each interview. We the open-ended questions to start conversations with the respondents where we discuss several quality aspects.
+Before starting the interview, a preliminary introduction to each respondent was given. We explained the research problem, as well as what MIxT is, the datasets that we are visualizing, and how they can use the different interactions with the VR controllers in GeneNet VR. Then the respondents tested the application using the Oculus Quest connected to the machine. We used the machine because there is a bug on the UI menu when running the application on the Oculus Quest hardware. In addition, with the Oculus Quest connected to the machine, we can see what the respondents are seeing in GeneNet VR and we can better guide them and have a more fluent communication. Due to the COVID-19 pandemic, we also applied some measures in the interviews. We tried to keep as much distance as possible and we also washed the VR headset and the controllers with sanitizer gel for each interview. We the open-ended questions to start conversations with the respondents where we discuss several quality aspects.
 
 We interviewed 6 people in total. We gathered some information about their background as well. In Table  \ref{tab:respondents} we have a summary of the participants and some information about their research field and if they have used VR before.
 
